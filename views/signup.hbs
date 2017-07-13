@@ -11,7 +11,15 @@
         </div>
         <div class="field">
           <label>Gender</label>
-          <input placeholder="Gender" type="text" name="gender">
+          <div class="ui selection dropdown">
+            <input type="hidden" name="gender">
+            <i class="dropdown icon"></i>
+            <div class="default text">Gender</div>
+            <div class="menu">
+              <div class="item" data-value="Male">Male</div>
+              <div class="item" data-value="Female">Female</div>
+            </div>
+          </div>
         </div>
       </div>
       <div class="field">
@@ -20,16 +28,16 @@
       </div>
       <div class="field">
         <label>Password</label>
-        <input type="password" name="password">
+        <input placeholder="Password" type="password" name="password">
       </div>
       <div class="field">
         <label>Address</label>
-        <input type="text" name="address">
+        <input placeholder="Address" type="text" name="address">
       </div>
       <div class="two fields">
         <div class="field">
           <label>Height</label>
-          <input placeholder="Name" type="text" name="height">
+          <input placeholder="Height" type="text" name="height">
         </div>
         <div class="field">
           <label>Starting Weight</label>
@@ -43,3 +51,4 @@
     <img class="ui image" src="http://res.cloudinary.com/dv6skh7wa/image/upload/v1499948857/Node%20Gym/signup.png">
   </section>
 </div>
+

@@ -8,7 +8,7 @@ const dashboard = {
     logger.info('dashboard rendering');
     const loggedInUser = accounts.getCurrentUser(request);
     const viewData = {
-      title: 'Template 2 Dashboard',
+      title: 'Member Dashboard',
       user: loggedInUser,
     };
     response.render('dashboard', viewData);
