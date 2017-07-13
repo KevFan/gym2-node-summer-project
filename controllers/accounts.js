@@ -1,5 +1,5 @@
 'use strict';
-const userstore = require('../models/user-store');
+const memberstore = require('../models/member-store');
 const logger = require('../utils/logger');
 const uuid = require('uuid');
 
@@ -32,28 +32,28 @@ const accounts = {
   },
 
   register(request, response) {
-    const user = request.body;
-    user.id = uuid();
-    userstore.addUser(user);
-    logger.info(`registering ${user.email}`);
+    const member = request.body;
+    member.id = uuid();
+    memberstore.addMember(member);
+    logger.info(`registering ${member.email}`);
     response.redirect('/');
   },
 
   authenticate(request, response) {
-    const user = userstore.getUserByEmail(request.body.email);
-    if (user && user.password === request.body.password) {
-      response.cookie('playlist', user.email);
-      logger.info(`logging in ${user.email}`);
+    const member = memberstore.getMemberByEmail(request.body.email);
+    if (member && member.password === request.body.password) {
+      response.cookie('user', member.email);
+      logger.info(`logging in ${member.email}`);
       response.redirect('/dashboard');
     } else {
       response.redirect('/login');
     }
   },
 
-  getCurrentUser (request) {
-    const userEmail = request.cookies.playlist;
-    return userstore.getUserByEmail(userEmail);
-  }
-}
+  getCurrentUser(request) {
+    const userEmail = request.cookies.user;
+    return memberstore.getMemberByEmail(userEmail);
+  },
+};
 
 module.exports = accounts;
