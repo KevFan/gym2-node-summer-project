@@ -1,7 +1,7 @@
 {
-  "name": "gomix-trmplate-2",
+  "name": "Node Gym Summer Project",
   "version": "0.0.1",
-  "description": "Starter project for learning glitch and express",
+  "description": "Gym application evolved to realise additional features",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
@@ -22,7 +22,7 @@
     "node": "6.10.x"
   },
   "repository": {
-    "url": "https://github.com/wit-ictskills-studio-2017/glitch-template-2.git"
+    "url": "https://github.com/KevFan/gym2-node-summer-project"
   },
   "license": "MIT",
   "keywords": [
