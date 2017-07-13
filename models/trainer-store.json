@@ -1,0 +1,10 @@
+{
+  "trainers": [
+    {
+      "name": "Trainer",
+      "email": "trainer@trainer.com",
+      "password": "secret",
+      "id": "01"
+    }
+  ]
+}
