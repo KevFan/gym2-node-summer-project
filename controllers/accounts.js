@@ -58,7 +58,12 @@ const accounts = {
 
   getCurrentUser(request) {
     const userEmail = request.cookies.user;
-    return memberstore.getMemberByEmail(userEmail);
+    let user = memberstore.getMemberByEmail(userEmail);
+    if (!user) {
+      user = trainerstore.getTrainerByEmail(userEmail);
+    }
+
+    return user;
   },
 };
 
