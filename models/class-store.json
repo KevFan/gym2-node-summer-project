@@ -1,4 +1,28 @@
 {
   "classes": [
+    {
+      "id": "08a8f85c-0160-48d7-afb5-d07b27edeb29",
+      "userid": "01",
+      "name": "Yoga",
+      "difficulty": "Beginner",
+      "numSessions": 10,
+      "sessions": []
+    },
+    {
+      "id": "dc7d3a16-7ab3-455d-a18f-76eb9f8f1d15",
+      "userid": "01",
+      "name": "H.I.I.T",
+      "difficulty": "Intermediate",
+      "numSessions": 5,
+      "sessions": []
+    },
+    {
+      "id": "7369c947-0b43-4dad-90b4-831803790e5b",
+      "userid": "01",
+      "name": "Boxercise",
+      "difficulty": "Advanced",
+      "numSessions": 3,
+      "sessions": []
+    }
   ]
 }

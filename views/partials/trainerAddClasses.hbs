@@ -1,0 +1,26 @@
+<form class="ui segment form" action="/trainerDashboard/addclass" method="POST">
+  <div class="three fields">
+    <div class="field">
+      <label>Class Name</label>
+      <input placeholder="Class Name" type="text" name="name">
+    </div>
+    <div class="field">
+      <label>Difficulty</label>
+      <div class="ui selection dropdown">
+        <input type="hidden" name="difficulty">
+        <i class="dropdown icon"></i>
+        <div class="default text">Difficulty</div>
+        <div class="menu">
+          <div class="item" data-value="Beginner">Beginner</div>
+          <div class="item" data-value="Intermediate">Intermediate</div>
+          <div class="item" data-value="Advanced">Advanced</div>
+        </div>
+      </div>
+    </div>
+    <div class="field">
+      <label>Number of Sessions</label>
+      <input placeholder="Sessions" type="text" name="numSessions">
+    </div>
+  </div>
+  <button class="ui blue submit button"> Add Class </button>
+</form>

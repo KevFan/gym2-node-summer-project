@@ -20,5 +20,7 @@ router.get('/dashboard', dashboard.index);
 router.get('/about', about.index);
 
 router.get('/trainerDashboard', trainerDashboard.index);
+router.get('/trainerDashboard/classes', trainerDashboard.trainerListClasses);
+router.post('/trainerDashboard/addclass', trainerDashboard.addClass);
 
 module.exports = router;
