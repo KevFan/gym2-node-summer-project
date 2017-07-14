@@ -22,5 +22,6 @@ router.get('/about', about.index);
 router.get('/trainerDashboard', trainerDashboard.index);
 router.get('/trainerDashboard/classes', trainerDashboard.trainerListClasses);
 router.post('/trainerDashboard/addclass', trainerDashboard.addClass);
+router.get('/trainerDashboard/classes/delete/:id', trainerDashboard.deleteClass);
 
 module.exports = router;

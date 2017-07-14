@@ -41,6 +41,12 @@ const dashboard = {
     classStore.addClass(newClass);
     response.redirect('/trainerDashboard/classes');
   },
+
+  deleteClass(request, response) {
+    logger.debug(`Deleting Class ${request.params.id}`);
+    classStore.removeClass(request.params.id);
+    response.redirect('/trainerDashboard/classes');
+  },
 };
 
 module.exports = dashboard;

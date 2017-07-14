@@ -20,6 +20,12 @@ const classStore = {
   getClassById(id) {
     return this.store.findOneBy(this.collection, { id: id });
   },
+
+  removeClass(classId) {
+    const classList = this.getClassById(classId);
+    this.store.remove(this.collection, classList);
+    this.store.save();
+  },
 };
 
 module.exports = classStore;
