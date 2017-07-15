@@ -1,5 +1,5 @@
 {
-  "name": "Node Gym Summer Project",
+  "name": "node-gym-summer-project",
   "version": "0.0.1",
   "description": "Gym application evolved to realise additional features",
   "main": "server.js",
