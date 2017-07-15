@@ -1,0 +1,11 @@
+{{> menu id="dashboard"}}
+
+<div class="ui container">
+  <div class="ui centered four doubling stackable cards">
+    {{#each classes}}
+      <div class="ui link card">
+        {{> listClasses}}
+      </div>
+    {{/each}}
+  </div>
+</div>

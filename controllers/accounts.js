@@ -65,6 +65,10 @@ const accounts = {
 
     return user;
   },
+
+  userIsTrainer(request) {
+    return (this.getCurrentUser(request) === trainerstore.getTrainerByEmail(request.cookies.user));
+  },
 };
 
 module.exports = accounts;

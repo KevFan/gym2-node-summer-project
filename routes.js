@@ -21,11 +21,11 @@ router.get('/dashboard', dashboard.index);
 router.get('/about', about.index);
 
 router.get('/trainerDashboard', trainerDashboard.index);
-router.get('/trainerDashboard/classes', trainerDashboard.trainerListClasses);
 router.post('/trainerDashboard/addclass', trainerDashboard.addClass);
 router.get('/trainerDashboard/classes/delete/:id', trainerDashboard.deleteClass);
 
-router.get('/trainerDashboard/classes/:id', classes.index);
+router.get('/classes/', classes.index);
+router.get('/classes/:id', classes.listClassSessions);
 router.post('/classes/:id/addsession', classes.addSession);
 
 module.exports = router;

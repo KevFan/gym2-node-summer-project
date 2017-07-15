@@ -16,15 +16,6 @@ const dashboard = {
     response.render('trainerDashboard', viewData);
   },
 
-  trainerListClasses(request, response) {
-    const viewData = {
-      title: 'Trainer Classes',
-      classes: classStore.getAllClasses(),
-    };
-    response.render('trainerClasses', viewData);
-    logger.info('trainer classes rendering', viewData.classes);
-  },
-
   addClass(request, response) {
     const loggedInUser = accounts.getCurrentUser(request);
     const newClass = {
@@ -39,13 +30,13 @@ const dashboard = {
     };
     logger.debug('Creating a new Class', newClass);
     classStore.addClass(newClass);
-    response.redirect('/trainerDashboard/classes');
+    response.redirect('/classes');
   },
 
   deleteClass(request, response) {
     logger.debug(`Deleting Class ${request.params.id}`);
     classStore.removeClass(request.params.id);
-    response.redirect('/trainerDashboard/classes');
+    response.redirect('/classes');
   },
 };
 
