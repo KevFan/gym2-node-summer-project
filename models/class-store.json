@@ -6,6 +6,7 @@
       "name": "Yoga",
       "difficulty": "Beginner",
       "numSessions": 10,
+      "hidden": false,
       "sessions": []
     },
     {
@@ -14,6 +15,7 @@
       "name": "H.I.I.T",
       "difficulty": "Intermediate",
       "numSessions": 5,
+      "hidden": false,
       "sessions": []
     },
     {
@@ -22,6 +24,16 @@
       "name": "Boxercise",
       "difficulty": "Advanced",
       "numSessions": 3,
+      "hidden": false,
+      "sessions": []
+    },
+    {
+      "id": "48e57999-7e37-4942-9174-9d3a58e01231",
+      "userid": "01",
+      "name": "Test Hide Feature",
+      "difficulty": "",
+      "hidden": true,
+      "numSessions": 0,
       "sessions": []
     }
   ]

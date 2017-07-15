@@ -22,6 +22,7 @@ const classes = {
       logger.info('trainer classes rendering', viewData.classes);
     } else {
       viewData.title = 'Member Classes';
+      viewData.classes = classStore.getAllNonHiddenClasses();
       response.render('memberClasses', viewData);
       logger.info('member classes rendering', viewData.classes);
     }

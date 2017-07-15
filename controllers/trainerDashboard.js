@@ -25,6 +25,7 @@ const dashboard = {
       duration: request.body.duration,
       capacity: request.body.capacity,
       difficulty: request.body.difficulty,
+      hidden: true,
       numSessions: Number(request.body.numSessions),
       sessions: [],
     };
@@ -36,6 +37,15 @@ const dashboard = {
   deleteClass(request, response) {
     logger.debug(`Deleting Class ${request.params.id}`);
     classStore.removeClass(request.params.id);
+    response.redirect('/classes');
+  },
+
+  hideOrUnhideClass(request, response) {
+    const classId = request.params.id;
+    let classes = classStore.getClassById(classId);
+    classes.hidden = !classes.hidden;
+    classStore.store.save();
+    logger.info('Setting class: ' + classId + ' Hidden:' + classes.hidden);
     response.redirect('/classes');
   },
 };

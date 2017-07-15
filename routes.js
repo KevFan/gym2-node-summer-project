@@ -23,6 +23,7 @@ router.get('/about', about.index);
 router.get('/trainerDashboard', trainerDashboard.index);
 router.post('/trainerDashboard/addclass', trainerDashboard.addClass);
 router.get('/trainerDashboard/classes/delete/:id', trainerDashboard.deleteClass);
+router.get('/trainerDashboard/classes/hideOrUnhide/:id', trainerDashboard.hideOrUnhideClass);
 
 router.get('/classes/', classes.index);
 router.get('/classes/:id', classes.listClassSessions);

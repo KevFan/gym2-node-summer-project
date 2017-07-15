@@ -1,0 +1,21 @@
+<section class="center aligned content">
+  <div class="ui teal buttons">
+    <div class="ui button">Options</div>
+    <div class="ui floating dropdown icon button">
+      <i class="dropdown icon"></i>
+      <div class="menu">
+        <div class="item"><i class="edit icon"></i> Edit Details</div>
+        <a class="item" href="/trainerDashboard/classes/delete/{{id}}" >
+          <i class="red delete icon"></i> Delete Class
+        </a>
+        <a class="item" href="/trainerDashboard/classes/hideOrUnhide/{{id}}">
+          {{#if hidden}}
+            <i class="green unhide icon"></i> Unhide Class
+          {{else}}
+            <i class="red hide icon"></i> Hide Class
+          {{/if}}
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

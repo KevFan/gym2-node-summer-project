@@ -2,6 +2,7 @@
 
 const _ = require('lodash');
 const JsonStore = require('./json-store');
+const logger = require('../utils/logger');
 
 const classStore = {
 
@@ -33,6 +34,19 @@ const classStore = {
 
     classes.numSessions = classes.sessions.length;
     this.store.save();
+  },
+
+  getAllNonHiddenClasses() {
+    let allClasses = this.getAllClasses();
+    let allNonHiddenClasses = [];
+    logger.info('all classses: ', allClasses[0].hidden);
+    for (let i = 0; i < allClasses.length; i++) {
+      if (!allClasses[i].hidden) {
+        allNonHiddenClasses.push(allClasses[i]);
+      }
+    }
+
+    return allNonHiddenClasses;
   },
 };
 
