@@ -26,6 +26,14 @@ const classStore = {
     this.store.remove(this.collection, classList);
     this.store.save();
   },
+
+  addSession(id, session) {
+    const classes = this.getClassById(id);
+    classes.sessions.push(session);
+
+    classes.numSessions = classes.sessions.length;
+    this.store.save();
+  },
 };
 
 module.exports = classStore;

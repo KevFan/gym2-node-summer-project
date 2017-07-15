@@ -8,6 +8,7 @@ const dashboard = require('./controllers/dashboard.js');
 const trainerDashboard = require('./controllers/trainerDashboard.js');
 const about = require('./controllers/about.js');
 const accounts = require('./controllers/accounts.js');
+const classes = require('./controllers/classes.js');
 
 router.get('/', accounts.index);
 router.get('/login', accounts.login);
@@ -23,5 +24,8 @@ router.get('/trainerDashboard', trainerDashboard.index);
 router.get('/trainerDashboard/classes', trainerDashboard.trainerListClasses);
 router.post('/trainerDashboard/addclass', trainerDashboard.addClass);
 router.get('/trainerDashboard/classes/delete/:id', trainerDashboard.deleteClass);
+
+router.get('/trainerDashboard/classes/:id', classes.index);
+router.post('/classes/:id/addsession', classes.addSession);
 
 module.exports = router;
