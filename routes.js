@@ -3,7 +3,6 @@
 const express = require('express');
 const router = express.Router();
 
-const start = require('./controllers/start');
 const dashboard = require('./controllers/dashboard.js');
 const trainerDashboard = require('./controllers/trainerDashboard.js');
 const about = require('./controllers/about.js');

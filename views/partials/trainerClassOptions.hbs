@@ -4,7 +4,9 @@
     <div class="ui floating dropdown icon button">
       <i class="dropdown icon"></i>
       <div class="menu">
-        <div class="item"><i class="edit icon"></i> Edit Details</div>
+
+        <div class="item" data-title="Using click events" data-content="Doesn't work yet :("><i class="edit icon"></i> Edit Details</div>
+
         <a class="item" href="/trainerDashboard/classes/delete/{{id}}" >
           <i class="red delete icon"></i> Delete Class
         </a>
@@ -19,3 +21,14 @@
     </div>
   </div>
 </section>
+
+<script>
+  $('.item')
+    .popup({
+      on: 'click'
+    });
+  $('input')
+    .popup({
+      on: 'focus'
+    });
+</script>
