@@ -19,11 +19,13 @@
       <td>
         {{time}}
       </td>
-      <td>
-        <a href="/playlist/{{../playlist.id}}/deletesong/{{id}}" class="ui icon button">
-          <i class="icon trash"></i>
-        </a>
-      </td>
+      {{#if ../isTrainer}}
+        <td>
+          <a href="/classes/{{../classes.id}}/deletesession/{{id}}" class="ui icon button">
+            <i class="icon trash"></i>
+          </a>
+        </td>
+      {{/if}}
     </tr>
   {{/each}}
   </tbody>

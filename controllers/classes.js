@@ -39,21 +39,31 @@ const classes = {
     };
     logger.debug('New session', newSession);
     classStore.addSession(classId, newSession);
-    response.redirect('/trainerDashboard/classes/' + classId);
+    response.redirect('/classes/' + classId);
   },
 
   listClassSessions(request, response) {
+    const isTrainer = accounts.userIsTrainer(request);
     const classId = request.params.id;
     logger.info('classes id: ' + classId);
     const viewData = {
       title: 'Classes',
       classes: classStore.getClassById(classId),
+      isTrainer: isTrainer,
     };
-    if (accounts.userIsTrainer(request)) {
+    if (isTrainer) {
       response.render('trainerClassSessions', viewData);
     } else {
       response.render('memberClassSessions', viewData);
     }
+  },
+
+  deleteSession(request, response) {
+    const classId = request.params.id;
+    const sessionId = request.params.sessionid;
+    logger.debug(`Deleting Session ${sessionId} from Classes ${classId}`);
+    classStore.removeSession(classId, sessionId);
+    response.redirect('/classes/' + classId);
   },
 };
 

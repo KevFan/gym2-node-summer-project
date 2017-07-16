@@ -48,6 +48,13 @@ const classStore = {
 
     return allNonHiddenClasses;
   },
+
+  removeSession(id, sessionId) {
+    const classes = this.getClassById(id);
+    const sessions = classes.sessions;
+    _.remove(sessions, { id: sessionId });
+    this.store.save();
+  },
 };
 
 module.exports = classStore;
