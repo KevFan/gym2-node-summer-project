@@ -34,8 +34,8 @@ const classes = {
     const newSession = {
       id: uuid(),
       location: request.body.location,
-      date: request.body.date,
-      time: request.body.time,
+      dateTime: request.body.dateTime,
+      capacity: request.body.capacity,
     };
     logger.debug('New session', newSession);
     classStore.addSession(classId, newSession);
