@@ -20,5 +20,13 @@
   <script>
     $('.ui.dropdown').dropdown();
     $('#dateTime').calendar();
+    $('.item').on('click', function(){
+      // using the attribute data-modal to identify for what modal the button references
+      modal = $(this).attr('data-modal');
+      // creating the individual event attached to click over button
+      $('#'+modal+'.modal').modal(
+        'show'
+      );
+    });
   </script>
 </html>

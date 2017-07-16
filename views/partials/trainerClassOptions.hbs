@@ -5,7 +5,23 @@
       <i class="dropdown icon"></i>
       <div class="menu">
 
-        <div class="item" data-title="Using click events" data-content="Doesn't work yet :("><i class="edit icon"></i> Edit Details</div>
+        <div class="item" data-modal="{{id}}"><i class="edit icon"></i> Edit Details</div>
+        <!--https://gist.github.com/marcosfreitas/53a6c6a891aa5441d938-->
+        <!--http://jsfiddle.net/efp8z6Ln/158/-->
+        <div class="ui modal" id="{{id}}"> <i class="close icon"></i>
+          <div class="header">{{name}}</div>
+          <div class="content">
+            <form method="post" id="theform" action="example.com">
+              <div class="image">An image can appear on left or an icon</div>
+              <div class="description">Class specific modal appears to edit the class info - not working</div>
+            </form>
+          </div>
+          <div class="actions">
+            <div class="ui button">Cancel</div>
+            <div class="ui button">OK</div>
+            <input type="submit" value="submit" form="theform" class="ui button">
+          </div>
+        </div>
 
         <a class="item" href="/trainerDashboard/classes/delete/{{id}}" >
           <i class="red delete icon"></i> Delete Class
@@ -21,14 +37,3 @@
     </div>
   </div>
 </section>
-
-<script>
-  $('.item')
-    .popup({
-      on: 'click'
-    });
-  $('input')
-    .popup({
-      on: 'focus'
-    });
-</script>
