@@ -5,23 +5,44 @@
       <i class="dropdown icon"></i>
       <div class="menu">
 
-        <div class="item" data-modal="{{id}}"><i class="edit icon"></i> Edit Details</div>
+        <div class="item" data-modal="{{id}}"><i class=" blue edit icon"></i> Edit Details</div>
         <!--https://gist.github.com/marcosfreitas/53a6c6a891aa5441d938-->
         <!--http://jsfiddle.net/efp8z6Ln/158/-->
-        <div class="ui modal" id="{{id}}"> <i class="close icon"></i>
-          <div class="header">{{name}}</div>
+        <section class="ui modal" id="{{id}}"> <i class="close icon"></i>
+          <header class="header">{{name}}</header>
           <div class="content">
-            <form method="post" id="theform" action="example.com">
-              <div class="image">An image can appear on left or an icon</div>
-              <div class="description">Class specific modal appears to edit the class info - not working</div>
+            <form class="ui segment form" action="/classes/{{id}}" method="POST">
+              <div class="three fields">
+                <sectin class="field">
+                  <label>Class Name</label>
+                  <input placeholder="Class Name" type="text" name="name" value="{{name}}">
+                </sectin>
+                <section class="field">
+                  <label>Difficulty</label>
+                  <div class="ui selection dropdown">
+                    <input type="hidden" name="difficulty" value="{{difficulty}}">
+                    <i class="dropdown icon"></i>
+                    <div class="default text">Difficulty</div>
+                    <div class="menu">
+                      <div class="item" data-value="Beginner">Beginner</div>
+                      <div class="item" data-value="Intermediate">Intermediate</div>
+                      <div class="item" data-value="Advanced">Advanced</div>
+                    </div>
+                  </div>
+                </section>
+                <section class="field">
+                  <label>Duration</label>
+                  <input placeholder="Duration (mins)" type="text" name="duration" value="{{duration}}">
+                </section>
+              </div>
+              <section class="field">
+                <label>Description</label>
+                <textarea placeholder="Description" name="description" rows="2"></textarea>
+              </section>
+              <button class="ui blue submit button"> Edit Class </button>
             </form>
           </div>
-          <div class="actions">
-            <div class="ui button">Cancel</div>
-            <div class="ui button">OK</div>
-            <input type="submit" value="submit" form="theform" class="ui button">
-          </div>
-        </div>
+        </section>
 
         <a class="item" href="/trainerDashboard/classes/delete/{{id}}" >
           <i class="red delete icon"></i> Delete Class

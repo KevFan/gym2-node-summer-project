@@ -65,6 +65,17 @@ const classes = {
     classStore.removeSession(classId, sessionId);
     response.redirect('/classes/' + classId);
   },
+
+  updateClass(request, response) {
+    let classes = classStore.getClassById(request.params.id);
+    classes.name = request.body.name;
+    classes.difficulty = request.body.difficulty;
+    classes.duration = Number(request.body.duration);
+    classes.description = request.body.description;
+    logger.info('Class id to be edited is ' + request.params.id);
+    classStore.store.save();
+    response.redirect('/classes/');
+  },
 };
 
 module.exports = classes;

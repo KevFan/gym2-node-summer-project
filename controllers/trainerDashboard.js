@@ -22,11 +22,11 @@ const dashboard = {
       id: uuid(),
       userid: loggedInUser.id,
       name: request.body.name,
-      duration: request.body.duration,
-      capacity: request.body.capacity,
+      description: request.body.description,
+      duration: Number(request.body.duration),
       difficulty: request.body.difficulty,
       hidden: true,
-      numSessions: Number(request.body.numSessions),
+      numSessions: 0,
       sessions: [],
     };
     logger.debug('Creating a new Class', newClass);

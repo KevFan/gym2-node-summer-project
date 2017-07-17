@@ -14,7 +14,9 @@
           "dateTime": "July 18, 2017 7:00 AM",
           "capacity": "15"
         }
-      ]
+      ],
+      "duration": 45,
+      "description": ""
     },
     {
       "id": "dc7d3a16-7ab3-455d-a18f-76eb9f8f1d15",

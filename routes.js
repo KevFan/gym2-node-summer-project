@@ -28,5 +28,6 @@ router.get('/classes/', classes.index);
 router.get('/classes/:id', classes.listClassSessions);
 router.post('/classes/:id/addsession', classes.addSession);
 router.get('/classes/:id/deletesession/:sessionid', classes.deleteSession);
+router.post('/classes/:id/', classes.updateClass);
 
 module.exports = router;
