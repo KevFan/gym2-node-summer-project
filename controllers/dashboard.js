@@ -1,5 +1,6 @@
 'use strict';
 
+const _ = require('lodash');
 const logger = require('../utils/logger');
 const accounts = require('./accounts.js');
 const classStore = require('../models/class-store.js');
@@ -65,6 +66,22 @@ const dashboard = {
 
     classStore.store.save();
     response.redirect('/classes/' + classId);
+  },
+
+  unEnrollAllSession(request, response) {
+    const loggedInUserId = accounts.getCurrentUser(request).id;
+    let classes = classStore.getClassById(request.params.id);
+    classes.sessions.forEach(function (session) {
+      let result = session.enrolled.indexOf(loggedInUserId);
+      if (result > -1) {
+        session.enrolled.splice(result, 1);
+      }
+
+      logger.info('Unenrolling user ' + loggedInUserId + ' from ' + session.id);
+    });
+
+    classStore.store.save();
+    response.redirect('/classes/' + classes.id);
   },
 };
 
