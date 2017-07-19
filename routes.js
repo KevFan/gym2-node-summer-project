@@ -29,5 +29,6 @@ router.get('/classes/:id', classes.listClassSessions);
 router.post('/classes/:id/addsession', classes.addSession);
 router.get('/classes/:id/deletesession/:sessionid', classes.deleteSession);
 router.post('/classes/:id/', classes.updateClass);
+router.post('/classes/:id/enrolAll', dashboard.enrollAllSessions);
 
 module.exports = router;

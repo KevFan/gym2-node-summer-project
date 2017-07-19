@@ -36,6 +36,7 @@ const classes = {
       location: request.body.location,
       dateTime: request.body.dateTime,
       capacity: request.body.capacity,
+      enrolled: [],
     };
     logger.debug('New session', newSession);
     classStore.addSession(classId, newSession);

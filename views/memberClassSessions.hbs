@@ -1,3 +1,7 @@
 {{> menu id="dashboard"}}
 
+<form action="/classes/{{classes.id}}/enrolAll" method="POST">
+  <button class="ui blue submit button"> Enroll all sessions </button>
+</form>
+
 {{> listSessions}}

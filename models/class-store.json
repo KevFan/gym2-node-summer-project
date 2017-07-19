@@ -5,14 +5,22 @@
       "userid": "01",
       "name": "Yoga",
       "difficulty": "Beginner",
-      "numSessions": 1,
+      "numSessions": 2,
       "hidden": false,
       "sessions": [
         {
           "id": "131afbea-266a-4d3a-9939-705a064990a2",
           "location": "Studio 1",
           "dateTime": "July 18, 2017 7:00 AM",
-          "capacity": "15"
+          "capacity": "15",
+          "enrolled": []
+        },
+        {
+          "id": "d12f038c-4feb-4793-8670-d23e1fc3c80d",
+          "location": "Studio 2",
+          "dateTime": "July 6, 2017 10:20 AM",
+          "capacity": "15",
+          "enrolled": []
         }
       ],
       "duration": 45,
