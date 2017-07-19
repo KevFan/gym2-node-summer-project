@@ -13,14 +13,18 @@
           "location": "Studio 1",
           "dateTime": "July 18, 2017 7:00 AM",
           "capacity": "15",
-          "enrolled": []
+          "enrolled": [
+            "2b6f0989-7b7f-4a38-ad26-aa06b922d751"
+          ]
         },
         {
           "id": "d12f038c-4feb-4793-8670-d23e1fc3c80d",
           "location": "Studio 2",
           "dateTime": "July 6, 2017 10:20 AM",
           "capacity": "15",
-          "enrolled": []
+          "enrolled": [
+            "2b6f0989-7b7f-4a38-ad26-aa06b922d751"
+          ]
         }
       ],
       "duration": 45,

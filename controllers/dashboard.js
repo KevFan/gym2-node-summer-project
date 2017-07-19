@@ -30,6 +30,7 @@ const dashboard = {
       } else {
         // If there are members enrolled, find the first index of the user id
         let result = session.enrolled.indexOf(loggedInUser.id);
+
         // if user id is not found (result is -1)
         if (result === -1) {
           session.enrolled.push(loggedInUser.id);
@@ -40,6 +41,30 @@ const dashboard = {
 
     classStore.store.save();
     response.redirect('/classes/' + classes.id);
+  },
+
+  enrollSpecificSession(request, response) {
+    const loggedInUser = accounts.getCurrentUser(request);
+    logger.info('User id is' + loggedInUser.id);
+    const classId = request.params.id;
+    const sessionId = request.params.sessionid;
+    let specificSession = classStore.getSessionById(classId, sessionId);
+    logger.info('Specific session is ', specificSession);
+
+    // If there are members enrolled, find the first index of the user id
+    let result = specificSession.enrolled.indexOf(loggedInUser.id);
+
+    // if user id is not found (result is -1)
+    if (result === -1) {
+      specificSession.enrolled.push(loggedInUser.id);
+      logger.info('enrolling member: ' + loggedInUser.id + ' to session: ' + specificSession.id);
+    } else {
+      logger.info('member: ' + loggedInUser.id + ' already enrolled to session: ' + specificSession.id);
+
+    }
+
+    classStore.store.save();
+    response.redirect('/classes/' + classId);
   },
 };
 

@@ -30,5 +30,6 @@ router.post('/classes/:id/addsession', classes.addSession);
 router.get('/classes/:id/deletesession/:sessionid', classes.deleteSession);
 router.post('/classes/:id/', classes.updateClass);
 router.post('/classes/:id/enrolAll', dashboard.enrollAllSessions);
+router.post('/classes/:id/enroll/:sessionid', dashboard.enrollSpecificSession);
 
 module.exports = router;

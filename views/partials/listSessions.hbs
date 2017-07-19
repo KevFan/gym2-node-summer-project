@@ -25,6 +25,12 @@
             <i class="icon trash"></i>
           </a>
         </td>
+      {{else}}
+        <td>
+          <form action="/classes/{{../classes.id}}/enroll/{{id}}" method="POST">
+            <button class="ui blue submit button"> Enroll </button>
+          </form>
+        </td>
       {{/if}}
     </tr>
   {{/each}}

@@ -55,6 +55,18 @@ const classStore = {
     _.remove(sessions, { id: sessionId });
     this.store.save();
   },
+
+  getSessionById(classId, sessionId) {
+    const classes = this.getClassById(classId);
+    let specificSession = null;
+    classes.sessions.forEach(function (session) {
+      if (session.id === sessionId) {
+        specificSession = session;
+      }
+    });
+
+    return specificSession;
+  },
 };
 
 module.exports = classStore;
