@@ -75,13 +75,35 @@ const dashboard = {
       let result = session.enrolled.indexOf(loggedInUserId);
       if (result > -1) {
         session.enrolled.splice(result, 1);
+        logger.info('Unenrolling user ' + loggedInUserId + ' from ' + session.id);
+      } else {
+        logger.info('user ' + loggedInUserId + ' is not enrolled in ' + session.id);
       }
 
-      logger.info('Unenrolling user ' + loggedInUserId + ' from ' + session.id);
     });
 
     classStore.store.save();
     response.redirect('/classes/' + classes.id);
+  },
+
+  unEnrollSpecificSession(request, response) {
+    const loggedInUserId = accounts.getCurrentUser(request).id;
+    logger.info('User id is' + loggedInUserId);
+    const classId = request.params.id;
+    const sessionId = request.params.sessionid;
+
+    let specificSession = classStore.getSessionById(classId, sessionId);
+    logger.info('Specific session is ', specificSession);
+    let result = specificSession.enrolled.indexOf(loggedInUserId);
+    if (result > -1) {
+      specificSession.enrolled.splice(result, 1);
+      logger.info('Unenrolling user ' + loggedInUserId + ' from ' + specificSession.id);
+    } else {
+      logger.info('user ' + loggedInUserId + ' is not enrolled in ' + specificSession.id);
+    }
+
+    classStore.store.save();
+    response.redirect('/classes/' + classId);
   },
 };
 

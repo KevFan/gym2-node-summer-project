@@ -5,6 +5,7 @@
     <th>Date/Time</th>
     <th>Capacity</th>
     <th></th>
+    <th></th>
   </tr>
   </thead>
   <tbody>
@@ -30,6 +31,11 @@
           <form action="/classes/{{../classes.id}}/enroll/{{id}}" method="POST">
             <button class="ui blue submit button"> Enroll </button>
           </form>
+        </td>
+        <td>
+          <a href="/classes/{{../classes.id}}/unEnroll/{{id}}">
+            <button class="ui red submit button"> Unenroll </button>
+          </a>
         </td>
       {{/if}}
     </tr>
