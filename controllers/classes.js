@@ -35,9 +35,11 @@ const classes = {
       id: uuid(),
       location: request.body.location,
       dateTime: request.body.dateTime,
-      capacity: request.body.capacity,
+      capacity: Number(request.body.capacity),
       enrolled: [],
+      availability: 0,
     };
+    newSession.availability = (newSession.capacity - newSession.enrolled.length);
     logger.debug('New session', newSession);
     classStore.addSession(classId, newSession);
     response.redirect('/classes/' + classId);

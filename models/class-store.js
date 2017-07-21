@@ -53,6 +53,7 @@ const classStore = {
     const classes = this.getClassById(id);
     const sessions = classes.sessions;
     _.remove(sessions, { id: sessionId });
+    classes.numSessions = classes.sessions.length;
     this.store.save();
   },
 
