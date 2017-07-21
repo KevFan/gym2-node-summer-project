@@ -105,6 +105,18 @@ const dashboard = {
     classStore.store.save();
     response.redirect('/classes/' + classId);
   },
+
+  searchClassByName(request, response) {
+    const searchClass = classStore.getClassByName(request.body.search);
+    logger.info('The search is ', searchClass);
+    if (searchClass) {
+      logger.info('Redirecting to ' + searchClass.name);
+      response.redirect('/classes/' + searchClass.id);
+    } else {
+      logger.info('No class with name ' + request.body.search);
+      response.redirect('/classes/');
+    }
+  },
 };
 
 module.exports = dashboard;

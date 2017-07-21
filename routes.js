@@ -33,5 +33,6 @@ router.post('/classes/:id/enrolAll', dashboard.enrollAllSessions);
 router.post('/classes/:id/enroll/:sessionid', dashboard.enrollSpecificSession);
 router.get('/classes/:id/unEnrolAll', dashboard.unEnrollAllSession);
 router.get('/classes/:id/unEnroll/:sessionid', dashboard.unEnrollSpecificSession);
+router.post('/search/class', dashboard.searchClassByName);
 
 module.exports = router;

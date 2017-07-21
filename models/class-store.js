@@ -67,6 +67,10 @@ const classStore = {
 
     return specificSession;
   },
+
+  getClassByName(name) {
+    return this.store.findOneBy(this.collection, { name: name });
+  },
 };
 
 module.exports = classStore;
