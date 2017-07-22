@@ -39,12 +39,11 @@ const classStore = {
   getAllNonHiddenClasses() {
     let allClasses = this.getAllClasses();
     let allNonHiddenClasses = [];
-    logger.info('all classses: ', allClasses[0].hidden);
-    for (let i = 0; i < allClasses.length; i++) {
-      if (!allClasses[i].hidden) {
-        allNonHiddenClasses.push(allClasses[i]);
+    allClasses.forEach(function (specificClass) {
+      if (!specificClass.hidden) {
+        allNonHiddenClasses.push(specificClass);
       }
-    }
+    });
 
     return allNonHiddenClasses;
   },
