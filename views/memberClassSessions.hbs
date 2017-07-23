@@ -1,6 +1,6 @@
 {{> menu id="dashboard"}}
 
-<section class="ui two column basic grid segment">
+<section class="ui center aligned two column basic grid segment">
   <form action="/classes/{{classes.id}}/enrolAll" method="POST">
     <button class="ui blue submit button"> Enroll all sessions </button>
   </form>
@@ -9,8 +9,5 @@
     <button class="ui red submit button"> Unenroll all sessions </button>
   </a>
 </section>
-
-
-
 
 {{> listSessions}}

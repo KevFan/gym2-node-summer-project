@@ -1,48 +1,81 @@
-<table class="ui table">
-  <thead>
-  <tr>
-    <th>Location</th>
-    <th>Date/Time</th>
-    <th>Capacity</th>
-    <th>Available Spaces</th>
-    <th></th>
-    <th></th>
-  </tr>
-  </thead>
-  <tbody>
+<div class="ui container">
+  <div class="ui centered three doubling stackable cards">
   {{#each classes.sessions}}
-    <tr>
-      <td>
-        {{location}}
-      </td>
-      <td>
-        {{dateTime}}
-      </td>
-      <td>
-        {{capacity}}
-      </td>
-      <td>
-        {{availability}}
-      </td>
-      {{#if ../isTrainer}}
-        <td>
-          <a href="/classes/{{../classes.id}}/deletesession/{{id}}" class="ui icon button">
-            <i class="icon trash"></i>
-          </a>
-        </td>
-      {{else}}
-        <td>
-          <form action="/classes/{{../classes.id}}/enroll/{{id}}" method="POST">
-            <button class="ui blue submit button"> Enroll </button>
-          </form>
-        </td>
-        <td>
-          <a href="/classes/{{../classes.id}}/unEnroll/{{id}}">
-            <button class="ui red submit button"> Unenroll </button>
-          </a>
-        </td>
-      {{/if}}
-    </tr>
+    <div class="ui link card">
+      <section class="content">
+        <div class="header">{{dateTime}}</div>
+        <div class="meta">Location: {{location}}</div>
+        <div class="meta">Capacity: {{capacity}}</div>
+        <div class="meta">Availability: {{availability}} Spaces</div>
+      </section>
+      <section class="center aligned content">
+        {{#if ../isTrainer}}
+          <div class="ui teal buttons">
+            <div class="ui button">Options</div>
+            <div class="ui floating dropdown icon button">
+              <i class="dropdown icon"></i>
+              <div class="menu">
+
+                <div class="item" data-modal="{{id}}"><i class=" blue edit icon"></i> Edit Details</div>
+                <!--https://gist.github.com/marcosfreitas/53a6c6a891aa5441d938-->
+                <!--http://jsfiddle.net/efp8z6Ln/158/-->
+                <section class="ui modal" id="{{id}}"> <i class="close icon"></i>
+                  <header class="header">{{../classes.name}}</header>
+                  <div class="content">
+                    <form class="ui segment form" action="/classes/{{classes.id}}/addsession" method="POST">
+                      <section class="three fields">
+                        <section class="field">
+                          <label>Location</label>
+                          <div class="ui input left icon">
+                            <i class="location arrow icon"></i>
+                            <input placeholder="Location" type="text" name="location">
+                          </div>
+                        </section>
+                        <section class="field calender" id="dateTime">
+                          <label>Date/time</label>
+                          <div class="ui input left icon">
+                            <i class="calendar icon"></i>
+                            <input placeholder="Date/Time" type="text" name="dateTime">
+                          </div>
+                        </section>
+                        <section class="field">
+                          <label>Capacity</label>
+                          <div class="ui input left icon">
+                            <i class="users icon"></i>
+                            <input placeholder="Capacity" type="text" name="capacity">
+                          </div>
+                        </section>
+                      </section>
+                      <button class="ui blue submit button"> Add Session </button>
+                    </form>
+                  </div>
+                </section>
+
+                <a class="item" href="/classes/{{../classes.id}}/deletesession/{{id}}" >
+                  <i class="red delete icon"></i> Delete Class
+                </a>
+                <a class="item" href="/trainerDashboard/classes/hideOrUnhide/{{id}}">
+                  {{#if hidden}}
+                    <i class="green unhide icon"></i> Unhide Class
+                  {{else}}
+                    <i class="red hide icon"></i> Hide Class
+                  {{/if}}
+                </a>
+              </div>
+            </div>
+          </div>
+        {{else}}
+          <section class="ui two column basic grid container">
+            <form class="column" action="/classes/{{../classes.id}}/enroll/{{id}}" method="POST">
+              <button class="ui blue submit button"> Enroll </button>
+            </form>
+            <a class="column" href="/classes/{{../classes.id}}/unEnroll/{{id}}">
+              <button class="ui red submit button"> Unenroll </button>
+            </a>
+          </section>
+        {{/if}}
+      </section>
+    </div>
   {{/each}}
-  </tbody>
-</table>
+  </div>
+</div>
