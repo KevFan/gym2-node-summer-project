@@ -79,6 +79,18 @@ const classes = {
     classStore.store.save();
     response.redirect('/classes/');
   },
+
+  updateClassSession(request, response) {
+    const classId = request.params.id;
+    const sessionId = request.params.sessionid;
+    let specificSession = classStore.getSessionById(classId, sessionId);
+    specificSession.location = request.body.location;
+    specificSession.capacity = Number(request.body.capacity);
+    specificSession.dateTime = request.body.dateTime;
+    specificSession.availability = (specificSession.capacity - specificSession.enrolled.length);
+    classStore.store.save();
+    response.redirect('/classes/' + classId);
+  },
 };
 
 module.exports = classes;
