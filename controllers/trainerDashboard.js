@@ -28,6 +28,7 @@ const dashboard = {
       hidden: true,
       numSessions: 0,
       sessions: [],
+      image: request.body.image,
     };
     logger.debug('Creating a new Class', newClass);
     classStore.addClass(newClass);

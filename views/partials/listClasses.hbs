@@ -1,9 +1,12 @@
 <a class="content" href="/classes/{{id}}">
-  <div class="header">{{name}}</div>
+  <div class="center aligned content">
+    <img class="ui middle aligned circular small image" {{#if image}} src="{{image}}" {{else}} src="http://s3.amazonaws.com/wpd-assets/ymcanewyork/uploads/sub-class-thumbs/family-yoga-pilates-icon.png" {{/if}}>
+  </div>
+    <div class="center aligned header">
+    {{name}}
+  </div>
+
   <div class="meta">Difficulty: {{difficulty}}</div>
   <div class="meta">Sessions: {{numSessions}}</div>
   <div class="meta">Duration: {{duration}} minutes</div>
-  <div class="description">
-    {{description}}
-  </div>
 </a>

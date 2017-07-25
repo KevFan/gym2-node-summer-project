@@ -1,3 +1,28 @@
+<section class="ui grid middle aligned center aligned stackable segment">
+  <section class="two column row">
+    <div class="column">
+      <img class="ui middle aligned circular small image" {{#if classes.image}} src="{{classes.image}}" {{else}} src="http://s3.amazonaws.com/wpd-assets/ymcanewyork/uploads/sub-class-thumbs/family-yoga-pilates-icon.png" {{/if}}>
+    </div>
+    <div class="column">
+      {{classes.description}}
+    </div>
+  </section>
+
+{{#unless isTrainer}}
+  {{#if classes.sessions}}
+  <section class="ui center aligned row">
+    <form action="/classes/{{classes.id}}/enrolAll" method="POST">
+      <button class="ui blue submit button"> Enroll all sessions </button>
+    </form>
+
+    <a href="/classes/{{classes.id}}/unEnrolAll">
+      <button class="ui red submit button"> Unenroll all sessions </button>
+    </a>
+  </section>
+  {{/if}}
+{{/unless}}
+</section>
+
 <div class="ui container">
   <div class="ui centered three doubling stackable cards">
   {{#each classes.sessions}}
@@ -50,13 +75,6 @@
 
                 <a class="item" href="/classes/{{../classes.id}}/deletesession/{{id}}" >
                   <i class="red delete icon"></i> Delete Session
-                </a>
-                <a class="item" href="/trainerDashboard/classes/hideOrUnhide/{{id}}">
-                  {{#if hidden}}
-                    <i class="green unhide icon"></i> Unhide Session
-                  {{else}}
-                    <i class="red hide icon"></i> Hide Session
-                  {{/if}}
                 </a>
               </div>
             </div>

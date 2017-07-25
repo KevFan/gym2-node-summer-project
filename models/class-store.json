@@ -30,7 +30,8 @@
         }
       ],
       "duration": 45,
-      "description": ""
+      "description": "Re-balance and restore with this gentle but steady practice to reset your mind and body. We will utilize the props for support, get grounded and melt tension. It is structured around healing and rejuvenating and is suitable for all levels of Yoga looking for a slower paced class.",
+      "image": "https://d30y9cdsu7xlg0.cloudfront.net/png/81538-200.png"
     },
     {
       "id": "dc7d3a16-7ab3-455d-a18f-76eb9f8f1d15",
@@ -39,7 +40,10 @@
       "difficulty": "Intermediate",
       "numSessions": 5,
       "hidden": false,
-      "sessions": []
+      "sessions": [],
+      "image": "http://ynmfitness.com/wp-content/uploads/2015/02/YNM_HIITandRun_Icon_Final.png",
+      "duration": 50,
+      "description": "High-intensity interval training (HIIT), also called high-intensity intermittent exercise (HIIE) or sprint interval training (SIT), is a form of interval training, a cardiovascular exercise strategy alternating short periods of intense anaerobic exercise with less intense recovery periods."
     },
     {
       "id": "7369c947-0b43-4dad-90b4-831803790e5b",

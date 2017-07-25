@@ -75,6 +75,7 @@ const classes = {
     classes.difficulty = request.body.difficulty;
     classes.duration = Number(request.body.duration);
     classes.description = request.body.description;
+    classes.image = request.body.image;
     logger.info('Class id to be edited is ' + request.params.id);
     classStore.store.save();
     response.redirect('/classes/');
