@@ -19,7 +19,11 @@
   </body>
   <script>
     $('.ui.dropdown').dropdown();
-    $('#dateTime').calendar();
+    let today = new Date();
+    $('#dateTime').calendar({
+      minDate: new Date(today.getFullYear(), today.getMonth(), today.getDate(), today.getHours(), today.getMinutes()),
+      maxDate: new Date(today.getFullYear() + 1 , today.getMonth(), today.getDate(), 22)
+    });
     $('.item').on('click', function(){
       // using the attribute data-modal to identify for what modal the button references
       modal = $(this).attr('data-modal');
