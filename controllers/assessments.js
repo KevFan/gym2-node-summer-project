@@ -15,11 +15,11 @@ const assessments = {
     if (accounts.userIsTrainer(request)) {
       viewData.title = 'Trainer Assessments';
       response.render('assessments', viewData);
-      logger.info('trainer assessments rendering', viewData.classes);
+      logger.info('trainer assessments rendering', viewData.assessments);
     } else {
       viewData.title = 'Member Assessments';
       response.render('assessments', viewData);
-      logger.info('member assessments rendering', viewData.classes);
+      logger.info('member assessments rendering', viewData.assessments);
     }
   },
 };

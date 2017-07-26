@@ -21,14 +21,15 @@ const dashboard = {
     logger.info('User id is' + loggedInUserId);
     let classes = classStore.getClassById(request.params.id);
     logger.info('Classes id is ' + request.params.id);
-
+    let message = [];
     // For each session loop
     classes.sessions.forEach(function (session) {
       // Call function that checks whether member should be enrolled or not
-      enrollChecksHelper(session, loggedInUserId);
+      message.push(enrollChecksHelper(session, loggedInUserId));
     });
 
-    saveAndRedirectHelper(classes.id, response);
+    saveAndRedirectHelper(classes.id, response, message);
+    logger.info('Message is ' + message);
   },
 
   enrollSpecificSession(request, response) {
@@ -40,18 +41,20 @@ const dashboard = {
     logger.info('Specific session is ', specificSession);
 
     // Call function that checks whether member should be enrolled or not
-    enrollChecksHelper(specificSession, loggedInUserId);
-    saveAndRedirectHelper(classId, response);
+    let message = [];
+    message.push(enrollChecksHelper(specificSession, loggedInUserId));
+    saveAndRedirectHelper(classId, response, message);
   },
 
   unEnrollAllSession(request, response) {
     const loggedInUserId = accounts.getCurrentUser(request).id;
     let classes = classStore.getClassById(request.params.id);
+    let message = [];
     classes.sessions.forEach(function (session) {
-      unEnrollChecksHelper(session, loggedInUserId);
+      message.push(unEnrollChecksHelper(session, loggedInUserId));
     });
 
-    saveAndRedirectHelper(classes.id, response);
+    saveAndRedirectHelper(classes.id, response, message);
   },
 
   unEnrollSpecificSession(request, response) {
@@ -62,9 +65,10 @@ const dashboard = {
 
     let specificSession = classStore.getSessionById(classId, sessionId);
     logger.info('Specific session is ', specificSession);
-    unEnrollChecksHelper(specificSession, loggedInUserId);
+    let message = [];
+    message.push(unEnrollChecksHelper(specificSession, loggedInUserId));
 
-    saveAndRedirectHelper(classId, response);
+    saveAndRedirectHelper(classId, response, message);
   },
 
   searchClassByName(request, response) {
@@ -89,9 +93,17 @@ const enrollChecksHelper = function (specificSession, loggedInUserId) {
     specificSession.availability--;
     logger.info('Enrolling member: ' + loggedInUserId + ' to session: ' + specificSession.id);
     logger.info('Availability left ' + specificSession.availability);
+    return {
+      message: '\nYou have just enrolled to class session on ' + specificSession.dateTime,
+      positive: true,
+    };
   } else {
     logger.info('member: ' + loggedInUserId + ' already enrolled to session: ' + specificSession.id);
     logger.info('Or availability ' + specificSession.availability);
+    return {
+      message: '\nYou are already enrolled in the class session ' + specificSession.dateTime,
+      positive: false,
+    };
   }
 };
 
@@ -102,14 +114,30 @@ const unEnrollChecksHelper = function (specificSession, loggedInUserId) {
     specificSession.availability++;
     logger.info('Unenrolling user ' + loggedInUserId + ' from ' + specificSession.id);
     logger.info('Availability left ' + specificSession.availability);
+    return {
+      message: '\nYou have unenrolled from the class session on ' + specificSession.dateTime,
+      positive: true,
+    };
   } else {
     logger.info('user ' + loggedInUserId + ' is not enrolled in ' + specificSession.id);
+    return {
+      message: '\nYou are not enrolled in ' + specificSession.dateTime,
+      positive: false,
+    };
   }
 };
 
-const saveAndRedirectHelper = function (classId, response) {
+const saveAndRedirectHelper = function (classId, response, message) {
   classStore.store.save();
-  response.redirect('/classes/' + classId);
+
+  // response.redirect('/classes/' + classId);
+  logger.info('classes id: ' + classId);
+  const viewData = {
+    title: 'Classes',
+    classes: classStore.getClassById(classId),
+    message: message,
+  };
+  response.render('memberClassSessions', viewData);
 };
 
 module.exports = dashboard;

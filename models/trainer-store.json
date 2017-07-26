@@ -1,10 +1,16 @@
 {
   "trainers": [
     {
-      "name": "Trainer",
+      "name": "Trainer Sean",
       "email": "trainer@trainer.com",
       "password": "secret",
       "id": "01"
+    },
+    {
+      "name": "Trainer Joe",
+      "email": "joe@trainer.com",
+      "password": "secret",
+      "id": "02"
     }
   ]
 }

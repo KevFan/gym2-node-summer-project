@@ -1,7 +1,7 @@
 const winston = require('winston');
 
 const logger = new (winston.Logger)({
-  transports: [new (winston.transports.Console)({ json: false })],
+  transports: [new (winston.transports.Console)({ json: true })],
 });
 
 logger.level = 'debug';
