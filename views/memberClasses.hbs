@@ -1,9 +1,10 @@
 {{> menu id="dashboard"}}
-<form class="ui center aligned search basic segment form" action="/search/class" method="POST">
+<form class="ui center aligned fluid search basic segment form" action="/search/class" method="POST">
   <div class="ui left icon input field">
     <i class="search icon"></i>
     <input class="prompt" placeholder="Class Name" name="search">
   </div>
+  <div class="aligned results"></div>
 </form>
 
 <div class="ui container">
@@ -15,3 +16,16 @@
     {{/each}}
   </div>
 </div>
+
+<script>
+  let content = [
+    {{#each classes}}
+      { title: '{{name}}'},
+    {{/each}}
+  ];
+  $('.ui.search')
+    .search({
+      source: content
+    })
+  ;
+</script>
