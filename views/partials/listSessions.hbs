@@ -80,13 +80,16 @@
             </div>
           </div>
         {{else}}
-          <section class="ui two column basic grid container">
-            <form class="column" action="/classes/{{../classes.id}}/enroll/{{id}}" method="POST">
-              <button class="ui blue submit button"> Enroll </button>
-            </form>
-            <a class="column" href="/classes/{{../classes.id}}/unEnroll/{{id}}">
-              <button class="ui red submit button"> Unenroll </button>
-            </a>
+          <section class="ui one column basic grid container">
+            {{#if (checkEnrolled ../classes.id id ../userId) }}
+              <a class="column" href="/classes/{{../classes.id}}/unEnroll/{{id}}">
+                <button class="ui red submit button"> Unenroll </button>
+              </a>
+            {{else}}
+              <form class="column" action="/classes/{{../classes.id}}/enroll/{{id}}" method="POST">
+                <button class="ui blue submit button"> Enroll </button>
+              </form>
+            {{/if}}
           </section>
         {{/if}}
       </section>

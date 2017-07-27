@@ -28,7 +28,7 @@ const dashboard = {
       message.push(enrollChecksHelper(session, loggedInUserId));
     });
 
-    saveAndRedirectHelper(classes.id, response, message);
+    saveAndRedirectHelper(classes.id, response, message, loggedInUserId);
     logger.info('Message is ' + message);
   },
 
@@ -43,7 +43,7 @@ const dashboard = {
     // Call function that checks whether member should be enrolled or not
     let message = [];
     message.push(enrollChecksHelper(specificSession, loggedInUserId));
-    saveAndRedirectHelper(classId, response, message);
+    saveAndRedirectHelper(classId, response, message, loggedInUserId);
   },
 
   unEnrollAllSession(request, response) {
@@ -54,7 +54,7 @@ const dashboard = {
       message.push(unEnrollChecksHelper(session, loggedInUserId));
     });
 
-    saveAndRedirectHelper(classes.id, response, message);
+    saveAndRedirectHelper(classes.id, response, message, loggedInUserId);
   },
 
   unEnrollSpecificSession(request, response) {
@@ -68,7 +68,7 @@ const dashboard = {
     let message = [];
     message.push(unEnrollChecksHelper(specificSession, loggedInUserId));
 
-    saveAndRedirectHelper(classId, response, message);
+    saveAndRedirectHelper(classId, response, message, loggedInUserId);
   },
 
   searchClassByName(request, response) {
@@ -127,7 +127,7 @@ const unEnrollChecksHelper = function (specificSession, loggedInUserId) {
   }
 };
 
-const saveAndRedirectHelper = function (classId, response, message) {
+const saveAndRedirectHelper = function (classId, response, message, loggedInUserId) {
   classStore.store.save();
 
   // response.redirect('/classes/' + classId);
@@ -136,6 +136,7 @@ const saveAndRedirectHelper = function (classId, response, message) {
     title: 'Classes',
     classes: classStore.getClassById(classId),
     message: message,
+    userId: loggedInUserId,
   };
   response.render('memberClassSessions', viewData);
 };

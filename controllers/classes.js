@@ -8,6 +8,10 @@ const logger = require('../utils/logger');
 const classStore = require('../models/class-store');
 const uuid = require('uuid');
 const accounts = require('./accounts');
+const Handlebars = require('handlebars');
+Handlebars.registerHelper('checkEnrolled', function (classId, sessionId, userId) {
+  return (classStore.getSessionById(classId, sessionId).enrolled.indexOf(userId) !== -1);
+});
 
 const classes = {
   index(request, response) {
@@ -53,6 +57,7 @@ const classes = {
       title: 'Classes',
       classes: classStore.getClassById(classId),
       isTrainer: isTrainer,
+      userId: accounts.getCurrentUser(request).id,
     };
     if (isTrainer) {
       response.render('trainerClassSessions', viewData);
