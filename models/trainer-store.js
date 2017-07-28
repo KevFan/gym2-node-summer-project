@@ -41,6 +41,10 @@ const trainerStore = {
   getTrainerByEmail(email) {
     return this.store.findOneBy(this.collection, { email: email });
   },
+
+  getTrainerByName(name) {
+    return this.store.findOneBy(this.collection, { name: name });
+  },
 };
 
 module.exports = trainerStore;
