@@ -3,5 +3,50 @@
 {{else}}
   {{> menu id="dashboard"}}
 {{/if}}
+<div class="ui container">
+  {{#if assessments}}
+    <div class="ui centered four doubling stackable cards">
+        {{#each assessments}}
+        <div class="ui link card">
+          <section class="content">
+            <div class="center aligned header">
+              {{dateTime}}
+            </div>
+            <section class="ui two column grid">
+              <div class="meta column">Trainer: {{trainerName}}</div>
+              <div class="meta column">Status: {{status}}</div>
+            </section>
+          </section>
+        </div>
+        {{/each}}
+    </div>
+  {{else}}
+    <section class="ui center aligned segment">You have no assessment bookings</section>
+  {{/if}}
+</div>
 
-success !!
+<form class="ui segment form" action="/assessments/addbooking" method="POST">
+  <section class="two fields">
+    <section class="field">
+      <label>Trainer Name</label>
+      <div class="ui selection dropdown">
+        <input type="hidden" name="trainer">
+        <i class="dropdown icon"></i>
+        <div class="default text">Trainer Name</div>
+        <div class="menu">
+          {{#each allTrainers}}
+            <div class="item" data-value="{{name}}">{{name}}</div>
+          {{/each}}
+        </div>
+      </div>
+    </section>
+    <section class="field calender" id="dateTime">
+      <label>Date/time</label>
+      <div class="ui input left icon">
+        <i class="calendar icon"></i>
+        <input placeholder="Date/Time" type="text" name="dateTime">
+      </div>
+    </section>
+  </section>
+  <button class="ui blue submit button"> Book Assessment </button>
+</form>

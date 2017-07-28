@@ -38,5 +38,6 @@ router.post('/search/class', dashboard.searchClassByName);
 router.post('/classes/:id/updateSession/:sessionid', classes.updateClassSession);
 
 router.get('/assessments', assessments.index);
+router.post('/assessments/addbooking', assessments.addBooking);
 
 module.exports = router;

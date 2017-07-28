@@ -4,23 +4,44 @@ const logger = require('../utils/logger');
 const assessmentStore = require('../models/assessment-store');
 const uuid = require('uuid');
 const accounts = require('./accounts');
+const trainers = require('../models/trainer-store');
 
 const assessments = {
   index(request, response) {
-    const viewData = {
-      title: 'Assessments',
-      assessments: assessmentStore.getAllBookings(),
-      isTrainer: accounts.userIsTrainer(request),
-    };
     if (accounts.userIsTrainer(request)) {
-      viewData.title = 'Trainer Assessments';
+      const viewData = {
+        title: 'Trainer Assessments',
+        assessments: assessmentStore.getAllTrainerBookings(accounts.getCurrentUser(request).id),
+        isTrainer: accounts.userIsTrainer(request),
+        allTrainers: trainers.getAllTrainers(),
+      };
       response.render('assessments', viewData);
-      logger.info('trainer assessments rendering', viewData.assessments);
+      logger.info('trainer bookings rendering', viewData.assessments);
     } else {
-      viewData.title = 'Member Assessments';
+      const viewData = {
+        title: 'Member Assessments',
+        assessments: assessmentStore.getAllUserBookings(accounts.getCurrentUser(request).id),
+        isTrainer: accounts.userIsTrainer(request),
+        allTrainers: trainers.getAllTrainers(),
+      };
       response.render('assessments', viewData);
-      logger.info('member assessments rendering', viewData.assessments);
+      logger.info('member bookings rendering', viewData.assessments);
     }
+  },
+
+  addBooking(request, response) {
+    const newBooking = {
+      id: uuid(),
+      userid: accounts.getCurrentUser(request).id,
+      userName: accounts.getCurrentUser(request).name,
+      trainerid: trainers.getTrainerByName(request.body.trainer).id,
+      trainerName: request.body.trainer,
+      dateTime: request.body.dateTime,
+      status: 'Pending',
+    };
+    assessmentStore.addBooking(newBooking);
+    assessmentStore.store.save();
+    response.redirect('/assessments');
   },
 };
 

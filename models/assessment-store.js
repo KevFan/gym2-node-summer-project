@@ -4,10 +4,10 @@ const _ = require('lodash');
 const JsonStore = require('./json-store');
 const logger = require('../utils/logger');
 
-const classStore = {
+const bookingStore = {
 
   store: new JsonStore('./models/assessment-store.json', { assessmentBookings: [] }),
-  collection: 'classes',
+  collection: 'assessmentBookings',
 
   getAllBookings() {
     return this.store.findAll(this.collection);
@@ -23,14 +23,32 @@ const classStore = {
   },
 
   removeBooking(bookingId) {
-    const bookingList = this.getClassById(bookingId);
-    this.store.remove(this.collection, bookingList);
+    const booking = this.getBookingById(bookingId);
+    this.store.remove(this.collection, booking);
     this.store.save();
   },
 
-  getBookingsByName(name) {
-    return this.store.findOneBy(this.collection, { name: name });
+  getAllUserBookings(userId) {
+    let userBookings = [];
+    this.getAllBookings().forEach(function (booking) {
+      if (booking.userid === userId) {
+        userBookings.push(booking);
+      }
+    });
+
+    return userBookings;
+  },
+
+  getAllTrainerBookings(trainerId) {
+    let trainerBookings = [];
+    this.getAllBookings().forEach(function (booking) {
+      if (booking.trainerid === trainerId) {
+        trainerBookings.push(booking);
+      }
+    });
+
+    return trainerBookings;
   },
 };
 
-module.exports = classStore;
+module.exports = bookingStore;
