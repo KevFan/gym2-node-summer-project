@@ -1,15 +1,6 @@
 {
   "assessmentBookings": [
     {
-      "id": "e5c72d22-f201-4aef-8447-9fceb5043360",
-      "userid": "3ad52697-6d98-4d80-8273-084de55a86c0",
-      "userName": "Homer Simpson",
-      "trainerid": "01",
-      "trainerName": "Trainer Sean",
-      "dateTime": "July 28, 2017 7:35 PM",
-      "status": "Pending"
-    },
-    {
       "id": "134a1bb5-9155-4fd0-b43b-d46c77f25aec",
       "userid": "3ad52697-6d98-4d80-8273-084de55a86c0",
       "userName": "Homer Simpson",

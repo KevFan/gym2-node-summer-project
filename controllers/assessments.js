@@ -43,6 +43,11 @@ const assessments = {
     assessmentStore.store.save();
     response.redirect('/assessments');
   },
+
+  deleteBooking(request, response) {
+    assessmentStore.removeBooking(request.params.id);
+    response.redirect('/assessments');
+  },
 };
 
 module.exports = assessments;
