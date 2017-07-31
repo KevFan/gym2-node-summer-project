@@ -4,41 +4,49 @@
   {{> menu id="dashboard"}}
 {{/if}}
 
-{{> analytics}}
-
-{{#if assessmentlist.assessments}}
-  {{> assessment-table}}
-{{else}}
-  <section class="ui center aligned segment">You have no assessment. Book an assessment with a trainer to get started !!</section>
-{{/if}}
+{{#unless isTrainer}}
+  {{> analytics}}
+  {{#if assessmentlist.assessments}}
+    {{> assessment-table}}
+  {{else}}
+    <section class="ui center aligned segment">You have no assessment. Book an assessment with a trainer to get started !!</section>
+  {{/if}}
+{{/unless}}
 
 <div class="ui container">
   {{#if bookings}}
     <div class="ui centered four doubling stackable cards">
       {{#each bookings}}
         <div class="ui link card">
-          <section class="content">
+          <a class="content" {{#if ../isTrainer}}href="assessments/member/{{userid}}"{{/if}}>
             <div class="center aligned header">
               {{dateTime}}
             </div>
             <section class="ui two column grid">
               <div class="meta column">
-                <div class="row">Trainer:</div>
+                {{#if ../isTrainer}}
+                  <div class="row">Member:</div>
+                {{else}}
+                  <div class="row">Trainer:</div>
+                {{/if}}
                 <div class="row">Status: </div>
               </div>
               <div class="meta column">
-                <div class="row">{{trainerName}}</div>
+                {{#if  ../isTrainer}}
+                  <div class="row">{{userName}}</div>
+                {{else}}
+                  <div class="row">{{trainerName}}</div>
+                {{/if}}
                 <div class="row">{{status}}</div>
               </div>
             </section>
-          </section>
+          </a>
           <section class="center aligned content">
             <div class="ui teal buttons">
               <div class="ui button">Options</div>
               <div class="ui floating dropdown icon button">
                 <i class="dropdown icon"></i>
                 <div class="menu">
-
                   <div class="item" data-modal="{{id}}"><i class=" blue edit icon"></i> Edit Details</div>
                   <section class="ui modal" id="{{id}}"> <i class="close icon"></i>
                     <header class="header">{{dateTime}}</header>
@@ -66,6 +74,25 @@
                             </div>
                           </section>
                         </section>
+                        <section class="two fields">
+                          <section class="field">
+                            <label>Comment</label>
+                            <input placeholder="Comment" type="text" name="comment" value="{{comment}}">
+                          </section>
+                          <section class="field">
+                            <label>Status</label>
+                            <div class="ui selection dropdown">
+                              <input type="hidden" name="status" value="{{status}}">
+                              <i class="dropdown icon"></i>
+                              <div class="default text">Status</div>
+                              <div class="menu">
+                                <div class="item" data-value="Pending">Pending</div>
+                                <div class="item" data-value="Accepted">Accepted</div>
+                                <div class="item" data-value="Cancel">Cancel</div>
+                              </div>
+                            </div>
+                          </section>
+                        </section>
                         <button class="ui blue submit button"> Edit Booking </button>
                       </form>
                     </div>
@@ -86,28 +113,6 @@
   {{/if}}
 </div>
 
-<form class="ui segment form" action="/assessments/addbooking" method="POST">
-  <section class="two fields">
-    <section class="field calender" id="dateTime">
-      <label>Date/time</label>
-      <div class="ui input left icon">
-        <i class="calendar icon"></i>
-        <input placeholder="Date/Time" type="text" name="dateTime">
-      </div>
-    </section>
-    <section class="field">
-      <label>Trainer Name</label>
-      <div class="ui selection dropdown">
-        <input type="hidden" name="trainer">
-        <i class="dropdown icon"></i>
-        <div class="default text">Trainer Name</div>
-        <div class="menu">
-          {{#each allTrainers}}
-            <div class="item" data-value="{{name}}">{{name}}</div>
-          {{/each}}
-        </div>
-      </div>
-    </section>
-  </section>
-  <button class="ui blue submit button"> Book Assessment </button>
-</form>
+{{#unless isTrainer}}
+  {{> bookAssessment}}
+{{/unless}}

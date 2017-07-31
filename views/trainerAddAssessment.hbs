@@ -1,0 +1,11 @@
+{{> trainermenu id="dashboard"}}
+
+{{> analytics}}
+{{> addassessment}}
+{{#if assessmentlist.assessments}}
+  {{> assessment-table}}
+{{else}}
+  <section class="ui center aligned segment">You have no assessment. Book an assessment with a trainer to get started !!</section>
+{{/if}}
+
+{{> bookAssessment}}

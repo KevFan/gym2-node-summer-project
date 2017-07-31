@@ -42,6 +42,7 @@ router.get('/assessments', assessments.index);
 router.post('/assessments/addbooking', assessments.addBooking);
 router.get('/assessments/booking/delete/:id', assessments.deleteBooking);
 router.post('/assessments/booking/update/:id', assessments.updateBooking);
+router.get('/assessments/member/:userid', assessments.viewMemberAssessments);
 
 router.get('/settings/', settings.index);
 router.post('/updateSettings', settings.updateSettings);

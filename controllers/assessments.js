@@ -5,6 +5,7 @@ const bookingStore = require('../models/booking-store');
 const uuid = require('uuid');
 const accounts = require('./accounts');
 const trainers = require('../models/trainer-store');
+const members = require('../models/member-store');
 const analytics = require('../utils/analytics');
 const assessmentStore = require('../models/assessment-store');
 
@@ -62,6 +63,17 @@ const bookings = {
     booking.trainerid = trainers.getTrainerByName(request.body.trainer).id;
     booking.store.save();
     response.redirect('/assessments');
+  },
+
+  viewMemberAssessments(request, response) {
+    const viewData = {
+      title: 'Trainer Dashboard',
+      user: members.getMemberById(request.params.userid),
+      allTrainers: trainers.getAllTrainers(),
+      assessmentlist: assessmentStore.getAssessmentList(request.params.userid),
+      stats: analytics.generateMemberStats(members.getMemberById(request.params.userid)),
+    };
+    response.render('trainerAddAssessment', viewData);
   },
 };
 
