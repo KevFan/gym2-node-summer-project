@@ -75,6 +75,29 @@ const bookings = {
     };
     response.render('trainerAddAssessment', viewData);
   },
+
+  addAssessment(request, response) {
+    const userId = request.params.id;
+    const newAssessment = {
+      id: uuid(),
+      date: new Date().toUTCString(),
+      weight: Number(request.body.weight),
+      chest: Number(request.body.chest),
+      thigh: Number(request.body.thigh),
+      upperArm: Number(request.body.upperArm),
+      waist: Number(request.body.waist),
+      hips: Number(request.body.hips),
+      trend: false,
+      comment: '',
+    };
+    assessmentStore.addAssessment(userId, newAssessment);
+    let memberStats = analytics.generateMemberStats(members.getMemberById(userId));
+    newAssessment.trend = memberStats.trend;
+    assessmentStore.store.save();
+    logger.debug('New Assessment = ', newAssessment);
+    response.redirect('/assessments/member/' + userId);
+
+  },
 };
 
 module.exports = bookings;
