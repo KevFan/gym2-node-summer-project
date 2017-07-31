@@ -3,10 +3,19 @@
 {{else}}
   {{> menu id="dashboard"}}
 {{/if}}
+
+{{> analytics}}
+
+{{#if assessmentlist.assessments}}
+  {{> assessment-table}}
+{{else}}
+  <section class="ui center aligned segment">You have no assessment. Book an assessment with a trainer to get started !!</section>
+{{/if}}
+
 <div class="ui container">
   {{#if bookings}}
     <div class="ui centered four doubling stackable cards">
-        {{#each bookings}}
+      {{#each bookings}}
         <div class="ui link card">
           <section class="content">
             <div class="center aligned header">
@@ -70,7 +79,7 @@
             </div>
           </section>
         </div>
-        {{/each}}
+      {{/each}}
     </div>
   {{else}}
     <section class="ui center aligned segment">You have no assessment bookings</section>

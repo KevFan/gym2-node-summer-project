@@ -5,13 +5,16 @@ const bookingStore = require('../models/booking-store');
 const uuid = require('uuid');
 const accounts = require('./accounts');
 const trainers = require('../models/trainer-store');
+const analytics = require('../utils/analytics');
+const assessmentStore = require('../models/assessment-store');
 
 const bookings = {
   index(request, response) {
+    const loggedInUser = accounts.getCurrentUser(request);
     if (accounts.userIsTrainer(request)) {
       const viewData = {
         title: 'Trainer Assessments',
-        bookings: bookingStore.getAllTrainerBookings(accounts.getCurrentUser(request).id),
+        bookings: bookingStore.getAllTrainerBookings(loggedInUser.id),
         isTrainer: accounts.userIsTrainer(request),
         allTrainers: trainers.getAllTrainers(),
       };
@@ -20,9 +23,12 @@ const bookings = {
     } else {
       const viewData = {
         title: 'Member Assessments',
-        bookings: bookingStore.getAllUserBookings(accounts.getCurrentUser(request).id),
+        bookings: bookingStore.getAllUserBookings(loggedInUser.id),
         isTrainer: accounts.userIsTrainer(request),
         allTrainers: trainers.getAllTrainers(),
+        assessmentlist: assessmentStore.getAssessmentList(loggedInUser.id),
+        user: loggedInUser,
+        stats: analytics.generateMemberStats(loggedInUser),
       };
       response.render('assessments', viewData);
       logger.info('member bookings rendering', viewData.bookings);
