@@ -88,7 +88,7 @@ const bookings = {
       waist: Number(request.body.waist),
       hips: Number(request.body.hips),
       trend: false,
-      comment: '',
+      comment: request.body.comment,
     };
     assessmentStore.addAssessment(userId, newAssessment);
     let memberStats = analytics.generateMemberStats(members.getMemberById(userId));
@@ -96,7 +96,12 @@ const bookings = {
     assessmentStore.store.save();
     logger.debug('New Assessment = ', newAssessment);
     response.redirect('/assessments/member/' + userId);
+  },
 
+  deleteAssessment(request, response) {
+    const loggedInUser = accounts.getCurrentUser(request);
+    assessmentStore.removeAssessment(loggedInUser.id, request.params.id);
+    response.redirect('/assessments/');
   },
 };
 
