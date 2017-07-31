@@ -40,5 +40,6 @@ router.post('/classes/:id/updateSession/:sessionid', classes.updateClassSession)
 router.get('/assessments', assessments.index);
 router.post('/assessments/addbooking', assessments.addBooking);
 router.get('/assessments/booking/delete/:id', assessments.deleteBooking);
+router.post('/assessments/booking/update/:id', assessments.updateBooking);
 
 module.exports = router;

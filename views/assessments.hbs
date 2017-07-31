@@ -4,17 +4,23 @@
   {{> menu id="dashboard"}}
 {{/if}}
 <div class="ui container">
-  {{#if assessments}}
+  {{#if bookings}}
     <div class="ui centered four doubling stackable cards">
-        {{#each assessments}}
+        {{#each bookings}}
         <div class="ui link card">
           <section class="content">
             <div class="center aligned header">
               {{dateTime}}
             </div>
             <section class="ui two column grid">
-              <div class="meta column">Trainer: {{trainerName}}</div>
-              <div class="meta column">Status: {{status}}</div>
+              <div class="meta column">
+                <div class="row">Trainer:</div>
+                <div class="row">Status: </div>
+              </div>
+              <div class="meta column">
+                <div class="row">{{trainerName}}</div>
+                <div class="row">{{status}}</div>
+              </div>
             </section>
           </section>
           <section class="center aligned content">
@@ -26,11 +32,11 @@
 
                   <div class="item" data-modal="{{id}}"><i class=" blue edit icon"></i> Edit Details</div>
                   <section class="ui modal" id="{{id}}"> <i class="close icon"></i>
-                    <header class="header">{{name}}</header>
+                    <header class="header">{{dateTime}}</header>
                     <div class="content">
-                      <form class="ui segment form" action="/assessments/addbooking" method="POST">
+                      <form class="ui segment form" action="/assessments/booking/update/{{id}}" method="POST">
                         <section class="two fields">
-                          <section class="field calender" id="dateTime">
+                          <section class="field calender" id="{{id}}">
                             <label>Date/time</label>
                             <div class="ui input left icon">
                               <i class="calendar icon"></i>

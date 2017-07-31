@@ -1,31 +1,31 @@
 'use strict';
 
 const logger = require('../utils/logger');
-const assessmentStore = require('../models/assessment-store');
+const bookingStore = require('../models/booking-store');
 const uuid = require('uuid');
 const accounts = require('./accounts');
 const trainers = require('../models/trainer-store');
 
-const assessments = {
+const bookings = {
   index(request, response) {
     if (accounts.userIsTrainer(request)) {
       const viewData = {
         title: 'Trainer Assessments',
-        assessments: assessmentStore.getAllTrainerBookings(accounts.getCurrentUser(request).id),
+        bookings: bookingStore.getAllTrainerBookings(accounts.getCurrentUser(request).id),
         isTrainer: accounts.userIsTrainer(request),
         allTrainers: trainers.getAllTrainers(),
       };
       response.render('assessments', viewData);
-      logger.info('trainer bookings rendering', viewData.assessments);
+      logger.info('trainer bookings rendering', viewData.bookings);
     } else {
       const viewData = {
         title: 'Member Assessments',
-        assessments: assessmentStore.getAllUserBookings(accounts.getCurrentUser(request).id),
+        bookings: bookingStore.getAllUserBookings(accounts.getCurrentUser(request).id),
         isTrainer: accounts.userIsTrainer(request),
         allTrainers: trainers.getAllTrainers(),
       };
       response.render('assessments', viewData);
-      logger.info('member bookings rendering', viewData.assessments);
+      logger.info('member bookings rendering', viewData.bookings);
     }
   },
 
@@ -39,15 +39,24 @@ const assessments = {
       dateTime: request.body.dateTime,
       status: 'Pending',
     };
-    assessmentStore.addBooking(newBooking);
-    assessmentStore.store.save();
+    bookingStore.addBooking(newBooking);
+    bookingStore.store.save();
     response.redirect('/assessments');
   },
 
   deleteBooking(request, response) {
-    assessmentStore.removeBooking(request.params.id);
+    bookingStore.removeBooking(request.params.id);
+    response.redirect('/assessments');
+  },
+
+  updateBooking(request, response) {
+    let booking = bookingStore.getBookingById(request.params.id);
+    booking.trainerName = request.body.trainer;
+    booking.dateTime = request.body.dateTime;
+    booking.trainerid = trainers.getTrainerByName(request.body.trainer).id;
+    booking.store.save();
     response.redirect('/assessments');
   },
 };
 
-module.exports = assessments;
+module.exports = bookings;

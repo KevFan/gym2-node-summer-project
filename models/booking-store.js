@@ -6,7 +6,7 @@ const logger = require('../utils/logger');
 
 const bookingStore = {
 
-  store: new JsonStore('./models/assessment-store.json', { assessmentBookings: [] }),
+  store: new JsonStore('./models/booking-store.json', { assessmentBookings: [] }),
   collection: 'assessmentBookings',
 
   getAllBookings() {
