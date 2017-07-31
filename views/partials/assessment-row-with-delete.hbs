@@ -1,0 +1,18 @@
+<tr>
+  <td> {{date}} </td>
+  <td> {{weight}}   </td><td> {{chest}} </td><td> {{thigh}} </td>
+  <td> {{upperArm}} </td><td> {{waist}} </td><td> {{hips}}  </td>
+  <td>
+    {{#if trend}}
+      <a class="ui teal tag label"></a>
+    {{else}}
+      <a class="ui red tag label"></a>
+    {{/if}}
+  </td>
+  <td> {{comment}} </td>
+  <td>
+    <a href="/dashboard/deleteassessment/{{id}}" class="ui icon button">
+      <i class="icon trash"></i>
+    </a>
+  </td>
+</tr>

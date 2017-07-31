@@ -1,0 +1,11 @@
+<table class="ui celled table">
+  <thead>
+    {{> assessment-header}}
+  </thead>
+  <tbody>
+  {{#each assessmentlist.assessments}}
+    <tr>
+      {{> assessment-row-with-delete}}
+  {{/each}}
+  </tbody>
+</table>
