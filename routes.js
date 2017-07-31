@@ -44,5 +44,6 @@ router.get('/assessments/booking/delete/:id', assessments.deleteBooking);
 router.post('/assessments/booking/update/:id', assessments.updateBooking);
 
 router.get('/settings/', settings.index);
+router.post('/updateSettings', settings.updateSettings);
 
 module.exports = router;

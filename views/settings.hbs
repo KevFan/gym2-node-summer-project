@@ -4,4 +4,82 @@
   {{> menu id="dashboard"}}
 {{/if}}
 
-Settings success!
+<div class="ui container">
+  <div class="ui centered two doubling stackable cards">
+      <section class="ui link card">
+        <section class="center aligned content">
+          <img class="ui middle aligned circular medium image" {{#if image}} src="{{image}}" {{else}} src="http://res.cloudinary.com/dv6skh7wa/image/upload/v1500152762/Node%20Gym/login.png" {{/if}}>
+        </section>
+
+        <section class="content">
+          <section class="ui two column grid">
+            <div class="column">
+              <div class="row">Name:</div>
+              <div class="row">Email: </div>
+              <div class="row">Password: </div>
+              <div class="row">Address: </div>
+              <div class="row">Gender: </div>
+              <div class="row">Height: </div>
+              <div class="row">Starting Weight: </div>
+            </div>
+            <div class="column">
+              <div class="row">{{user.name}}</div>
+              <div class="row">{{user.email}}</div>
+              <div class="row">{{user.password}}</div>
+              <div class="row">{{user.address}}</div>
+              <div class="row">{{user.gender}}</div>
+              <div class="row">{{user.height}}</div>
+              <div class="row">{{user.startingweight}}</div>
+            </div>
+          </section>
+        </section>
+      </section>
+
+    <section class="ui link card">
+      <form class="ui content form" action="/updateSettings" method="POST">
+        <h3 class="ui header">Update Account Details</h3>
+        <div class="two fields">
+          <div class="field">
+            <label>Name</label>
+            <input placeholder="Name" type="text" name="name" value="{{user.name}}">
+          </div>
+          <div class="field">
+            <label>Gender</label>
+            <div class="ui selection dropdown">
+              <input type="hidden" name="gender" value="{{user.gender}}">
+              <i class="dropdown icon"></i>
+              <div class="default text">Gender</div>
+              <div class="menu">
+                <div class="item" data-value="Male">Male</div>
+                <div class="item" data-value="Female">Female</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="field">
+          <label>Email</label>
+          <input placeholder="Email" type="text" name="email" value="{{user.email}}">
+        </div>
+        <div class="field">
+          <label>Password</label>
+          <input placeholder="Password" type="password" name="password" value="{{user.password}}">
+        </div>
+        <div class="field">
+          <label>Address</label>
+          <input placeholder="Address" type="text" name="address" value="{{user.address}}">
+        </div>
+        <div class="two fields">
+          <div class="field">
+            <label>Height</label>
+            <input placeholder="Height" type="text" name="height" value="{{user.height}}">
+          </div>
+          <div class="field">
+            <label>Starting Weight</label>
+            <input placeholder="Starting Weight" type="text" name="startingweight" value="{{user.startingweight}}">
+          </div>
+        </div>
+        <button class="ui middle aligned blue submit button">Update</button>
+      </form>
+    </section>
+  </div>
+</div>
