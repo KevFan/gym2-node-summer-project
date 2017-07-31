@@ -4,7 +4,11 @@
     <a id="dashboard" class="item" href="/dashboard"> Dashboard  </a>
     <section class="right menu">
       <div class="ui dropdown item">
-        <i class="user icon"></i>
+        {{#if user.image}}
+          <img class="ui avatar image" src="{{user.image}}">
+        {{else}}
+          <i class="user icon"></i>
+        {{/if}}
         <div class="menu">
           <a class="item" href="/settings">Settings</a>
           <a id="about" class="item" href="/about"> About </a>

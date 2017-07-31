@@ -5,6 +5,8 @@ logs
 *.log
 npm-debug.log*
 .idea
+.data/.env.json
+tempimage
 
 # Runtime data
 pids

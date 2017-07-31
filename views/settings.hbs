@@ -8,7 +8,16 @@
   <div class="ui centered two doubling stackable cards">
       <section class="ui link card">
         <section class="center aligned content">
-          <img class="ui middle aligned circular medium image" {{#if image}} src="{{image}}" {{else}} src="http://res.cloudinary.com/dv6skh7wa/image/upload/v1500152762/Node%20Gym/login.png" {{/if}}>
+          <img class="ui middle aligned circular medium image" {{#if user.image}} src="{{user.image}}" {{else}} src="http://res.cloudinary.com/dv6skh7wa/image/upload/v1500152762/Node%20Gym/login.png" {{/if}}>
+          <form action="/updateProfilePicture" method="post" enctype="multipart/form-data">
+            <label for="file" class="ui icon button">
+              <i class="file image outline icon"></i>
+              Update Profile Photo</label>
+            <input type="file" id="file" name="image" style="display:none">
+            <button class="ui icon button">
+              <i class="cloud upload icon"></i>
+            </button>
+          </form>
         </section>
 
         <section class="content">

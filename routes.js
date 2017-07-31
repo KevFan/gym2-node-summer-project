@@ -45,5 +45,6 @@ router.post('/assessments/booking/update/:id', assessments.updateBooking);
 
 router.get('/settings/', settings.index);
 router.post('/updateSettings', settings.updateSettings);
+router.post('/updateProfilePicture', settings.updateProfilePicture);
 
 module.exports = router;

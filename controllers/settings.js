@@ -4,6 +4,17 @@ const logger = require('../utils/logger');
 const accounts = require('./accounts.js');
 const memberstore = require('../models/member-store');
 const trainerstore = require('../models/trainer-store');
+const cloudinary = require('cloudinary');
+const path = require('path');
+
+try {
+  const env = require('../.data/.env.json');
+  cloudinary.config(env.cloudinary);
+}
+catch (e) {
+  logger.info('You must provide a Cloudinary credentials file - see README.md');
+  process.exit(1);
+}
 
 const settings = {
   index(request, response) {
@@ -34,6 +45,28 @@ const settings = {
     }
 
     response.redirect('/settings');
+  },
+
+  updateProfilePicture(request, response) {
+    let loggedInUser = accounts.getCurrentUser(request);
+
+    if (loggedInUser.image) {
+      const id = path.parse(loggedInUser.image);
+      cloudinary.api.delete_resources([id.name], function (result) {
+        console.log(result);
+      });
+    }
+
+    request.files.image.mv('tempimage', err => {
+      if (!err) {
+        cloudinary.uploader.upload('tempimage', result => {
+          console.log(result);
+          loggedInUser.image = result.url;
+          memberstore.store.save();
+          response.redirect('/settings');
+        });
+      }
+    });
   },
 };
 
