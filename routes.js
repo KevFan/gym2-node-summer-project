@@ -9,6 +9,7 @@ const about = require('./controllers/about.js');
 const accounts = require('./controllers/accounts.js');
 const classes = require('./controllers/classes.js');
 const assessments = require('./controllers/assessments.js');
+const settings = require('./controllers/settings.js');
 
 router.get('/', accounts.index);
 router.get('/login', accounts.login);
@@ -41,5 +42,7 @@ router.get('/assessments', assessments.index);
 router.post('/assessments/addbooking', assessments.addBooking);
 router.get('/assessments/booking/delete/:id', assessments.deleteBooking);
 router.post('/assessments/booking/update/:id', assessments.updateBooking);
+
+router.get('/settings/', settings.index);
 
 module.exports = router;
