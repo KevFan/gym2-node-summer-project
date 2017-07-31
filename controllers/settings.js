@@ -62,7 +62,12 @@ const settings = {
         cloudinary.uploader.upload('tempimage', result => {
           console.log(result);
           loggedInUser.image = result.url;
-          memberstore.store.save();
+          if (accounts.userIsTrainer(request)) {
+            trainerstore.store.save();
+          } else {
+            memberstore.store.save();
+          }
+
           response.redirect('/settings');
         });
       }
