@@ -61,7 +61,8 @@ const bookings = {
     booking.trainerName = request.body.trainer;
     booking.dateTime = request.body.dateTime;
     booking.trainerid = trainers.getTrainerByName(request.body.trainer).id;
-    booking.store.save();
+    booking.comment = request.body.comment;
+    bookingStore.store.save();
     response.redirect('/assessments');
   },
 
