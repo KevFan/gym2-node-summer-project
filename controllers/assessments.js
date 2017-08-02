@@ -18,6 +18,7 @@ const bookings = {
         bookings: bookingStore.getAllTrainerBookings(loggedInUser.id),
         isTrainer: accounts.userIsTrainer(request),
         allTrainers: trainers.getAllTrainers(),
+        allMembers: members.getAllMembers(),
       };
       response.render('assessments', viewData);
       logger.info('trainer bookings rendering', viewData.bookings);
@@ -103,6 +104,23 @@ const bookings = {
     const loggedInUser = accounts.getCurrentUser(request);
     assessmentStore.removeAssessment(loggedInUser.id, request.params.id);
     response.redirect('/assessments/');
+  },
+
+  searchMember(request, response) {
+    let search = request.body.search;
+    let email = search.match(/([\w-\.]+)@((?:[\w]+\.)+)([a-zA-Z]{2,4})/g).toString();
+    logger.info('The email is ' + email);
+    const member = members.getMemberByEmail(email);
+    logger.debug('The member is', member);
+    const viewData = {
+      title: 'Trainer Dashboard',
+      user: member,
+      allTrainers: trainers.getAllTrainers(),
+      assessmentlist: assessmentStore.getAssessmentList(member.id),
+      stats: analytics.generateMemberStats(member),
+      isTrainer: accounts.userIsTrainer(request),
+    };
+    response.render('trainerAddAssessment', viewData);
   },
 };
 

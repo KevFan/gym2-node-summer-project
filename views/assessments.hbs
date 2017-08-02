@@ -1,5 +1,26 @@
 {{#if isTrainer}}
   {{> trainermenu id="dashboard"}}
+
+  <form class="ui center aligned fluid category search basic segment form" action="/assessments/searchMember" method="POST">
+    <div class="ui left icon input field">
+      <i class="search icon"></i>
+      <input class="prompt" placeholder="Search member" name="search">
+    </div>
+    <div class="aligned results"></div>
+  </form>
+
+  <script>
+    let content = [
+      {{#each allMembers}}
+        { title: '{{name}} - {{email}}'},
+      {{/each}}
+    ];
+    $('.ui.search')
+      .search({
+        source: content
+      })
+    ;
+  </script>
 {{else}}
   {{> menu id="dashboard"}}
 {{/if}}
