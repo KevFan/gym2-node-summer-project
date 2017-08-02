@@ -57,21 +57,27 @@ const settings = {
       });
     }
 
-    request.files.image.mv('tempimage', err => {
-      if (!err) {
-        cloudinary.uploader.upload('tempimage', result => {
-          console.log(result);
-          loggedInUser.image = result.url;
-          if (accounts.userIsTrainer(request)) {
-            trainerstore.store.save();
-          } else {
-            memberstore.store.save();
-          }
+    const uploadedPicture = request.files.image;
+    if (uploadedPicture) {
+      uploadedPicture.mv('tempimage', err => {
+        if (!err) {
+          cloudinary.uploader.upload('tempimage', result => {
+            console.log(result);
+            loggedInUser.image = result.url;
+            if (accounts.userIsTrainer(request)) {
+              trainerstore.store.save();
+            } else {
+              memberstore.store.save();
+            }
 
-          response.redirect('/settings');
-        });
-      }
-    });
+            response.redirect('/settings');
+          });
+        }
+      });
+    } else {
+      response.redirect('back');
+    }
+
   },
 };
 
