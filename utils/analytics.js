@@ -81,13 +81,13 @@ const analytics = {
     let inches = conversion.convertMetresToInches(member.height, 2);
 
     if (inches <= fiveFeet) {
-      if (member.gender === 'M') {
+      if (member.gender === 'Male') {
         idealBodyWeight = 50;
       } else {
         idealBodyWeight = 45.5;
       }
     } else {
-      if (member.gender === 'M') {
+      if (member.gender === 'Male') {
         idealBodyWeight = 50 + ((inches - fiveFeet) * 2.3);
       } else {
         idealBodyWeight = 45.5 + ((inches - fiveFeet) * 2.3);
