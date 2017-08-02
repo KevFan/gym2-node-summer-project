@@ -9,7 +9,7 @@ const members = require('../models/member-store');
 const analytics = require('../utils/analytics');
 const assessmentStore = require('../models/assessment-store');
 
-const bookings = {
+const assessments = {
   index(request, response) {
     const loggedInUser = accounts.getCurrentUser(request);
     if (accounts.userIsTrainer(request)) {
@@ -35,37 +35,6 @@ const bookings = {
       response.render('assessments', viewData);
       logger.info('member bookings rendering', viewData.bookings);
     }
-  },
-
-  addBooking(request, response) {
-    const newBooking = {
-      id: uuid(),
-      userid: request.params.id,
-      userName: members.getMemberById(request.params.id).name,
-      trainerid: trainers.getTrainerByName(request.body.trainer).id,
-      trainerName: request.body.trainer,
-      dateTime: request.body.dateTime,
-      status: 'Pending',
-    };
-    bookingStore.addBooking(newBooking);
-    bookingStore.store.save();
-    response.redirect('/assessments');
-  },
-
-  deleteBooking(request, response) {
-    bookingStore.removeBooking(request.params.id);
-    response.redirect('/assessments');
-  },
-
-  updateBooking(request, response) {
-    let booking = bookingStore.getBookingById(request.params.id);
-    booking.trainerName = request.body.trainer;
-    booking.dateTime = request.body.dateTime;
-    booking.trainerid = trainers.getTrainerByName(request.body.trainer).id;
-    booking.comment = request.body.comment;
-    booking.status = request.body.status;
-    bookingStore.store.save();
-    response.redirect('/assessments');
   },
 
   viewMemberAssessments(request, response) {
@@ -142,4 +111,4 @@ const bookings = {
   },
 };
 
-module.exports = bookings;
+module.exports = assessments;
