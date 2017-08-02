@@ -11,6 +11,7 @@ const classes = require('./controllers/classes.js');
 const assessments = require('./controllers/assessments.js');
 const settings = require('./controllers/settings.js');
 const bookings = require('./controllers/bookings.js');
+const search = require('./controllers/search.js');
 
 // Accounts
 router.get('/', accounts.index);
@@ -40,7 +41,6 @@ router.post('/classes/:id/enrolAll', dashboard.enrollAllSessions);
 router.post('/classes/:id/enroll/:sessionid', dashboard.enrollSpecificSession);
 router.get('/classes/:id/unEnrolAll', dashboard.unEnrollAllSession);
 router.get('/classes/:id/unEnroll/:sessionid', dashboard.unEnrollSpecificSession);
-router.post('/search/class', dashboard.searchClassByName);
 router.post('/classes/:id/updateSession/:sessionid', classes.updateClassSession);
 
 // Assessments
@@ -48,7 +48,6 @@ router.get('/assessments', assessments.index);
 router.get('/assessments/member/:userid', assessments.viewMemberAssessments);
 router.post('/assessments/addassessment/:id', assessments.addAssessment);
 router.get('/assessments/deleteAssessment/:id', assessments.deleteAssessment);
-router.post('/assessments/searchMember', assessments.searchMember);
 router.post('/assessments/:userid/update/:id', assessments.updateAssessment);
 
 // Bookings
@@ -60,5 +59,9 @@ router.post('/bookings/update/:id', bookings.updateBooking);
 router.get('/settings/', settings.index);
 router.post('/updateSettings', settings.updateSettings);
 router.post('/updateProfilePicture', settings.updateProfilePicture);
+
+// Search
+router.post('/search/class', search.searchClassByName);
+router.post('/search/member', search.searchMember);
 
 module.exports = router;

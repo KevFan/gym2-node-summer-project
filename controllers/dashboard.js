@@ -22,6 +22,7 @@ const dashboard = {
     let classes = classStore.getClassById(request.params.id);
     logger.info('Classes id is ' + request.params.id);
     let message = [];
+
     // For each session loop
     classes.sessions.forEach(function (session) {
       // Call function that checks whether member should be enrolled or not
@@ -69,18 +70,6 @@ const dashboard = {
     message.push(unEnrollChecksHelper(specificSession, loggedInUserId));
 
     saveAndRedirectHelper(classId, response, message, loggedInUserId);
-  },
-
-  searchClassByName(request, response) {
-    const searchClass = classStore.getClassByName(request.body.search);
-    logger.info('The search is ', searchClass);
-    if (searchClass) {
-      logger.info('Redirecting to ' + searchClass.name);
-      response.redirect('/classes/' + searchClass.id);
-    } else {
-      logger.info('No class with name ' + request.body.search);
-      response.redirect('/classes/');
-    }
   },
 };
 

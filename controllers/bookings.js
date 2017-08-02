@@ -1,3 +1,5 @@
+'use strict';
+
 const logger = require('../utils/logger');
 const bookingStore = require('../models/booking-store');
 const trainers = require('../models/trainer-store');
