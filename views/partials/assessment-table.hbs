@@ -1,14 +1,61 @@
 <section class="ui segment">
   <div class="ui red ribbon label">Assessments</div>
+  {{#if isTrainer}}
+    <a class="ui label">
+      <div class="item" data-modal="updateAssessments"><i class="right floated blue edit icon"></i> Edit Assessments</div>
+    </a>
+  {{/if}}
   <table class="ui celled table">
     <thead>
     {{> assessment-header}}
     </thead>
     <tbody>
     {{#each assessmentlist.assessments}}
-      <tr>
       {{> assessment-row-with-delete}}
     {{/each}}
     </tbody>
   </table>
+</section>
+
+<section class="ui modal" id="updateAssessments"> <i class="close icon"></i>
+  {{#each assessmentlist.assessments}}
+  <header class="header">{{date}}</header>
+  <div class="content">
+    <form class="ui segment form" action="/assessments/{{../user.id}}/update/{{id}}" method="POST">
+      <section class="three fields">
+        <div class="field">
+          <label>Weight</label>
+          <input placeholder="00.00kg" type="text" name="weight" value="{{weight}}">
+        </div>
+        <div class="field">
+          <label>Chest</label>
+          <input placeholder="00.00cm" type="text" name="chest" value="{{chest}}">
+        </div>
+        <div class="field">
+          <label>Thigh</label>
+          <input placeholder="00.00cm" type="text" name="thigh" value="{{thigh}}">
+        </div>
+      </section>
+      <section class="three fields">
+        <div class="field">
+          <label>Upper Arm</label>
+          <input placeholder="00.00cm" type="text" name="upperArm" value="{{upperArm}}">
+        </div>
+        <div class="field">
+          <label>Waist</label>
+          <input placeholder="00.00cm" type="text" name="waist" value="{{waist}}">
+        </div>
+        <div class="field">
+          <label>Hips</label>
+          <input placeholder="00.00cm" type="text" name="hips" value="{{hips}}">
+        </div>
+      </section>
+      <section class="field">
+        <label>Comment</label>
+        <textarea placeholder="Comment" name="comment" rows="1">{{comment}}</textarea>
+      </section>
+      <button class="ui blue submit button"> Update Assessment </button>
+    </form>
+  </div>
+  {{/each}}
 </section>

@@ -71,6 +71,7 @@ const bookings = {
     const viewData = {
       title: 'Trainer Dashboard',
       user: members.getMemberById(request.params.userid),
+      isTrainer: accounts.userIsTrainer(request),
       allTrainers: trainers.getAllTrainers(),
       assessmentlist: assessmentStore.getAssessmentList(request.params.userid),
       stats: analytics.generateMemberStats(members.getMemberById(request.params.userid)),
@@ -121,6 +122,22 @@ const bookings = {
       isTrainer: accounts.userIsTrainer(request),
     };
     response.render('trainerAddAssessment', viewData);
+  },
+
+  updateAssessment(request, response) {
+    logger.info('userid:' + request.params.userid);
+    logger.info('assessmentid:' + request.params.id);
+    let specificAssessment = assessmentStore.getAssessmentById(request.params.userid, request.params.id);
+    logger.info('assessment:', specificAssessment);
+    specificAssessment.weight = Number(request.body.weight);
+    specificAssessment.chest = Number(request.body.chest);
+    specificAssessment.thigh = Number(request.body.thigh);
+    specificAssessment.upperArm = Number(request.body.upperArm);
+    specificAssessment.waist = Number(request.body.waist);
+    specificAssessment.hips = Number(request.body.hips);
+    specificAssessment.comment = request.body.comment;
+    assessmentStore.store.save();
+    response.redirect('/assessments/member/' + request.params.userid);
   },
 };
 
