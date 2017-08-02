@@ -40,8 +40,8 @@ const bookings = {
   addBooking(request, response) {
     const newBooking = {
       id: uuid(),
-      userid: accounts.getCurrentUser(request).id,
-      userName: accounts.getCurrentUser(request).name,
+      userid: request.params.id,
+      userName: members.getMemberById(request.params.id).name,
       trainerid: trainers.getTrainerByName(request.body.trainer).id,
       trainerName: request.body.trainer,
       dateTime: request.body.dateTime,
@@ -63,6 +63,7 @@ const bookings = {
     booking.dateTime = request.body.dateTime;
     booking.trainerid = trainers.getTrainerByName(request.body.trainer).id;
     booking.comment = request.body.comment;
+    booking.status = request.body.status;
     bookingStore.store.save();
     response.redirect('/assessments');
   },
