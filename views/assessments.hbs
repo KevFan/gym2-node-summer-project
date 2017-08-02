@@ -36,114 +36,20 @@
 
 <div class="ui segment container">
   <div class="ui green ribbon label">Bookings</div>
-  <!--{{#if bookings}}-->
-    <!--<div class="ui centered four doubling stackable cards">-->
-      <!--{{#each bookings}}-->
-        <!--<div class="ui link card">-->
-          <!--<a class="content" {{#if ../isTrainer}}href="assessments/member/{{userid}}"{{/if}}>-->
-            <!--<div class="center aligned header">-->
-              <!--{{dateTime}}-->
-            <!--</div>-->
-            <!--<section class="ui two column grid">-->
-              <!--<div class="meta column">-->
-                <!--{{#if ../isTrainer}}-->
-                  <!--<div class="row">Member:</div>-->
-                <!--{{else}}-->
-                  <!--<div class="row">Trainer:</div>-->
-                <!--{{/if}}-->
-                <!--<div class="row">Status: </div>-->
-              <!--</div>-->
-              <!--<div class="meta column">-->
-                <!--{{#if  ../isTrainer}}-->
-                  <!--<div class="row">{{userName}}</div>-->
-                <!--{{else}}-->
-                  <!--<div class="row">{{trainerName}}</div>-->
-                <!--{{/if}}-->
-                <!--<div class="row">{{status}}</div>-->
-              <!--</div>-->
-            <!--</section>-->
-          <!--</a>-->
-          <!--<section class="center aligned content">-->
-            <!--<div class="ui teal buttons">-->
-              <!--<div class="ui button">Options</div>-->
-              <!--<div class="ui floating dropdown icon button">-->
-                <!--<i class="dropdown icon"></i>-->
-                <!--<div class="menu">-->
-                  <!--<div class="item" data-modal="{{id}}"><i class=" blue edit icon"></i> Edit Details</div>-->
-                  <!--<section class="ui modal" id="{{id}}"> <i class="close icon"></i>-->
-                    <!--<header class="header">{{dateTime}}</header>-->
-                    <!--<div class="content">-->
-                      <!--<form class="ui segment form" action="/assessments/booking/update/{{id}}" method="POST">-->
-                        <!--<section class="two fields">-->
-                          <!--<section class="field calender" id="{{id}}">-->
-                            <!--<label>Date/time</label>-->
-                            <!--<div class="ui input left icon">-->
-                              <!--<i class="calendar icon"></i>-->
-                              <!--<input placeholder="Date/Time" type="text" name="dateTime" value="{{dateTime}}">-->
-                            <!--</div>-->
-                          <!--</section>-->
-                          <!--<section class="field">-->
-                            <!--<label>Trainer Name</label>-->
-                            <!--<div class="ui selection dropdown">-->
-                              <!--<input type="hidden" name="trainer" value="{{trainerName}}">-->
-                              <!--<i class="dropdown icon"></i>-->
-                              <!--<div class="default text">Trainer Name</div>-->
-                              <!--<div class="menu">-->
-                                <!--{{#each ../allTrainers}}-->
-                                  <!--<div class="item" data-value="{{name}}">{{name}}</div>-->
-                                <!--{{/each}}-->
-                              <!--</div>-->
-                            <!--</div>-->
-                          <!--</section>-->
-                        <!--</section>-->
-                        <!--<section class="two fields">-->
-                          <!--<section class="field">-->
-                            <!--<label>Comment</label>-->
-                            <!--<input placeholder="Comment" type="text" name="comment" value="{{comment}}">-->
-                          <!--</section>-->
-                          <!--<section class="field">-->
-                            <!--<label>Status</label>-->
-                            <!--<div class="ui selection dropdown">-->
-                              <!--<input type="hidden" name="status" value="{{status}}">-->
-                              <!--<i class="dropdown icon"></i>-->
-                              <!--<div class="default text">Status</div>-->
-                              <!--<div class="menu">-->
-                                <!--<div class="item" data-value="Pending">Pending</div>-->
-                                <!--<div class="item" data-value="Accepted">Accepted</div>-->
-                                <!--<div class="item" data-value="Cancel">Cancel</div>-->
-                              <!--</div>-->
-                            <!--</div>-->
-                          <!--</section>-->
-                        <!--</section>-->
-                        <!--<button class="ui blue submit button"> Edit Booking </button>-->
-                      <!--</form>-->
-                    <!--</div>-->
-                  <!--</section>-->
-
-                  <!--<a class="item" href="/assessments/booking/delete/{{id}}" >-->
-                    <!--<i class="red delete icon"></i> Delete Booking-->
-                  <!--</a>-->
-                <!--</div>-->
-              <!--</div>-->
-            <!--</div>-->
-          <!--</section>-->
-        <!--</div>-->
-      <!--{{/each}}-->
-    <!--</div>-->
-
+  {{#if bookings}}
     <table class="ui celled table">
       <thead>
-      <tr>
-        <th> Date </th>
-        {{#if isTrainer}}
-        <th> Member </th>
-        {{else}}
-        <th> Trainer </th>
-        {{/if}}
-        <th> Status </th>
-        <th> Comment </th>
-        <th></th>
-      </tr>
+        <tr>
+          <th> Date </th>
+          {{#if isTrainer}}
+          <th> Member </th>
+          {{else}}
+          <th> Trainer </th>
+          {{/if}}
+          <th> Status </th>
+          <th> Comment </th>
+          <th></th>
+        </tr>
       </thead>
       <tbody>
       {{#each bookings}}
