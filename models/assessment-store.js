@@ -90,6 +90,21 @@ const assessmentStore = {
 
     logger.info('assessmentlist to be removed is ', assessmentList);
   },
+
+  getFirstAssessmentWithinThreeDays(userId, dateString) {
+    let assessmentList = this.getAssessmentList(userId);
+    const dateCompare = new Date(dateString).getTime();
+    let result = [];
+    assessmentList.assessments.forEach(function (assessment) {
+      let time = (((dateCompare - new Date(assessment.date).getTime()) / 1000) - 259200);
+      if (time < 0) {
+        result.push(assessment);
+      }
+    });
+
+    logger.info('Assessment return:', result);
+    return result;
+  },
 };
 
 module.exports = assessmentStore;
