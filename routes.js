@@ -12,6 +12,7 @@ const assessments = require('./controllers/assessments.js');
 const settings = require('./controllers/settings.js');
 const bookings = require('./controllers/bookings.js');
 const search = require('./controllers/search.js');
+const goals = require('./controllers/goals.js');
 
 // Accounts
 router.get('/', accounts.index);
@@ -63,5 +64,8 @@ router.post('/updateProfilePicture', settings.updateProfilePicture);
 // Search
 router.post('/search/class', search.searchClassByName);
 router.post('/search/member', search.searchMember);
+
+// Goals
+router.get('/goals', goals.index);
 
 module.exports = router;
