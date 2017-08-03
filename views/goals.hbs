@@ -4,6 +4,15 @@
   {{> menu id="dashboard"}}
 {{/if}}
 
+{{#unless (checkForOpenGoals user.id)}}
+  <div class="ui negative message">
+    <i class="close icon"></i>
+    <div class="header">
+      You have no open or goals awaiting processing. Set a new goal to get started !!
+    </div>
+  </div>
+{{/unless}}
+
 {{#if goals.goals}}
   {{> listgoals}}
 {{/if}}

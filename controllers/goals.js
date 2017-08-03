@@ -4,6 +4,22 @@ const logger = require('../utils/logger');
 const accounts = require('./accounts');
 const uuid = require('uuid');
 const goalStore = require('../models/goal-store');
+const Handlebars = require('handlebars');
+Handlebars.registerHelper('checkForOpenGoals', function (userId) {
+  const goalList = goalStore.getGoalList(userId);
+  let result = null;
+  if (goalList) {
+    goalList.goals.forEach(function (goal) {
+      if (goal.status === 'Open' || goal.status === 'Awaiting Processing') {
+        result = true;
+      }
+    });
+  } else {
+    result = false;
+  }
+
+  return result;
+});
 
 const goal = {
   index(request, response) {
