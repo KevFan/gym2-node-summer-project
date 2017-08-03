@@ -4,4 +4,8 @@
   {{> menu id="dashboard"}}
 {{/if}}
 
-Success!!
+{{#if goals.goals}}
+  {{> listgoals}}
+{{/if}}
+
+{{> addGoal}}

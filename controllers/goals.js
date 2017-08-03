@@ -2,6 +2,8 @@
 
 const logger = require('../utils/logger');
 const accounts = require('./accounts');
+const uuid = require('uuid');
+const goalStore = require('../models/goal-store');
 
 const goal = {
   index(request, response) {
@@ -20,10 +22,31 @@ const goal = {
         title: 'Member Goals',
         isTrainer: userIsTrainer,
         user: loggedInUser,
+        goals: goalStore.getGoalList(loggedInUser.id),
       };
       response.render('goals', viewData);
       logger.info('member goals rendering');
     }
+  },
+
+  addGoal(request, response) {
+    const userId = request.params.id;
+    const newGoal = {
+      id: uuid(),
+      date: request.body.dateOnly,
+      weight: Number(request.body.weight),
+      chest: Number(request.body.chest),
+      thigh: Number(request.body.thigh),
+      upperArm: Number(request.body.upperArm),
+      waist: Number(request.body.waist),
+      hips: Number(request.body.hips),
+      description: request.body.description,
+      status: 'Open',
+    };
+    goalStore.addGoal(userId, newGoal);
+    goalStore.store.save();
+    logger.debug('New Goal = ', newGoal);
+    response.redirect('back');
   },
 };
 
