@@ -66,6 +66,11 @@ const goal = {
     logger.debug('New Goal = ', newGoal);
     response.redirect('back');
   },
+
+  deleteGoal(request, response) {
+    goalStore.removeGoal(request.params.userid, request.params.id);
+    response.redirect('back');
+  },
 };
 
 const setGoalStatusChecks = function (userId) {

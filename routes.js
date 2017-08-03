@@ -68,5 +68,6 @@ router.post('/search/member', search.searchMember);
 // Goals
 router.get('/goals', goals.index);
 router.post('/goals/addgoal/:id', goals.addGoal);
+router.get('/goals/deleteGoal/:userid/:id', goals.deleteGoal);
 
 module.exports = router;
