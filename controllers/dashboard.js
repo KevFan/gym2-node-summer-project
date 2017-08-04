@@ -4,14 +4,25 @@ const _ = require('lodash');
 const logger = require('../utils/logger');
 const accounts = require('./accounts.js');
 const classStore = require('../models/class-store.js');
+const trainers = require('../models/trainer-store');
+const analytics = require('../utils/analytics');
+const assessmentStore = require('../models/assessment-store');
+const bookingStore = require('../models/booking-store');
+const goalStore = require('../models/goal-store');
 
 const dashboard = {
   index(request, response) {
     logger.info('dashboard rendering');
     const loggedInUser = accounts.getCurrentUser(request);
+    setGoalStatusChecks(loggedInUser.id);
     const viewData = {
-      title: 'Member Dashboard',
+      title: 'Member Assessments',
+      bookings: bookingStore.getAllUserBookings(loggedInUser.id),
+      allTrainers: trainers.getAllTrainers(),
+      assessmentlist: assessmentStore.getAssessmentList(loggedInUser.id),
       user: loggedInUser,
+      stats: analytics.generateMemberStats(loggedInUser),
+      goals: goalStore.getGoalList(loggedInUser.id),
     };
     response.render('dashboard', viewData);
   },
@@ -128,6 +139,49 @@ const saveAndRedirectHelper = function (classId, response, message, loggedInUser
     userId: loggedInUserId,
   };
   response.render('memberClassSessions', viewData);
+};
+
+const setGoalStatusChecks = function (userId) {
+  let goalList = goalStore.getGoalList(userId);
+  let today = new Date().setHours(0, 0, 0, 0);
+  if (goalList) {
+    goalList.goals.forEach(function (goal) {
+      let goalDate = new Date(goal.date).getTime();
+      let time = ((Number(today) - Number(goalDate)) / 1000 - 259200);
+      logger.debug('Goal Date: ' + ((Number(today) - Number(goalDate)) / 1000));
+      logger.debug('Time:' + time);
+      if (goalDate > today) {
+        goal.status = 'Open';
+      } else if (time <= 0) {
+        goal.status = 'Awaiting Processing';
+        let assessment = assessmentStore.getFirstAssessmentWithinThreeDays(userId, goal.date);
+        if (assessment[0]) {
+          let assessmentDate = new Date(assessment[0].date).getTime();
+          let resultingDate = ((goalDate - assessmentDate) / 1000 - 259200);
+          logger.debug('Assessment Time: ' + assessmentDate);
+          logger.debug('Resulting Time: ' + resultingDate);
+          if (resultingDate < 0) {
+            let compare = compareGoalToAssessment(assessment[0], goal);
+            if (compare) {
+              goal.status = 'Achieved';
+            } else {
+              goal.status = 'Missed';
+            }
+          }
+        }
+      }
+
+      goalStore.store.save();
+    });
+
+  }
+};
+
+const compareGoalToAssessment = function (assessment, goal) {
+  let totalAssessment = assessment.weight + assessment.chest + assessment.thigh + assessment.upperArm +
+    assessment.waist + assessment.hips;
+  let totalGoal = goal.weight + goal.chest + goal.thigh + goal.upperArm + goal.waist + goal.hips;
+  return (totalAssessment < totalGoal);
 };
 
 module.exports = dashboard;
