@@ -4,6 +4,9 @@
     <a class="ui label">
       <div class="item" data-modal="updateAssessments"><i class="right floated blue edit icon"></i> Edit Assessments</div>
     </a>
+    <a class="ui label">
+      <div class="item" data-modal="addAssessment"><i class="blue plus icon"></i> Add Assessment</div>
+    </a>
   {{/if}}
   <table class="ui celled table">
     <thead>
@@ -11,12 +14,30 @@
     </thead>
     <tbody>
     {{#each assessmentlist.assessments}}
-      {{> assessment-row-with-delete}}
+      <tr>
+        <td> {{date}} </td>
+        <td> {{weight}}   </td><td> {{chest}} </td><td> {{thigh}} </td>
+        <td> {{upperArm}} </td><td> {{waist}} </td><td> {{hips}}  </td>
+        <td>
+          {{#if trend}}
+            <a class="ui teal tag label"></a>
+          {{else}}
+            <a class="ui red tag label"></a>
+          {{/if}}
+        </td>
+        <td> {{comment}} </td>
+        <td>
+          <a href="/assessments/deleteAssessment/{{../user.id}}/{{id}}" class="ui icon button">
+            <i class="icon trash"></i>
+          </a>
+        </td>
+      </tr>
     {{/each}}
     </tbody>
   </table>
 </section>
 
+{{#if isTrainer}}
 <section class="ui modal" id="updateAssessments"> <i class="close icon"></i>
   {{#each assessmentlist.assessments}}
   <header class="header">{{date}}</header>
@@ -58,4 +79,5 @@
     </form>
   </div>
   {{/each}}
+{{/if}}
 </section>

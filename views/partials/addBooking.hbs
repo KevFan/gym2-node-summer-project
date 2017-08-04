@@ -1,7 +1,7 @@
-<section class="ui modal" id="bookAssessment"> <i class="close icon"></i>
+<section class="ui modal" id="addBooking{{#if id}}{{id}}{{/if}}"> <i class="close icon"></i>
   <header class="header">Book Assessment</header>
   <div class="content">
-    <form class="ui segment form" action="/bookings/addbooking/{{user.id}}" method="POST">
+    <form class="ui segment form" action="/bookings/addbooking/{{#if user.id}}{{user.id}}{{else if userid}}{{userid}}{{else}}{{id}}{{/if}}" method="POST">
       <section class="two fields">
         <section class="field calender" id="dateTime">
           <label>Date/time</label>
