@@ -28,11 +28,21 @@
   {{#each classes.sessions}}
     <div class="ui link card">
       <section class="content">
-        <div class="header">{{dateTime}}</div>
-        <div class="meta">Location: {{location}}</div>
-        <div class="meta">Capacity: {{capacity}}</div>
-        <div class="meta">Availability: {{availability}} Spaces</div>
+        <div class="center aligned header">{{dateTime}}</div>
+        <section class="ui two column grid">
+          <section class="column">
+            <div class="meta row">Location:</div>
+            <div class="meta row">Capacity:</div>
+            <div class="meta row">Availability:</div>
+          </section>
+          <section class="column">
+            <div class="meta row">{{location}}</div>
+            <div class="meta row">{{capacity}}</div>
+            <div class="meta row">{{availability}} Spaces</div>
+          </section>
+        </section>
       </section>
+
       <section class="center aligned content">
         {{#if ../isTrainer}}
           <div class="ui teal buttons">
