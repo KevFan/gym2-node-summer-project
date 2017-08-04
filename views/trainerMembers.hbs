@@ -1,0 +1,31 @@
+{{> trainermenu id="members"}}
+
+{{> searchMembers}}
+
+<div class="ui container">
+  <div class="ui centered four doubling stackable cards">
+    {{#each allMembers}}
+      <div class="ui link card">
+        {{> listMembers}}
+        <section class="center aligned content">
+          <div class="ui teal buttons">
+            <div class="ui button">Options</div>
+            <div class="ui floating dropdown icon button">
+              <i class="dropdown icon"></i>
+              <div class="menu">
+                <!--https://gist.github.com/marcosfreitas/53a6c6a891aa5441d938-->
+                <!--http://jsfiddle.net/efp8z6Ln/158/-->
+                <div class="item" data-modal="addAssessment{{#if id}}{{id}}{{/if}}"><i class="blue plus icon"></i> Add Assessment</div>
+                {{> addAssessment}}
+                <div class="item" data-modal="addBooking{{#if id}}{{id}}{{/if}}" ><i class="blue plus icon"></i> Add Booking</div>
+                {{> addBooking}}
+                <div class="item" data-modal="addGoal{{#if id}}{{id}}{{/if}}"><i class="blue plus icon"></i> Add Goal</div>
+                {{> addGoal}}
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    {{/each}}
+  </div>
+</div>

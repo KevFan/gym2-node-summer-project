@@ -1,14 +1,14 @@
-{{> trainermenu id="dashboard"}}
+{{> trainermenu id="classes"}}
 
 <div class="ui container">
   <div class="ui centered four doubling stackable cards">
     {{#each classes}}
       <div class="ui link card">
         {{> listClasses}}
-        {{> trainerClassOptions}}
+        {{> editClassOptions}}
       </div>
     {{/each}}
   </div>
 </div>
 
-{{> trainerAddClasses}}
+{{> addClasses}}
