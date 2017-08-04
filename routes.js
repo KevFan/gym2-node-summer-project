@@ -13,6 +13,7 @@ const settings = require('./controllers/settings.js');
 const bookings = require('./controllers/bookings.js');
 const search = require('./controllers/search.js');
 const goals = require('./controllers/goals.js');
+const handleBarHelpers = require('./controllers/handlebarHelpers.js');
 
 // Accounts
 router.get('/', accounts.index);
@@ -31,6 +32,8 @@ router.get('/trainerDashboard', trainerDashboard.index);
 router.post('/trainerDashboard/addclass', trainerDashboard.addClass);
 router.get('/trainerDashboard/classes/delete/:id', trainerDashboard.deleteClass);
 router.get('/trainerDashboard/classes/hideOrUnhide/:id', trainerDashboard.hideOrUnhideClass);
+router.get('/trainerDashboard/members', trainerDashboard.listAllMembers);
+router.get('/trainerDashboard/members/:id', trainerDashboard.viewSpecificMember);
 
 // Classes
 router.get('/classes/', classes.index);
@@ -45,10 +48,8 @@ router.get('/classes/:id/unEnroll/:sessionid', dashboard.unEnrollSpecificSession
 router.post('/classes/:id/updateSession/:sessionid', classes.updateClassSession);
 
 // Assessments
-router.get('/assessments', assessments.index);
-router.get('/assessments/member/:userid', assessments.viewMemberAssessments);
 router.post('/assessments/addassessment/:id', assessments.addAssessment);
-router.get('/assessments/deleteAssessment/:id', assessments.deleteAssessment);
+router.get('/assessments/deleteAssessment/:userid/:id', assessments.deleteAssessment);
 router.post('/assessments/:userid/update/:id', assessments.updateAssessment);
 
 // Bookings
@@ -66,7 +67,6 @@ router.post('/search/class', search.searchClassByName);
 router.post('/search/member', search.searchMember);
 
 // Goals
-router.get('/goals', goals.index);
 router.post('/goals/addgoal/:id', goals.addGoal);
 router.get('/goals/deleteGoal/:userid/:id', goals.deleteGoal);
 
