@@ -5,11 +5,15 @@
       <div class="three fields">
         <div class="field">
           <label>Class Name</label>
-          <input placeholder="Class Name" type="text" name="name">
+          <div class="ui input left icon">
+            <i class="table icon"></i>
+            <input placeholder="Class Name" type="text" name="name">
+          </div>
         </div>
         <div class="field">
           <label>Difficulty</label>
           <div class="ui selection dropdown">
+            <i class="line chart icon"></i>
             <input type="hidden" name="difficulty">
             <i class="dropdown icon"></i>
             <div class="default text">Difficulty</div>
@@ -22,7 +26,10 @@
         </div>
         <div class="field">
           <label>Duration</label>
-          <input placeholder="Duration (mins)" type="text" name="duration">
+          <div class="ui input left icon">
+            <i class="hourglass half icon"></i>
+            <input placeholder="Duration (mins)" type="text" name="duration">
+          </div>
         </div>
       </div>
       <div class="field">
@@ -31,9 +38,12 @@
       </div>
       <div class="field">
         <label>Image Url</label>
-        <input placeholder="Image Url" type="text" name="image">
+        <div class="ui input left icon">
+          <i class="image icon"></i>
+          <input placeholder="Image Url" type="text" name="image">
+        </div>
       </div>
-      <button class="ui blue submit button"> Add Class </button>
+      <button class="ui blue submit button"><i class="plus icon"></i> Add Class </button>
     </form>
   </div>
 </section>
