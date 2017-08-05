@@ -23,8 +23,8 @@
 
 <div class="ui segment container">
   <div class="ui green ribbon label">Bookings</div>
-  <a class="ui label">
-    <div class="item" data-modal="addBooking"><i class="blue plus icon"></i> Book Assessment</div>
+  <a class="ui label item" data-modal="addBooking">
+    <i class="blue plus icon"></i> Book Assessment
   </a>
   {{#if bookings}}
     {{> listBooking}}
@@ -35,8 +35,8 @@
 
 <div class="ui segment container">
   <div class="ui purple ribbon label">Goals</div>
-  <a class="ui label">
-    <div class="item" data-modal="addGoal"><i class="blue plus icon"></i> Add Goal</div>
+  <a class="ui label item" data-modal="addGoal">
+    <i class="blue plus icon"></i> Add Goal
   </a>
   {{#if goals.goals}}
     {{> listGoals}}

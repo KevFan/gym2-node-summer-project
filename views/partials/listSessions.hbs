@@ -1,9 +1,9 @@
-<section class="ui grid middle aligned center aligned stackable segment">
+<section class="ui middle aligned center aligned stackable grid segment">
   <section class="two column row">
-    <div class="column">
+    <div class="four wide column">
       <img class="ui middle aligned circular small image" {{#if classes.image}} src="{{classes.image}}" {{else}} src="http://s3.amazonaws.com/wpd-assets/ymcanewyork/uploads/sub-class-thumbs/family-yoga-pilates-icon.png" {{/if}}>
     </div>
-    <div class="column">
+    <div class="twelve wide column">
       {{classes.description}}
     </div>
   </section>
@@ -12,11 +12,11 @@
   {{#if classes.sessions}}
   <section class="ui center aligned row">
     <form action="/classes/{{classes.id}}/enrolAll" method="POST">
-      <button class="ui blue submit button"> Enroll all sessions </button>
+      <button class="ui blue submit button"><i class="checkmark box icon"></i> Enroll all sessions </button>
     </form>
 
     <a href="/classes/{{classes.id}}/unEnrolAll">
-      <button class="ui red submit button"> Unenroll all sessions </button>
+      <button class="ui red submit button"><i class="square outline icon"></i> Un-enroll all sessions </button>
     </a>
   </section>
   {{/if}}
@@ -46,7 +46,7 @@
       <section class="center aligned content">
         {{#if ../isTrainer}}
           <div class="ui teal buttons">
-            <div class="ui button">Options</div>
+            <div class="ui button"><i class="options icon"></i>Options</div>
             <div class="ui floating dropdown icon button">
               <i class="dropdown icon"></i>
               <div class="menu">
@@ -78,7 +78,7 @@
                           </div>
                         </section>
                       </section>
-                      <button class="ui blue submit button"> Edit Session </button>
+                      <button class="ui blue submit button"><i class="save icon"></i> Edit Session </button>
                     </form>
                   </div>
                 </section>
@@ -93,11 +93,11 @@
           <section class="ui one column basic grid container">
             {{#if (checkEnrolled ../classes.id id ../userId) }}
               <a class="column" href="/classes/{{../classes.id}}/unEnroll/{{id}}">
-                <button class="ui red submit button"> Unenroll </button>
+                <button class="ui red submit button"><i class="square outline icon"></i>  Un-enroll </button>
               </a>
             {{else}}
               <form class="column" action="/classes/{{../classes.id}}/enroll/{{id}}" method="POST">
-                <button class="ui blue submit button"> Enroll </button>
+                <button class="ui blue submit button"><i class="checkmark box icon"></i> Enroll </button>
               </form>
             {{/if}}
           </section>

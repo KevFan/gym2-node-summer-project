@@ -24,11 +24,11 @@
       <td>
         <section class="center aligned content">
           <div class="ui teal buttons">
-            <div class="ui button">Options</div>
+            <div class="ui button"><i class="white options icon"></i>Options</div>
             <div class="ui floating dropdown icon button">
               <i class="dropdown icon"></i>
               <div class="menu">
-                <div class="item" data-modal="{{id}}"><i class=" blue plus icon"></i> Edit Details</div>
+                <div class="item" data-modal="{{id}}"><i class=" blue edit icon"></i> Edit Details</div>
                 <section class="ui modal" id="{{id}}"> <i class="close icon"></i>
                   <header class="header">{{dateTime}}</header>
                   <div class="content">
@@ -44,6 +44,7 @@
                         <section class="field">
                           <label>Trainer Name</label>
                           <div class="ui selection dropdown">
+                            <i class="user icon"></i>
                             <input type="hidden" name="trainer" value="{{trainerName}}">
                             <i class="dropdown icon"></i>
                             <div class="default text">Trainer Name</div>
@@ -58,11 +59,15 @@
                       <section class="two fields">
                         <section class="field">
                           <label>Comment</label>
-                          <input placeholder="Comment" type="text" name="comment" value="{{comment}}">
+                          <div class="ui input left icon">
+                            <i class="comment icon"></i>
+                            <input placeholder="Comment" type="text" name="comment" value="{{comment}}">
+                          </div>
                         </section>
                         <section class="field">
                           <label>Status</label>
                           <div class="ui selection dropdown">
+                            <i class="wait icon"></i>
                             <input type="hidden" name="status" value="{{status}}">
                             <i class="dropdown icon"></i>
                             <div class="default text">Status</div>
@@ -78,7 +83,7 @@
                         </section>
                       </section>
 
-                      <button class="ui blue submit button"> Edit Booking </button>
+                      <button class="ui blue submit button"><i class="save icon"></i> Edit Booking </button>
                     </form>
                   </div>
                 </section>
