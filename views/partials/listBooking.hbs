@@ -29,64 +29,7 @@
               <i class="dropdown icon"></i>
               <div class="menu">
                 <div class="item" data-modal="{{id}}"><i class=" blue edit icon"></i> Edit Details</div>
-                <section class="ui modal" id="{{id}}"> <i class="close icon"></i>
-                  <header class="header">{{dateTime}}</header>
-                  <div class="content">
-                    <form class="ui segment form" action="/bookings/update/{{id}}" method="POST">
-                      <section class="two fields">
-                        <section class="field calender" id="{{id}}">
-                          <label>Date/time</label>
-                          <div class="ui input left icon">
-                            <i class="calendar icon"></i>
-                            <input placeholder="Date/Time" type="text" name="dateTime" value="{{dateTime}}">
-                          </div>
-                        </section>
-                        <section class="field">
-                          <label>Trainer Name</label>
-                          <div class="ui selection dropdown">
-                            <i class="user icon"></i>
-                            <input type="hidden" name="trainer" value="{{trainerName}}">
-                            <i class="dropdown icon"></i>
-                            <div class="default text">Trainer Name</div>
-                            <div class="menu">
-                              {{#each ../allTrainers}}
-                                <div class="item" data-value="{{name}}">{{name}}</div>
-                              {{/each}}
-                            </div>
-                          </div>
-                        </section>
-                      </section>
-                      <section class="two fields">
-                        <section class="field">
-                          <label>Comment</label>
-                          <div class="ui input left icon">
-                            <i class="comment icon"></i>
-                            <input placeholder="Comment" type="text" name="comment" value="{{comment}}">
-                          </div>
-                        </section>
-                        <section class="field">
-                          <label>Status</label>
-                          <div class="ui selection dropdown">
-                            <i class="wait icon"></i>
-                            <input type="hidden" name="status" value="{{status}}">
-                            <i class="dropdown icon"></i>
-                            <div class="default text">Status</div>
-                            <div class="menu">
-                              <div class="item" data-value="Pending">Pending</div>
-                              {{#if ../isTrainer}}
-                                <div class="item" data-value="Accepted">Accepted</div>
-                                <div class="item" data-value="Completed">Completed</div>
-                              {{/if}}
-                              <div class="item" data-value="Cancel">Cancel</div>
-                            </div>
-                          </div>
-                        </section>
-                      </section>
-
-                      <button class="ui blue submit button"><i class="save icon"></i> Edit Booking </button>
-                    </form>
-                  </div>
-                </section>
+                {{> updateBooking allTrainers=../allTrainers isTrainer=../isTrainer}}
 
                 {{#if ../isTrainer}}
                   <section class="item" data-modal="addAssessment{{id}}">

@@ -1,0 +1,63 @@
+<section class="ui modal" id="updateAssessments"> <i class="close icon"></i>
+  {{#each assessmentlist.assessments}}
+      <header class="header">{{date}}</header>
+      <div class="content">
+        <form class="ui segment form" action="/assessments/{{../userid}}/update/{{id}}" method="POST">
+          <section class="three fields">
+            <div class="field">
+              <label>Weight</label>
+              <div class="ui input left icon">
+                <i class="law icon"></i>
+                <input placeholder="00.00kg" type="text" name="weight" value="{{weight}}">
+              </div>
+            </div>
+            <div class="field">
+              <label>Chest</label>
+              <div class="ui input left icon">
+                <i class="write icon"></i>
+                <input placeholder="00.00cm" type="text" name="chest" value="{{chest}}">
+              </div>
+            </div>
+            <div class="field">
+              <label>Thigh</label>
+              <div class="ui input left icon">
+                <i class="write icon"></i>
+                <input placeholder="00.00cm" type="text" name="thigh" value="{{thigh}}">
+              </div>
+            </div>
+          </section>
+          <section class="three fields">
+            <div class="field">
+              <label>Upper Arm</label>
+              <div class="ui input left icon">
+                <i class="write icon"></i>
+                <input placeholder="00.00cm" type="text" name="upperArm" value="{{upperArm}}">
+              </div>
+            </div>
+            <div class="field">
+              <label>Waist</label>
+              <div class="ui input left icon">
+                <i class="write icon"></i>
+                <input placeholder="00.00cm" type="text" name="waist" value="{{waist}}">
+              </div>
+            </div>
+            <div class="field">
+              <label>Hips</label>
+              <div class="ui input left icon">
+                <i class="write icon"></i>
+                <input placeholder="00.00cm" type="text" name="hips" value="{{hips}}">
+              </div>
+            </div>
+          </section>
+          <section class="field">
+            <label>Comment</label>
+            <div class="ui input left icon">
+              <i class="comment icon"></i>
+              <input placeholder="Comment" name="comment" value="{{comment}}">
+            </div>
+          </section>
+          <button class="ui blue submit button"><i class="save icon"></i> Update Assessment </button>
+        </form>
+      </div>
+  {{/each}}
+</section>
