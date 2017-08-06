@@ -21,7 +21,7 @@ const accounts = {
   },
 
   logout(request, response) {
-    response.cookie('spacebook', '');
+    response.cookie('user', '');
     response.redirect('/');
   },
 

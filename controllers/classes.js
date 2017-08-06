@@ -8,21 +8,23 @@ const logger = require('../utils/logger');
 const classStore = require('../models/class-store');
 const uuid = require('uuid');
 const accounts = require('./accounts');
+const sort = require('../utils/sort');
 
 const classes = {
   index(request, response) {
     logger.info('user is ' + accounts.userIsTrainer(request));
-    const viewData = {
-      title: 'Classes',
-      classes: classStore.getAllClasses(),
-    };
     if (accounts.userIsTrainer(request)) {
-      viewData.title = 'Trainer Classes';
+      const viewData = {
+        title: 'Trainer Classes',
+        classes: classStore.getAllClasses(),
+      };
       response.render('trainerClasses', viewData);
       logger.info('trainer classes rendering', viewData.classes);
     } else {
-      viewData.title = 'Member Classes';
-      viewData.classes = classStore.getAllNonHiddenClasses();
+      const viewData = {
+        title: 'Member Classes',
+        classes: classStore.getAllNonHiddenClasses(),
+      };
       response.render('memberClasses', viewData);
       logger.info('member classes rendering', viewData.classes);
     }
@@ -30,7 +32,6 @@ const classes = {
 
   addSession(request, response) {
     const classId = request.params.id;
-    const classes = classStore.getClassById(classId);
     const newSession = {
       id: uuid(),
       location: request.body.location,
@@ -48,6 +49,7 @@ const classes = {
   listClassSessions(request, response) {
     const isTrainer = accounts.userIsTrainer(request);
     const classId = request.params.id;
+    sort.sortDateTimeOldToNew(classStore.getClassById(classId).sessions);
     logger.info('classes id: ' + classId);
     const viewData = {
       title: 'Classes',

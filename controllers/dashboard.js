@@ -9,15 +9,17 @@ const analytics = require('../utils/analytics');
 const assessmentStore = require('../models/assessment-store');
 const bookingStore = require('../models/booking-store');
 const goalStore = require('../models/goal-store');
+const sort = require('../utils/sort');
 
 const dashboard = {
   index(request, response) {
     logger.info('dashboard rendering');
     const loggedInUser = accounts.getCurrentUser(request);
+    sort.sortDateTimeNewToOld(goalStore.getGoalList(loggedInUser.id).goals);
     setGoalStatusChecks(loggedInUser.id);
     const viewData = {
       title: 'Member Assessments',
-      bookings: bookingStore.getAllUserBookings(loggedInUser.id),
+      bookings: sort.sortDateTimeNewToOld(bookingStore.getAllUserBookings(loggedInUser.id)),
       allTrainers: trainers.getAllTrainers(),
       assessmentlist: assessmentStore.getAssessmentList(loggedInUser.id),
       user: loggedInUser,

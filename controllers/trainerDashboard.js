@@ -10,6 +10,7 @@ const analytics = require('../utils/analytics');
 const assessmentStore = require('../models/assessment-store');
 const bookingStore = require('../models/booking-store');
 const goalStore = require('../models/goal-store');
+const sort = require('../utils/sort');
 
 const dashboard = {
   index(request, response) {
@@ -18,7 +19,7 @@ const dashboard = {
     const viewData = {
       title: 'Trainer Assessments',
       user: loggedInUser,
-      bookings: bookingStore.getAllTrainerBookings(loggedInUser.id),
+      bookings: sort.sortDateTimeOldToNew(bookingStore.getAllTrainerBookings(loggedInUser.id)),
       isTrainer: accounts.userIsTrainer(request),
       allTrainers: trainers.getAllTrainers(),
       allMembers: members.getAllMembers(),
@@ -74,6 +75,7 @@ const dashboard = {
   viewSpecificMember(request, response) {
     const userId = request.params.id;
     logger.info('id is ' + userId);
+    sort.sortDateTimeNewToOld(goalStore.getGoalList(userId).goals);
     const viewData = {
       title: 'Trainer Dashboard',
       user: members.getMemberById(userId),
@@ -82,7 +84,7 @@ const dashboard = {
       assessmentlist: assessmentStore.getAssessmentList(userId),
       stats: analytics.generateMemberStats(members.getMemberById(userId)),
       goals: goalStore.getGoalList(userId),
-      bookings: bookingStore.getAllUserBookings(userId),
+      bookings: sort.sortDateTimeOldToNew(bookingStore.getAllUserBookings(userId)),
     };
     response.render('dashboard', viewData);
   },
