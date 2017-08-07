@@ -7,6 +7,7 @@
 const _ = require('lodash');
 const logger = require('../utils/logger');
 const JsonStore = require('./json-store');
+const moment = require('moment');
 
 /**
  * Stores/controls list of user assessment lists and assessments
@@ -91,18 +92,26 @@ const assessmentStore = {
     logger.info('assessmentlist to be removed is ', assessmentList);
   },
 
-  getFirstAssessmentWithinThreeDays(userId, dateString) {
+  getFirstAssessmentWithinThreeDays(userId, goalTime) {
     let assessmentList = this.getAssessmentList(userId);
-    const dateCompare = new Date(dateString).getTime();
+    const goalDate = new Date(goalTime);
+    const threeDaysBefore = moment(goalDate).subtract(3, 'days').toDate();
+    logger.info('goalTime:' + goalTime + 'goal Date is:' + goalDate);
+    logger.info('Three days before is:' + threeDaysBefore);
     let result = [];
     assessmentList.assessments.forEach(function (assessment) {
-      let time = (((dateCompare - new Date(assessment.date).getTime()) / 1000) - 259200);
-      if (time < 0) {
+      let assessmentDate = new Date(new Date(assessment.date).setHours(0, 0, 0, 0));
+      logger.info('Assessment date' + assessmentDate + ' compare less:' + (threeDaysBefore <= assessmentDate));
+      logger.info('Assessment date' + assessmentDate + ' compare more:' + (assessmentDate <= goalDate));
+      if ((threeDaysBefore <= assessmentDate) && (assessmentDate <= goalDate)) {
+        logger.info('assessment found within three days is', assessment);
         result.push(assessment);
+      } else {
+        logger.info('No assessment found within 3 days of goal date');
       }
     });
 
-    logger.info('Assessment return:', result);
+    logger.info('The result is: ', result);
     return result;
   },
 };

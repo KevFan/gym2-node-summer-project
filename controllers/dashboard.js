@@ -10,13 +10,14 @@ const assessmentStore = require('../models/assessment-store');
 const bookingStore = require('../models/booking-store');
 const goalStore = require('../models/goal-store');
 const sort = require('../utils/sort');
+const goalHelpers = require('../utils/goalHelpers');
 
 const dashboard = {
   index(request, response) {
     logger.info('dashboard rendering');
     const loggedInUser = accounts.getCurrentUser(request);
     sort.sortDateTimeNewToOld(goalStore.getGoalList(loggedInUser.id).goals);
-    setGoalStatusChecks(loggedInUser.id);
+    goalHelpers.setGoalStatusChecks(loggedInUser.id);
     const viewData = {
       title: 'Member Assessments',
       bookings: sort.sortDateTimeNewToOld(bookingStore.getAllUserBookings(loggedInUser.id)),
@@ -141,49 +142,6 @@ const saveAndRedirectHelper = function (classId, response, message, loggedInUser
     userId: loggedInUserId,
   };
   response.render('memberClassSessions', viewData);
-};
-
-const setGoalStatusChecks = function (userId) {
-  let goalList = goalStore.getGoalList(userId);
-  let today = new Date().setHours(0, 0, 0, 0);
-  if (goalList) {
-    goalList.goals.forEach(function (goal) {
-      let goalDate = new Date(goal.date).getTime();
-      let time = ((Number(today) - Number(goalDate)) / 1000 - 259200);
-      logger.debug('Goal Date: ' + ((Number(today) - Number(goalDate)) / 1000));
-      logger.debug('Time:' + time);
-      if (goalDate > today) {
-        goal.status = 'Open';
-      } else if (time <= 0) {
-        goal.status = 'Awaiting Processing';
-        let assessment = assessmentStore.getFirstAssessmentWithinThreeDays(userId, goal.date);
-        if (assessment[0]) {
-          let assessmentDate = new Date(assessment[0].date).getTime();
-          let resultingDate = ((goalDate - assessmentDate) / 1000 - 259200);
-          logger.debug('Assessment Time: ' + assessmentDate);
-          logger.debug('Resulting Time: ' + resultingDate);
-          if (resultingDate < 0) {
-            let compare = compareGoalToAssessment(assessment[0], goal);
-            if (compare) {
-              goal.status = 'Achieved';
-            } else {
-              goal.status = 'Missed';
-            }
-          }
-        }
-      }
-
-      goalStore.store.save();
-    });
-
-  }
-};
-
-const compareGoalToAssessment = function (assessment, goal) {
-  let totalAssessment = assessment.weight + assessment.chest + assessment.thigh + assessment.upperArm +
-    assessment.waist + assessment.hips;
-  let totalGoal = goal.weight + goal.chest + goal.thigh + goal.upperArm + goal.waist + goal.hips;
-  return (totalAssessment < totalGoal);
 };
 
 module.exports = dashboard;

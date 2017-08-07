@@ -11,6 +11,7 @@ const assessmentStore = require('../models/assessment-store');
 const bookingStore = require('../models/booking-store');
 const goalStore = require('../models/goal-store');
 const sort = require('../utils/sort');
+const goalHelpers = require('../utils/goalHelpers');
 
 const dashboard = {
   index(request, response) {
@@ -76,6 +77,7 @@ const dashboard = {
     const userId = request.params.id;
     logger.info('id is ' + userId);
     sort.sortDateTimeNewToOld(goalStore.getGoalList(userId).goals);
+    goalHelpers.setGoalStatusChecks(userId);
     const viewData = {
       title: 'Trainer Dashboard',
       user: members.getMemberById(userId),
