@@ -1,13 +1,54 @@
-{{> menu id="dashboard"}}
+{{#if isTrainer}}
+  {{> trainermenu id="members"}}
+{{else}}
+  {{> menu id="dashboard"}}
+{{/if}}
 
-<section class="ui segment">
-  <h1 class="ui heaader">
-    Welcome {{user.name}}
-  </h1>
-  <p>
-    Logged in Successfully!
-  </p>
-</section>
+{{#unless (checkForOpenGoals user.id)}}
+  <div class="ui negative message">
+    <i class="close icon"></i>
+    <div class="header">
+      You have no open or goals awaiting processing. Set a new goal to get started !!
+    </div>
+  </div>
+{{/unless}}
 
+{{> analytics}}
 
-{{> commonDashboard}}
+{{#if assessmentlist.assessments}}
+  {{> assessment-table}}
+{{else}}
+  <section class="ui center aligned segment">You have no assessment. Book an assessment with a trainer to get started !!</section>
+{{/if}}
+
+<div class="ui segment container">
+  <div class="ui green ribbon label">Bookings</div>
+  <a class="ui label item" data-modal="addBooking">
+    <i class="blue plus icon"></i> Book Assessment
+  </a>
+  {{#if bookings}}
+    {{> listBooking}}
+  {{else}}
+    <section class="ui center aligned segment">You have no assessment bookings</section>
+  {{/if}}
+</div>
+
+<div class="ui segment container">
+  <div class="ui purple ribbon label">Goals</div>
+  <a class="ui label item" data-modal="addGoal">
+    <i class="blue plus icon"></i> Add Goal
+  </a>
+  {{#if goals.goals}}
+    {{> listGoals}}
+  {{else}}
+    <section class="ui center aligned segment">You have no goals</section>
+  {{/if}}
+</div>
+{{> addBooking}}
+
+{{> addGoal}}
+
+{{#if isTrainer}}
+  {{> addAssessment}}
+  {{> updateAssessment userid=user.id}}
+{{/if}}

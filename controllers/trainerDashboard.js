@@ -4,14 +4,26 @@ const logger = require('../utils/logger');
 const accounts = require('./accounts.js');
 const classStore = require('../models/class-store.js');
 const uuid = require('uuid');
+const trainers = require('../models/trainer-store');
+const members = require('../models/member-store');
+const analytics = require('../utils/analytics');
+const assessmentStore = require('../models/assessment-store');
+const bookingStore = require('../models/booking-store');
+const goalStore = require('../models/goal-store');
+const sort = require('../utils/sort');
+const goalHelpers = require('../utils/goalHelpers');
 
 const dashboard = {
   index(request, response) {
     logger.info('trainer dashboard rendering');
     const loggedInUser = accounts.getCurrentUser(request);
     const viewData = {
-      title: 'Trainer Dashboard',
+      title: 'Trainer Assessments',
       user: loggedInUser,
+      bookings: sort.sortDateTimeOldToNew(bookingStore.getAllTrainerBookings(loggedInUser.id)),
+      isTrainer: accounts.userIsTrainer(request),
+      allTrainers: trainers.getAllTrainers(),
+      allMembers: members.getAllMembers(),
     };
     response.render('trainerDashboard', viewData);
   },
@@ -48,6 +60,35 @@ const dashboard = {
     classStore.store.save();
     logger.info('Setting class: ' + classId + ' Hidden:' + classes.hidden);
     response.redirect('/classes');
+  },
+
+  listAllMembers(request, response) {
+    logger.info('trainer member view rendering');
+    const viewData = {
+      title: 'Trainer Members',
+      isTrainer: accounts.userIsTrainer(request),
+      allTrainers: trainers.getAllTrainers(),
+      allMembers: members.getAllMembers(),
+    };
+    response.render('trainerMembers', viewData);
+  },
+
+  viewSpecificMember(request, response) {
+    const userId = request.params.id;
+    logger.info('id is ' + userId);
+    sort.sortDateTimeNewToOld(goalStore.getGoalList(userId).goals);
+    goalHelpers.setGoalStatusChecks(userId);
+    const viewData = {
+      title: 'Trainer Dashboard',
+      user: members.getMemberById(userId),
+      isTrainer: accounts.userIsTrainer(request),
+      allTrainers: trainers.getAllTrainers(),
+      assessmentlist: assessmentStore.getAssessmentList(userId),
+      stats: analytics.generateMemberStats(members.getMemberById(userId)),
+      goals: goalStore.getGoalList(userId),
+      bookings: sort.sortDateTimeOldToNew(bookingStore.getAllUserBookings(userId)),
+    };
+    response.render('dashboard', viewData);
   },
 };
 

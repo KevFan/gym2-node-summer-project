@@ -4,14 +4,28 @@ const _ = require('lodash');
 const logger = require('../utils/logger');
 const accounts = require('./accounts.js');
 const classStore = require('../models/class-store.js');
+const trainers = require('../models/trainer-store');
+const analytics = require('../utils/analytics');
+const assessmentStore = require('../models/assessment-store');
+const bookingStore = require('../models/booking-store');
+const goalStore = require('../models/goal-store');
+const sort = require('../utils/sort');
+const goalHelpers = require('../utils/goalHelpers');
 
 const dashboard = {
   index(request, response) {
     logger.info('dashboard rendering');
     const loggedInUser = accounts.getCurrentUser(request);
+    sort.sortDateTimeNewToOld(goalStore.getGoalList(loggedInUser.id).goals);
+    goalHelpers.setGoalStatusChecks(loggedInUser.id);
     const viewData = {
-      title: 'Member Dashboard',
+      title: 'Member Assessments',
+      bookings: sort.sortDateTimeNewToOld(bookingStore.getAllUserBookings(loggedInUser.id)),
+      allTrainers: trainers.getAllTrainers(),
+      assessmentlist: assessmentStore.getAssessmentList(loggedInUser.id),
       user: loggedInUser,
+      stats: analytics.generateMemberStats(loggedInUser),
+      goals: goalStore.getGoalList(loggedInUser.id),
     };
     response.render('dashboard', viewData);
   },

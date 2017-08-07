@@ -1,7 +1,7 @@
-<section class="ui modal" id="addGoal{{#if id}}{{id}}{{/if}}"> <i class="close icon"></i>
-  <header class="header">Add Goal</header>
+<section class="ui modal" id="addAssessment{{#if id}}{{id}}{{/if}}"> <i class="close icon"></i>
+  <header class="header">Add Assessment for {{userName}} {{user.name}} {{name}}</header>
   <div class="content">
-    <form class="ui segment form" action="/goals/addgoal/{{#if user.id}}{{user.id}}{{else if userid}}{{userid}}{{else}}{{id}}{{/if}}" method="POST">
+    <form class="ui segment form" action="/assessments/addassessment/{{#if user.id}}{{user.id}}{{else if userid}}{{userid}}{{else}}{{id}}{{/if}}" method="POST">
       <section class="three fields">
         <div class="field">
           <label>Weight</label>
@@ -48,23 +48,14 @@
           </div>
         </div>
       </section>
-      <section class="two fields">
-        <div class="field">
-          <label>Description</label>
-          <div class="ui input left icon">
-            <i class="comment icon"></i>
-            <input placeholder="Description" name="description">
-          </div>
+      <section class="field">
+        <label>Comment</label>
+        <div class="ui input left icon">
+          <i class="comment icon"></i>
+          <input placeholder="Comment" name="comment">
         </div>
-        <section class="field calender" id="dateOnly">
-          <label>Achieve by Date</label>
-          <div class="ui input left icon">
-            <i class="calendar icon"></i>
-            <input placeholder="Date" type="text" name="dateOnly">
-          </div>
-        </section>
       </section>
-      <button class="ui blue submit button"><i class="plus icon"></i> Add Goal </button>
+      <button class="ui blue submit button"><i class="plus icon"></i> Add Assessment </button>
     </form>
   </div>
 </section>

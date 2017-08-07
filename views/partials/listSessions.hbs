@@ -1,9 +1,9 @@
-<section class="ui grid middle aligned center aligned stackable segment">
+<section class="ui middle aligned center aligned stackable grid segment">
   <section class="two column row">
-    <div class="column">
+    <div class="four wide column">
       <img class="ui middle aligned circular small image" {{#if classes.image}} src="{{classes.image}}" {{else}} src="http://s3.amazonaws.com/wpd-assets/ymcanewyork/uploads/sub-class-thumbs/family-yoga-pilates-icon.png" {{/if}}>
     </div>
-    <div class="column">
+    <div class="twelve wide column">
       {{classes.description}}
     </div>
   </section>
@@ -12,11 +12,11 @@
   {{#if classes.sessions}}
   <section class="ui center aligned row">
     <form action="/classes/{{classes.id}}/enrolAll" method="POST">
-      <button class="ui blue submit button"> Enroll all sessions </button>
+      <button class="ui blue submit button"><i class="checkmark box icon"></i> Enroll all sessions </button>
     </form>
 
     <a href="/classes/{{classes.id}}/unEnrolAll">
-      <button class="ui red submit button"> Unenroll all sessions </button>
+      <button class="ui red submit button"><i class="square outline icon"></i> Un-enroll all sessions </button>
     </a>
   </section>
   {{/if}}
@@ -28,71 +28,22 @@
   {{#each classes.sessions}}
     <div class="ui link card">
       <section class="content">
-        <div class="header">{{dateTime}}</div>
-        <div class="meta">Location: {{location}}</div>
-        <div class="meta">Capacity: {{capacity}}</div>
-        <div class="meta">Availability: {{availability}} Spaces</div>
-      </section>
-      <section class="center aligned content">
-        {{#if ../isTrainer}}
-          <div class="ui teal buttons">
-            <div class="ui button">Options</div>
-            <div class="ui floating dropdown icon button">
-              <i class="dropdown icon"></i>
-              <div class="menu">
-                <div class="item" data-modal="{{id}}"><i class=" blue edit icon"></i> Edit Details</div>
-                <section class="ui modal" id="{{id}}"> <i class="close icon"></i>
-                  <header class="header">{{../classes.name}}</header>
-                  <div class="content">
-                    <form class="ui segment form" action="/classes/{{../classes.id}}/updateSession/{{id}}" method="POST">
-                      <section class="three fields">
-                        <section class="field">
-                          <label>Location</label>
-                          <div class="ui input left icon">
-                            <i class="location arrow icon"></i>
-                            <input placeholder="Location" type="text" name="location" value="{{location}}">
-                          </div>
-                        </section>
-                        <section class="field calender" id="{{id}}">
-                          <label>Date/time</label>
-                          <div class="ui input left icon">
-                            <i class="calendar icon"></i>
-                            <input placeholder="Date/Time" type="text" name="dateTime" value="{{dateTime}}">
-                          </div>
-                        </section>
-                        <section class="field">
-                          <label>Capacity</label>
-                          <div class="ui input left icon">
-                            <i class="users icon"></i>
-                            <input placeholder="Capacity" type="text" name="capacity" value="{{capacity}}">
-                          </div>
-                        </section>
-                      </section>
-                      <button class="ui blue submit button"> Edit Session </button>
-                    </form>
-                  </div>
-                </section>
-
-                <a class="item" href="/classes/{{../classes.id}}/deletesession/{{id}}" >
-                  <i class="red delete icon"></i> Delete Session
-                </a>
-              </div>
-            </div>
-          </div>
-        {{else}}
-          <section class="ui one column basic grid container">
-            {{#if (checkEnrolled ../classes.id id ../userId) }}
-              <a class="column" href="/classes/{{../classes.id}}/unEnroll/{{id}}">
-                <button class="ui red submit button"> Unenroll </button>
-              </a>
-            {{else}}
-              <form class="column" action="/classes/{{../classes.id}}/enroll/{{id}}" method="POST">
-                <button class="ui blue submit button"> Enroll </button>
-              </form>
-            {{/if}}
+        <div class="center aligned header">{{dateTime}}</div>
+        <section class="ui two column grid">
+          <section class="column">
+            <div class="meta row">Location:</div>
+            <div class="meta row">Capacity:</div>
+            <div class="meta row">Availability:</div>
           </section>
-        {{/if}}
+          <section class="column">
+            <div class="meta row">{{location}}</div>
+            <div class="meta row">{{capacity}}</div>
+            <div class="meta row">{{availability}} Spaces</div>
+          </section>
+        </section>
       </section>
+
+      {{> editSessionsOptions isTrainer=../isTrainer classes=../classes}}
     </div>
   {{/each}}
   </div>

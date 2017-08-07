@@ -1,0 +1,52 @@
+<table class="ui celled table">
+  <thead>
+  <tr>
+    <th> Date </th>
+    {{#if isTrainer}}
+      <th> Member </th>
+    {{/if}}
+    <th> Trainer </th>
+    <th> Status </th>
+    <th> Comment </th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  {{#each bookings}}
+    <tr>
+      <td> {{dateTime}} </td>
+      {{#if  ../isTrainer}}
+        <td> {{userName}}   </td>
+      {{/if}}
+      <td> {{trainerName}} </td>
+      <td> {{status}} </td>
+      <td> {{comment}} </td>
+      <td>
+        <section class="center aligned content">
+          <div class="ui teal buttons">
+            <div class="ui button"><i class="white options icon"></i>Options</div>
+            <div class="ui floating dropdown icon button">
+              <i class="dropdown icon"></i>
+              <div class="menu">
+                <div class="item" data-modal="{{id}}"><i class=" blue edit icon"></i> Edit Details</div>
+                {{> updateBooking allTrainers=../allTrainers isTrainer=../isTrainer}}
+
+                {{#if ../isTrainer}}
+                  <section class="item" data-modal="addAssessment{{id}}">
+                    <i class="blue plus icon"></i> Add Assessment
+                  </section>
+                  {{> addAssessment}}
+                {{/if}}
+
+                <a class="item" href="/bookings/delete/{{id}}" >
+                  <i class="red delete icon"></i> Delete Booking
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+      </td>
+    </tr>
+  {{/each}}
+  </tbody>
+</table>

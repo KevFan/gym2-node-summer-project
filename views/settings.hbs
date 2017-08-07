@@ -23,13 +23,13 @@
         <section class="content">
           <section class="ui two column grid">
             <div class="column">
-              <div class="row">Name:</div>
-              <div class="row">Email: </div>
-              <div class="row">Password: </div>
-              <div class="row">Address: </div>
-              <div class="row">Gender: </div>
-              <div class="row">Height: </div>
-              <div class="row">Starting Weight: </div>
+              <div class="row"><i class="user icon"></i>Name:</div>
+              <div class="row"><i class="mail icon"></i>Email: </div>
+              <div class="row"><i class="lock icon"></i>Password: </div>
+              <div class="row"><i class="home icon"></i>Address: </div>
+              <div class="row"><i class="genderless icon"></i>Gender: </div>
+              <div class="row"><i class="resize vertical icon"></i>Height: </div>
+              <div class="row"><i class="law icon"></i>Starting Weight: </div>
             </div>
             <div class="column">
               <div class="row">{{user.name}}</div>
@@ -50,11 +50,15 @@
         <div class="two fields">
           <div class="field">
             <label>Name</label>
-            <input placeholder="Name" type="text" name="name" value="{{user.name}}">
+            <div class="ui input left icon">
+              <i class="user icon"></i>
+              <input placeholder="Name" type="text" name="name" value="{{user.name}}">
+            </div>
           </div>
           <div class="field">
             <label>Gender</label>
             <div class="ui selection dropdown">
+              <i class="genderless icon"></i>
               <input type="hidden" name="gender" value="{{user.gender}}">
               <i class="dropdown icon"></i>
               <div class="default text">Gender</div>
@@ -67,27 +71,42 @@
         </div>
         <div class="field">
           <label>Email</label>
-          <input placeholder="Email" type="text" name="email" value="{{user.email}}">
+          <div class="ui input left icon">
+            <i class="mail icon"></i>
+            <input placeholder="Email" type="text" name="email" value="{{user.email}}">
+          </div>
         </div>
         <div class="field">
           <label>Password</label>
-          <input placeholder="Password" type="password" name="password" value="{{user.password}}">
+          <div class="ui input left icon">
+            <i class="lock icon"></i>
+            <input placeholder="Password" type="password" name="password" value="{{user.password}}">
+          </div>
         </div>
         <div class="field">
           <label>Address</label>
-          <input placeholder="Address" type="text" name="address" value="{{user.address}}">
+          <div class="ui input left icon">
+            <i class="home icon"></i>
+            <input placeholder="Address" type="text" name="address" value="{{user.address}}">
+          </div>
         </div>
         <div class="two fields">
           <div class="field">
             <label>Height</label>
-            <input placeholder="Height" type="text" name="height" value="{{user.height}}">
+            <div class="ui input left icon">
+              <i class="resize vertical icon"></i>
+              <input placeholder="Height" type="text" name="height" value="{{user.height}}">
+            </div>
           </div>
           <div class="field">
             <label>Starting Weight</label>
-            <input placeholder="Starting Weight" type="text" name="startingweight" value="{{user.startingweight}}">
+            <div class="ui input left icon">
+              <i class="law icon"></i>
+              <input placeholder="Starting Weight" type="text" name="startingweight" value="{{user.startingweight}}">
+            </div>
           </div>
         </div>
-        <button class="ui middle aligned blue submit button">Update</button>
+        <button class="ui middle aligned blue submit button"><i class="white refresh icon"></i> Update</button>
       </form>
     </section>
   </div>

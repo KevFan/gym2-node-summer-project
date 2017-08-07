@@ -19,12 +19,12 @@ const bookings = {
     };
     bookingStore.addBooking(newBooking);
     bookingStore.store.save();
-    response.redirect('/assessments');
+    response.redirect('back');
   },
 
   deleteBooking(request, response) {
     bookingStore.removeBooking(request.params.id);
-    response.redirect('/assessments');
+    response.redirect('back');
   },
 
   updateBooking(request, response) {
@@ -35,7 +35,7 @@ const bookings = {
     booking.comment = request.body.comment;
     booking.status = request.body.status;
     bookingStore.store.save();
-    response.redirect('/assessments');
+    response.redirect('back');
   },
 };
 

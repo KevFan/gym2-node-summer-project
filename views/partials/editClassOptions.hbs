@@ -1,11 +1,10 @@
 <section class="center aligned content">
   <div class="ui teal buttons">
-    <div class="ui button">Options</div>
+    <div class="ui button"><i class="options icon"></i>Options</div>
     <div class="ui floating dropdown icon button">
       <i class="dropdown icon"></i>
       <div class="menu">
-
-        <div class="item" data-modal="{{id}}"><i class=" blue edit icon"></i> Edit Details</div>
+        <div class="item" data-modal="{{id}}"><i class="blue edit icon"></i> Edit Details</div>
         <!--https://gist.github.com/marcosfreitas/53a6c6a891aa5441d938-->
         <!--http://jsfiddle.net/efp8z6Ln/158/-->
         <section class="ui modal" id="{{id}}"> <i class="close icon"></i>
@@ -15,12 +14,16 @@
               <div class="three fields">
                 <section class="field">
                   <label>Class Name</label>
-                  <input placeholder="Class Name" type="text" name="name" value="{{name}}">
+                  <div class="ui input left icon">
+                    <i class="table icon"></i>
+                    <input placeholder="Class Name" type="text" name="name" value="{{name}}">
+                  </div>
                 </section>
                 <section class="field">
                   <label>Difficulty</label>
                   <div class="ui selection dropdown">
                     <input type="hidden" name="difficulty" value="{{difficulty}}">
+                    <i class="line chart icon"></i>
                     <i class="dropdown icon"></i>
                     <div class="default text">Difficulty</div>
                     <div class="menu">
@@ -32,7 +35,10 @@
                 </section>
                 <section class="field">
                   <label>Duration</label>
-                  <input placeholder="Duration (mins)" type="text" name="duration" value="{{duration}}">
+                  <div class="ui input left icon">
+                    <i class="hourglass half icon"></i>
+                    <input placeholder="Duration (mins)" type="text" name="duration" value="{{duration}}">
+                  </div>
                 </section>
               </div>
               <section class="field">
@@ -41,9 +47,12 @@
               </section>
               <section class="field">
                 <label>Image Url</label>
-                <input placeholder="Image Url" type="text" name="image" value="{{image}}">
+                <div class="ui input left icon">
+                  <i class="image icon"></i>
+                  <input placeholder="Image Url" type="text" name="image" value="{{image}}">
+                </div>
               </section>
-              <button class="ui blue submit button"> Edit Class </button>
+              <button class="ui blue submit button"><i class="save icon"></i> Edit Class </button>
             </form>
           </div>
         </section>
