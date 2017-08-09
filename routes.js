@@ -14,6 +14,7 @@ const bookings = require('./controllers/bookings.js');
 const search = require('./controllers/search.js');
 const goals = require('./controllers/goals.js');
 const handleBarHelpers = require('./controllers/handlebarHelpers.js');
+const fitness = require('./controllers/fitness.js');
 
 // Accounts
 router.get('/', accounts.index);
@@ -69,5 +70,8 @@ router.post('/search/member', search.searchMember);
 // Goals
 router.post('/goals/addgoal/:id', goals.addGoal);
 router.get('/goals/deleteGoal/:userid/:id', goals.deleteGoal);
+
+// Fitness Programmes
+router.get('/fitness', fitness.index);
 
 module.exports = router;
