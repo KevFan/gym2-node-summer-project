@@ -56,6 +56,18 @@ const fitness = {
     fitnessStore.store.save();
     response.redirect('/fitness/');
   },
+
+  listRoutineExercises(request, response) {
+    const isTrainer = accounts.userIsTrainer(request);
+    const routineId = request.params.id;
+    logger.info('Routine id: ' + routineId);
+    const viewData = {
+      title: 'Fitness Routine',
+      routine: fitnessStore.getProgrammeById(routineId),
+      isTrainer: isTrainer,
+    };
+    response.render('fitnessExercises', viewData);
+  },
 };
 
 module.exports = fitness;

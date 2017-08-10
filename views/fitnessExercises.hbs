@@ -1,0 +1,18 @@
+{{> trainermenu id="fitness"}}
+
+<section class="ui center aligned basic segment">
+  <a class="ui blue submit button item" data-modal="addExercise">
+    <i class="white plus icon"></i> New Exercise
+  </a>
+</section>
+
+<section class="ui middle aligned center aligned stackable grid segment">
+  <section class="two column row">
+    <div class="four wide column">
+      <img class="ui middle aligned circular small image" {{#if routine.image}} src="{{routine.image}}" {{else}} src="http://res.cloudinary.com/dv6skh7wa/image/upload/v1502356582/Node%20Gym/routine.png" {{/if}}>
+    </div>
+    <div class="twelve wide column">
+      {{routine.description}}
+    </div>
+  </section>
+</section>
