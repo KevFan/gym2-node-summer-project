@@ -16,8 +16,11 @@ const dashboard = {
   index(request, response) {
     logger.info('dashboard rendering');
     const loggedInUser = accounts.getCurrentUser(request);
-    sort.sortDateTimeNewToOld(goalStore.getGoalList(loggedInUser.id).goals);
-    goalHelpers.setGoalStatusChecks(loggedInUser.id);
+    if (goalStore.getGoalList(loggedInUser.id)) {
+      sort.sortDateTimeNewToOld(goalStore.getGoalList(loggedInUser.id).goals);
+      goalHelpers.setGoalStatusChecks(loggedInUser.id);
+    }
+
     const viewData = {
       title: 'Member Assessments',
       bookings: sort.sortDateTimeNewToOld(bookingStore.getAllUserBookings(loggedInUser.id)),

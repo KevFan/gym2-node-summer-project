@@ -76,8 +76,11 @@ const dashboard = {
   viewSpecificMember(request, response) {
     const userId = request.params.id;
     logger.info('id is ' + userId);
-    sort.sortDateTimeNewToOld(goalStore.getGoalList(userId).goals);
-    goalHelpers.setGoalStatusChecks(userId);
+    if (goalStore.getGoalList(userId)) {
+      sort.sortDateTimeNewToOld(goalStore.getGoalList(userId).goals);
+      goalHelpers.setGoalStatusChecks(userId);
+    }
+
     const viewData = {
       title: 'Trainer Dashboard',
       user: members.getMemberById(userId),
