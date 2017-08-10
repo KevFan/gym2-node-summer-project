@@ -1,0 +1,39 @@
+<section class="ui modal" id="{{id}}"> <i class="close icon"></i>
+  <header class="header">{{name}}</header>
+  <form class="ui segment form" action="/fitness/{{routine.id}}/updateExercise/{{id}}" method="POST">
+    <section class="two fields">
+      <section class="field">
+        <label>Name</label>
+        <div class="ui input left icon">
+          <i class="table icon"></i>
+          <input placeholder="Name" type="text" name="name" value="{{name}}">
+        </div>
+      </section>
+      <section class="field">
+        <label>Reps</label>
+        <div class="ui input left icon">
+          <i class="hashtag icon"></i>
+          <input placeholder="Reps" type="text" name="reps" value="{{reps}}">
+        </div>
+      </section>
+    </section>
+    <section class="two fields">
+      <section class="field">
+        <label>Sets</label>
+        <div class="ui input left icon">
+          <i class="hashtag icon"></i>
+          <input placeholder="Sets" type="text" name="sets" value="{{sets}}">
+        </div>
+      </section>
+      <section class="field">
+        <label>Rest</label>
+        <div class="ui input left icon">
+          <i class="hourglass half icon"></i>
+          <input placeholder="Rest" type="text" name="rest" value="{{rest}}">
+        </div>
+      </section>
+    </section>
+
+    <button class="ui blue submit button"><i class="save icon"></i> Edit Exercise </button>
+  </form>
+</section>

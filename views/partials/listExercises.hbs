@@ -22,6 +22,8 @@
             <div class="ui floating dropdown icon button">
               <i class="dropdown icon"></i>
               <div class="menu">
+                <div class="item" data-modal="{{id}}"><i class=" blue edit icon"></i> Edit Details</div>
+                {{> updateExercise routine=../routine}}
                 <a class="item" href="/fitness/{{../routine.id}}/deleteExercise/{{id}}" >
                   <i class="red delete icon"></i> Delete Exercise
                 </a>

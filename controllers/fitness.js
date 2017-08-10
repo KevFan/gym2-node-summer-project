@@ -91,6 +91,18 @@ const fitness = {
     fitnessStore.removeExercise(routineId, exerciseId);
     response.redirect('/fitness/' + routineId);
   },
+
+  updateExercise(request, response) {
+    const routineId = request.params.id;
+    const exerciseId = request.params.exerciseid;
+    let exercise = fitnessStore.getExerciseFromRoutine(routineId, exerciseId);
+    exercise.name = request.body.name;
+    exercise.sets = Number(request.body.sets);
+    exercise.reps = Number(request.body.reps);
+    exercise.rest = Number(request.body.rest);
+    fitnessStore.store.save();
+    response.redirect('/fitness/' + routineId);
+  },
 };
 
 module.exports = fitness;

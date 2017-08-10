@@ -40,6 +40,18 @@ const fitnessStore = {
     _.remove(exercises, { id: exerciseId });
     this.store.save();
   },
+
+  getExerciseFromRoutine(id, exerciseId) {
+    const routine = this.getProgrammeById(id);
+    let specificExercise = null;
+    routine.exercises.forEach(function (exercise) {
+      if (exercise.id === exerciseId) {
+        specificExercise = exercise;
+      }
+    });
+
+    return specificExercise;
+  },
 };
 
 module.exports = fitnessStore;
