@@ -40,6 +40,12 @@ const fitness = {
     logger.debug('New Routine = ', newProgramme);
     response.redirect('back');
   },
+
+  deleteRoutine(request, response) {
+    logger.debug(`Deleting Class ${request.params.id}`);
+    fitnessStore.removeProgramme(request.params.id);
+    response.redirect('/fitness');
+  },
 };
 
 module.exports = fitness;
