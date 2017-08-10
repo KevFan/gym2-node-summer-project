@@ -75,5 +75,6 @@ router.get('/goals/deleteGoal/:userid/:id', goals.deleteGoal);
 router.get('/fitness', fitness.index);
 router.post('/fitness/addroutine', fitness.addRoutine);
 router.get('/fitness/delete/:id', fitness.deleteRoutine);
+router.post('/fitness/update/:id', fitness.updateRoutine);
 
 module.exports = router;

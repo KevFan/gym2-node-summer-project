@@ -46,6 +46,16 @@ const fitness = {
     fitnessStore.removeProgramme(request.params.id);
     response.redirect('/fitness');
   },
+
+  updateRoutine(request, response) {
+    let routine = fitnessStore.getProgrammeById(request.params.id);
+    routine.name = request.body.name;
+    routine.description = request.body.description;
+    routine.image = request.body.image;
+    logger.info('Routine id to be edited is ' + request.params.id);
+    fitnessStore.store.save();
+    response.redirect('/fitness/');
+  },
 };
 
 module.exports = fitness;
