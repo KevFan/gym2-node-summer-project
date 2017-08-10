@@ -1,3 +1,10 @@
 {
-  "fitnessProgrammes": []
+  "fitnessProgrammes": [
+    {
+      "id": "8ee31fa6-6cf5-43db-8d89-20512e71f602",
+      "name": " Body Weight Circuit",
+      "image": "http://www.free-icons-download.net/images/human64-80980.png",
+      "description": "Bodyweight exercises are strength training exercises that do not require free weights or machines as the individual's own weight provides resistance against gravity. It is recognised that bodyweight exercises can enhance a range of biomotor abilities including strength, power, endurance, speed, flexibility, coordination and balance."
+    }
+  ]
 }

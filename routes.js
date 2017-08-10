@@ -73,5 +73,6 @@ router.get('/goals/deleteGoal/:userid/:id', goals.deleteGoal);
 
 // Fitness Programmes
 router.get('/fitness', fitness.index);
+router.post('/fitness/addroutine', fitness.addRoutine);
 
 module.exports = router;

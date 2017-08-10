@@ -1,7 +1,9 @@
 'use strict';
 
 const logger = require('../utils/logger');
+const uuid = require('uuid');
 const accounts = require('./accounts');
+const fitnessStore = require('../models/fitness-store');
 
 const fitness = {
   index(request, response) {
@@ -13,6 +15,7 @@ const fitness = {
         title: 'Trainer Fitness Programmes',
         user: user,
         isTrainer: isTrainer,
+        routines: fitnessStore.getAllProgrammes(),
       };
       response.render('fitness', viewData);
       logger.info('trainer fitness programmes rendering');
@@ -24,6 +27,18 @@ const fitness = {
       response.render('fitness', viewData);
       logger.info('member fitness programmes rendering');
     }
+  },
+
+  addRoutine(request, response) {
+    const newProgramme = {
+      id: uuid(),
+      name: request.body.name,
+      image: request.body.image,
+      description: request.body.description,
+    };
+    fitnessStore.addProgramme(newProgramme);
+    logger.debug('New Routine = ', newProgramme);
+    response.redirect('back');
   },
 };
 
