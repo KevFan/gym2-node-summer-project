@@ -33,6 +33,13 @@ const fitnessStore = {
     routine.exercises.push(exercise);
     this.store.save();
   },
+
+  removeExercise(id, exerciseId) {
+    const routine = this.getProgrammeById(id);
+    const exercises = routine.exercises;
+    _.remove(exercises, { id: exerciseId });
+    this.store.save();
+  },
 };
 
 module.exports = fitnessStore;

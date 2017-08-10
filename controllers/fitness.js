@@ -83,6 +83,14 @@ const fitness = {
     fitnessStore.addExercise(routineId, newExercise);
     response.redirect('/fitness/' + routineId);
   },
+
+  deleteExerecise(request, response) {
+    const routineId = request.params.id;
+    const exerciseId = request.params.exerciseid;
+    logger.debug(`Deleting Excercise ${exerciseId} from Routine ${routineId}`);
+    fitnessStore.removeExercise(routineId, exerciseId);
+    response.redirect('/fitness/' + routineId);
+  },
 };
 
 module.exports = fitness;
