@@ -4,7 +4,16 @@
       "id": "8ee31fa6-6cf5-43db-8d89-20512e71f602",
       "name": " Body Weight Circuit",
       "image": "http://www.free-icons-download.net/images/human64-80980.png",
-      "description": "Bodyweight exercises are strength training exercises that do not require free weights or machines as the individual's own weight provides resistance against gravity. It is recognised that bodyweight exercises can enhance a range of biomotor abilities including strength, power, endurance, speed, flexibility, coordination and balance."
+      "description": "Bodyweight exercises are strength training exercises that do not require free weights or machines as the individual's own weight provides resistance against gravity. It is recognised that bodyweight exercises can enhance a range of biomotor abilities including strength, power, endurance, speed, flexibility, coordination and balance.",
+      "exercises": [
+        {
+          "id": "092ae8db-d71d-4a3a-880e-a0e21534f647",
+          "name": "Push Ups",
+          "reps": 3,
+          "sets": 12,
+          "rest": 30
+        }
+      ]
     }
   ]
 }

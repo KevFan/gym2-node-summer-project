@@ -35,6 +35,7 @@ const fitness = {
       name: request.body.name,
       image: request.body.image,
       description: request.body.description,
+      exercises: [],
     };
     fitnessStore.addProgramme(newProgramme);
     logger.debug('New Routine = ', newProgramme);
@@ -67,6 +68,20 @@ const fitness = {
       isTrainer: isTrainer,
     };
     response.render('fitnessExercises', viewData);
+  },
+
+  addExercise(request, response) {
+    const routineId = request.params.id;
+    const newExercise = {
+      id: uuid(),
+      name: request.body.name,
+      reps: Number(request.body.reps),
+      sets: Number(request.body.sets),
+      rest: Number(request.body.rest),
+    };
+    logger.debug('New exercise', newExercise);
+    fitnessStore.addExercise(routineId, newExercise);
+    response.redirect('/fitness/' + routineId);
   },
 };
 

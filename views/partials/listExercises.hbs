@@ -1,0 +1,33 @@
+<table class="ui celled table">
+  <thead>
+  <tr>
+    <th> Name </th>
+    <th> Reps </th>
+    <th> Sets </th>
+    <th> Rest </th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  {{#each routine.exercises}}
+    <tr>
+      <td> {{name}} </td>
+      <td> {{reps}} </td>
+      <td> {{sets}} </td>
+      <td> {{rest}} sec</td>
+      <td>
+        <section class="center aligned content">
+          <div class="ui teal buttons">
+            <div class="ui button"><i class="white options icon"></i>Options</div>
+            <div class="ui floating dropdown icon button">
+              <i class="dropdown icon"></i>
+              <div class="menu">
+              </div>
+            </div>
+          </div>
+        </section>
+      </td>
+    </tr>
+  {{/each}}
+  </tbody>
+</table>

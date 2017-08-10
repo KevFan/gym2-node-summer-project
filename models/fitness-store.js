@@ -27,6 +27,12 @@ const fitnessStore = {
     this.store.remove(this.collection, programme);
     this.store.save();
   },
+
+  addExercise(id, exercise) {
+    const routine = this.getProgrammeById(id);
+    routine.exercises.push(exercise);
+    this.store.save();
+  },
 };
 
 module.exports = fitnessStore;
