@@ -44,6 +44,38 @@
     <section class="ui center aligned segment">You have no goals</section>
   {{/if}}
 </div>
+
+<div class="ui segment container">
+  <div class="ui grey ribbon label">Fitness Programme</div>
+  {{#if isTrainer}}
+    <a class="ui label item" data-modal="addFitnessProgramme">
+      <i class="blue plus icon"></i> Add Fitness Programme
+      {{> addFitnessProgramme}}
+    </a>
+  {{/if}}
+  {{#if user.program}}
+    <div class="ui relaxed divided list">
+      {{#each user.program}}
+        <div class="item">
+          <img class="ui avatar image" {{#if image}} src="{{image}}" {{else}} src="http://s3.amazonaws.com/wpd-assets/ymcanewyork/uploads/sub-class-thumbs/family-yoga-pilates-icon.png" {{/if}}>
+          <div class="content">
+            <div class="header">
+              {{#if type}}
+                <a href="/{{type}}/{{id}}"> {{name}} </a>
+              {{else}}
+                <a href="/routine/{{../user.id}}/{{id}}">{{name}}</a>
+              {{/if}}
+            </div>
+          </div>
+        </div>
+      {{/each}}
+    </div>
+  {{else}}
+    <section class="ui center aligned segment">
+      You don't have a fitness programme. Book an assessment with a trainer to build a programme geared for you !!
+    </section>
+  {{/if}}
+</div>
 {{> addBooking}}
 
 {{> addGoal}}

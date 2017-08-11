@@ -10,6 +10,7 @@ const analytics = require('../utils/analytics');
 const assessmentStore = require('../models/assessment-store');
 const bookingStore = require('../models/booking-store');
 const goalStore = require('../models/goal-store');
+const fitnessStore = require('../models/fitness-store');
 const sort = require('../utils/sort');
 const goalHelpers = require('../utils/goalHelpers');
 
@@ -90,9 +91,45 @@ const dashboard = {
       stats: analytics.generateMemberStats(members.getMemberById(userId)),
       goals: goalStore.getGoalList(userId),
       bookings: sort.sortDateTimeOldToNew(bookingStore.getAllUserBookings(userId)),
+      allClasses: classStore.getAllNonHiddenClasses(),
+      allRoutines: fitnessStore.getAllProgrammes(),
     };
     response.render('dashboard', viewData);
   },
+
+  buildFitnessProgramme(request, response) {
+    const userId = request.params.id;
+    const member = members.getMemberById(userId);
+    logger.info('The member found is ', member);
+    const program = [];
+    program.push(getClassOrRoutine(request.body.first));
+    program.push(getClassOrRoutine(request.body.second));
+    program.push(getClassOrRoutine(request.body.third));
+    program.push(getClassOrRoutine(request.body.fourth));
+    program.push(getClassOrRoutine(request.body.fifth));
+    member.program = program;
+    members.store.save();
+    response.redirect('/trainerDashboard/members/' + userId);
+  },
+};
+
+const getClassOrRoutine = function (id) {
+  const classFound = classStore.getClassById(id);
+  const routineFound = fitnessStore.getProgrammeById(id);
+  if (classFound) {
+    logger.info('The class found is ', classFound);
+    return {
+      id: classFound.id,
+      image: classFound.image,
+      name: classFound.name,
+      type: 'classes',
+    };
+  } else if (routineFound) {
+    logger.info('The routine found is ', routineFound);
+    return routineFound;
+  } else {
+    logger.info('No class or routine found');
+  }
 };
 
 module.exports = dashboard;

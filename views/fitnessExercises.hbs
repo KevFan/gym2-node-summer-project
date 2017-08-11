@@ -1,11 +1,15 @@
-{{> trainermenu id="fitness"}}
+{{#if isTrainer}}
+  {{> trainermenu id="fitness"}}
 
-<section class="ui center aligned basic segment">
-  <a class="ui blue submit button item" data-modal="addExercise">
-    <i class="white plus icon"></i> New Exercise
-  </a>
-</section>
-
+  <section class="ui center aligned basic segment">
+    <a class="ui blue submit button item" data-modal="addExercise">
+      <i class="white plus icon"></i> New Exercise
+    </a>
+  </section>
+  {{> addExercise}}
+{{else}}
+  {{> menu id="dashboard"}}
+{{/if}}
 <section class="ui middle aligned center aligned stackable grid segment">
   <section class="two column row">
     <div class="four wide column">
@@ -18,4 +22,4 @@
 </section>
 
 {{> listExercises}}
-{{> addExercise}}
+

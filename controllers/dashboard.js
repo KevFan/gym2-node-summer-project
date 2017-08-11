@@ -5,6 +5,7 @@ const logger = require('../utils/logger');
 const accounts = require('./accounts.js');
 const classStore = require('../models/class-store.js');
 const trainers = require('../models/trainer-store');
+const members = require('../models/member-store');
 const analytics = require('../utils/analytics');
 const assessmentStore = require('../models/assessment-store');
 const bookingStore = require('../models/booking-store');
@@ -87,6 +88,28 @@ const dashboard = {
     message.push(unEnrollChecksHelper(specificSession, loggedInUserId));
 
     saveAndRedirectHelper(classId, response, message, loggedInUserId);
+  },
+
+  viewPersonalRoutine(request, response) {
+    const routineId = request.params.id;
+    const userId = request.params.userid;
+    const isTrainer = accounts.userIsTrainer(request);
+    let user = members.getMemberById(userId);
+    let routine = null;
+    user.program.forEach(function (program) {
+      if (program.id === routineId) {
+        routine = program;
+      }
+    });
+    logger.info('The routine is ', routine);
+    logger.info('trainer? ' + isTrainer);
+    const viewData = {
+      title: 'Fitness Routine',
+      routine: routine,
+      isTrainer: isTrainer,
+    };
+
+    response.render('fitnessExercises', viewData);
   },
 };
 

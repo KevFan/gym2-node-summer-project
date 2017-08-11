@@ -5,7 +5,9 @@
     <th> Reps </th>
     <th> Sets </th>
     <th> Rest </th>
-    <th></th>
+    {{#if isTrainer}}
+      <th></th>
+    {{/if}}
   </tr>
   </thead>
   <tbody>
@@ -15,23 +17,25 @@
       <td> {{reps}} </td>
       <td> {{sets}} </td>
       <td> {{rest}} sec</td>
-      <td>
-        <section class="center aligned content">
-          <div class="ui teal buttons">
-            <div class="ui button"><i class="white options icon"></i>Options</div>
-            <div class="ui floating dropdown icon button">
-              <i class="dropdown icon"></i>
-              <div class="menu">
-                <div class="item" data-modal="{{id}}"><i class=" blue edit icon"></i> Edit Details</div>
-                {{> updateExercise routine=../routine}}
-                <a class="item" href="/fitness/{{../routine.id}}/deleteExercise/{{id}}" >
-                  <i class="red delete icon"></i> Delete Exercise
-                </a>
+      {{#if ../isTrainer}}
+        <td>
+          <section class="center aligned content">
+            <div class="ui teal buttons">
+              <div class="ui button"><i class="white options icon"></i>Options</div>
+              <div class="ui floating dropdown icon button">
+                <i class="dropdown icon"></i>
+                <div class="menu">
+                  <div class="item" data-modal="{{id}}"><i class=" blue edit icon"></i> Edit Details</div>
+                  {{> updateExercise routine=../routine}}
+                  <a class="item" href="/fitness/{{../routine.id}}/deleteExercise/{{id}}" >
+                    <i class="red delete icon"></i> Delete Exercise
+                  </a>
+                </div>
               </div>
             </div>
-          </div>
-        </section>
-      </td>
+          </section>
+        </td>
+      {{/if}}
     </tr>
   {{/each}}
   </tbody>
