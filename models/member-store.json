@@ -40,6 +40,13 @@
               "reps": 3,
               "sets": 12,
               "rest": 30
+            },
+            {
+              "id": "694d0559-e5f4-4e46-ad80-d8a58c954dd4",
+              "name": "test",
+              "reps": 0,
+              "sets": 0,
+              "rest": 0
             }
           ]
         },

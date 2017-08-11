@@ -4,6 +4,7 @@ const logger = require('../utils/logger');
 const uuid = require('uuid');
 const accounts = require('./accounts');
 const fitnessStore = require('../models/fitness-store');
+const membersStore = require('../models/member-store');
 
 const fitness = {
   index(request, response) {
@@ -66,12 +67,14 @@ const fitness = {
       title: 'Fitness Routine',
       routine: fitnessStore.getProgrammeById(routineId),
       isTrainer: isTrainer,
+      userId: accounts.getCurrentUser(request).id,
     };
     response.render('fitnessExercises', viewData);
   },
 
   addExercise(request, response) {
     const routineId = request.params.id;
+    const userId = request.params.userid;
     const newExercise = {
       id: uuid(),
       name: request.body.name,
@@ -80,8 +83,23 @@ const fitness = {
       rest: Number(request.body.rest),
     };
     logger.debug('New exercise', newExercise);
-    fitnessStore.addExercise(routineId, newExercise);
-    response.redirect('/fitness/' + routineId);
+    if (membersStore.getMemberById(userId)) {
+      let user = membersStore.getMemberById(userId);
+      let routine = null;
+      user.program.forEach(function (program) {
+        if (program.id === routineId) {
+          routine = program;
+        }
+      });
+
+      routine.exercises.push(newExercise);
+      membersStore.store.save();
+      response.redirect('back');
+    } else {
+      fitnessStore.addExercise(routineId, newExercise);
+      response.redirect('/fitness/' + routineId);
+    }
+
   },
 
   deleteExerecise(request, response) {

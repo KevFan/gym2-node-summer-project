@@ -1,7 +1,7 @@
 <section class="ui modal" id="addExercise"> <i class="close icon"></i>
   <header class="header">Add Exercise</header>
   <div class="content">
-    <form class="ui segment form" action="/fitness/{{routine.id}}/addExercise" method="POST">
+    <form class="ui segment form" action="/fitness/{{userId}}/addExercise/{{routine.id}}" method="POST">
       <section class="two fields">
         <section class="field">
           <label>Name</label>

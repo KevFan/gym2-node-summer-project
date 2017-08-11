@@ -101,12 +101,14 @@ const dashboard = {
         routine = program;
       }
     });
+
     logger.info('The routine is ', routine);
     logger.info('trainer? ' + isTrainer);
     const viewData = {
       title: 'Fitness Routine',
       routine: routine,
       isTrainer: isTrainer,
+      userId: userId,
     };
 
     response.render('fitnessExercises', viewData);
