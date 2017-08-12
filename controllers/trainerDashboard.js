@@ -92,6 +92,8 @@ const dashboard = {
       stats: analytics.generateMemberStats(memberStore.getMemberById(userId)),
       goals: goalStore.getGoalList(userId),
       bookings: sort.sortDateTimeOldToNew(bookingStore.getAllUserBookings(userId)),
+      allClasses: classStore.getAllNonHiddenClasses(),
+      allRoutines: fitnessStore.getAllProgrammes(),
     };
     response.render('dashboard', viewData);
   },
