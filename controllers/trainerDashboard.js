@@ -4,8 +4,8 @@ const logger = require('../utils/logger');
 const accounts = require('./accounts.js');
 const classStore = require('../models/class-store.js');
 const uuid = require('uuid');
-const trainers = require('../models/trainer-store');
-const members = require('../models/member-store');
+const trainerStore = require('../models/trainer-store');
+const memberStore = require('../models/member-store');
 const analytics = require('../utils/analytics');
 const assessmentStore = require('../models/assessment-store');
 const bookingStore = require('../models/booking-store');
@@ -23,8 +23,8 @@ const dashboard = {
       user: loggedInUser,
       bookings: sort.sortDateTimeOldToNew(bookingStore.getAllTrainerBookings(loggedInUser.id)),
       isTrainer: accounts.userIsTrainer(request),
-      allTrainers: trainers.getAllTrainers(),
-      allMembers: members.getAllMembers(),
+      allTrainers: trainerStore.getAllTrainers(),
+      allMembers: memberStore.getAllMembers(),
     };
     response.render('trainerDashboard', viewData);
   },
@@ -66,10 +66,10 @@ const dashboard = {
   listAllMembers(request, response) {
     logger.info('trainer member view rendering');
     const viewData = {
-      title: 'Trainer Members',
+      title: 'Trainer memberStore',
       isTrainer: accounts.userIsTrainer(request),
-      allTrainers: trainers.getAllTrainers(),
-      allMembers: members.getAllMembers(),
+      allTrainers: trainerStore.getAllTrainers(),
+      allMembers: memberStore.getAllMembers(),
     };
     response.render('trainerMembers', viewData);
   },
@@ -84,11 +84,11 @@ const dashboard = {
 
     const viewData = {
       title: 'Trainer Dashboard',
-      user: members.getMemberById(userId),
+      user: memberStore.getMemberById(userId),
       isTrainer: accounts.userIsTrainer(request),
-      allTrainers: trainers.getAllTrainers(),
+      allTrainers: trainerStore.getAllTrainers(),
       assessmentlist: assessmentStore.getAssessmentList(userId),
-      stats: analytics.generateMemberStats(members.getMemberById(userId)),
+      stats: analytics.generateMemberStats(memberStore.getMemberById(userId)),
       goals: goalStore.getGoalList(userId),
       bookings: sort.sortDateTimeOldToNew(bookingStore.getAllUserBookings(userId)),
     };
@@ -97,7 +97,7 @@ const dashboard = {
 
   buildFitnessProgramme(request, response) {
     const userId = request.params.id;
-    const member = members.getMemberById(userId);
+    const member = memberStore.getMemberById(userId);
     logger.info('The member found is ', member);
     const program = [];
     program.push(getClassOrRoutine(request.body.first));
@@ -106,8 +106,16 @@ const dashboard = {
     program.push(getClassOrRoutine(request.body.fourth));
     program.push(getClassOrRoutine(request.body.fifth));
     member.program = program;
-    members.store.save();
-    response.redirect('/trainerDashboard/members/' + userId);
+    memberStore.store.save();
+    response.redirect('/trainerDashboard/memberStore/' + userId);
+  },
+
+  deleteFitnessProgramme(request, response) {
+    const userId = request.params.id;
+    const member = memberStore.getMemberById(userId);
+    member.program.length = 0;
+    memberStore.store.save();
+    response.redirect('back');
   },
 };
 

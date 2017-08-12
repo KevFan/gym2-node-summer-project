@@ -52,6 +52,9 @@
       <i class="blue plus icon"></i> Add Fitness Programme
       {{> addFitnessProgramme}}
     </a>
+    <a class="ui label item" href="/trainerDashboard/deleteProgramme/{{user.id}}">
+      <i class="red delete icon"></i> Delete Fitness Programme
+    </a>
   {{/if}}
   {{#if user.program}}
     <div class="ui relaxed divided list">

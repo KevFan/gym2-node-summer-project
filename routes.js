@@ -37,6 +37,7 @@ router.get('/trainerDashboard/classes/hideOrUnhide/:id', trainerDashboard.hideOr
 router.get('/trainerDashboard/members', trainerDashboard.listAllMembers);
 router.get('/trainerDashboard/members/:id', trainerDashboard.viewSpecificMember);
 router.post('/trainerDashboard/buildProgramme/:id', trainerDashboard.buildFitnessProgramme);
+router.get('/trainerDashboard/deleteProgramme/:id', trainerDashboard.deleteFitnessProgramme);
 
 // Classes
 router.get('/classes/', classes.index);
