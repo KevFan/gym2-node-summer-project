@@ -26,7 +26,7 @@
                 <i class="dropdown icon"></i>
                 <div class="menu">
                   <div class="item" data-modal="{{id}}"><i class=" blue edit icon"></i> Edit Details</div>
-                  {{> updateExercise routine=../routine}}
+                  {{> updateExercise routine=../routine userId=../userId}}
                   <a class="item" href="/fitness/{{../userId}}/{{../routine.id}}/deleteExercise/{{id}}" >
                     <i class="red delete icon"></i> Delete Exercise
                   </a>

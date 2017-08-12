@@ -125,13 +125,22 @@ const fitness = {
   updateExercise(request, response) {
     const routineId = request.params.id;
     const exerciseId = request.params.exerciseid;
-    let exercise = fitnessStore.getExerciseFromRoutine(routineId, exerciseId);
+    const userId = request.params.userid;
+    let exercise = null;
+    if (membersStore.getMemberById(userId)) {
+      let user = membersStore.getMemberById(userId);
+      let routine = _.find(user.program, { id: routineId });
+      exercise = _.find(routine.exercises, { id: exerciseId });
+    } else {
+      exercise = fitnessStore.getExerciseFromRoutine(routineId, exerciseId);
+    }
+
     exercise.name = request.body.name;
     exercise.sets = Number(request.body.sets);
     exercise.reps = Number(request.body.reps);
     exercise.rest = Number(request.body.rest);
-    fitnessStore.store.save();
-    response.redirect('/fitness/' + routineId);
+    (membersStore.getMemberById(userId)) ? membersStore.store.save() : fitnessStore.store.save();
+    response.redirect('back');
   },
 };
 

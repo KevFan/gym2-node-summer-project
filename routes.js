@@ -81,6 +81,6 @@ router.post('/fitness/update/:id', fitness.updateRoutine);
 router.get('/fitness/:id', fitness.listRoutineExercises);
 router.post('/fitness/:userid/addExercise/:id', fitness.addExercise);
 router.get('/fitness/:userid/:id/deleteExercise/:exerciseid', fitness.deleteExerecise);
-router.post('/fitness/:id/updateExercise/:exerciseid', fitness.updateExercise);
+router.post('/fitness/:userid/:id/updateExercise/:exerciseid', fitness.updateExercise);
 
 module.exports = router;
