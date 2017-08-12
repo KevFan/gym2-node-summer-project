@@ -13,6 +13,7 @@ const goalStore = require('../models/goal-store');
 const fitnessStore = require('../models/fitness-store');
 const sort = require('../utils/sort');
 const goalHelpers = require('../utils/goalHelpers');
+const _ = require('lodash');
 
 const dashboard = {
   index(request, response) {
@@ -91,6 +92,7 @@ const dashboard = {
       stats: analytics.generateMemberStats(memberStore.getMemberById(userId)),
       goals: goalStore.getGoalList(userId),
       bookings: sort.sortDateTimeOldToNew(bookingStore.getAllUserBookings(userId)),
+      program: memberStore.getMemberById(userId).program,
     };
     response.render('dashboard', viewData);
   },
@@ -114,6 +116,15 @@ const dashboard = {
     const userId = request.params.id;
     const member = memberStore.getMemberById(userId);
     member.program.length = 0;
+    memberStore.store.save();
+    response.redirect('back');
+  },
+
+  deleteFitnessRoutine(request, response) {
+    const userId = request.params.userid;
+    const routineId = request.params.id;
+    const member = memberStore.getMemberById(userId);
+    _.remove(member.program, { id: routineId });
     memberStore.store.save();
     response.redirect('back');
   },

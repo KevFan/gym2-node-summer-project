@@ -38,6 +38,7 @@ router.get('/trainerDashboard/members', trainerDashboard.listAllMembers);
 router.get('/trainerDashboard/members/:id', trainerDashboard.viewSpecificMember);
 router.post('/trainerDashboard/buildProgramme/:id', trainerDashboard.buildFitnessProgramme);
 router.get('/trainerDashboard/deleteProgramme/:id', trainerDashboard.deleteFitnessProgramme);
+router.get('/trainerDashboard/:userid/deleteRoutine/:id', trainerDashboard.deleteFitnessRoutine);
 
 // Classes
 router.get('/classes/', classes.index);
