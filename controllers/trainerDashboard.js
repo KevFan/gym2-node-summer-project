@@ -92,7 +92,6 @@ const dashboard = {
       stats: analytics.generateMemberStats(memberStore.getMemberById(userId)),
       goals: goalStore.getGoalList(userId),
       bookings: sort.sortDateTimeOldToNew(bookingStore.getAllUserBookings(userId)),
-      program: memberStore.getMemberById(userId).program,
     };
     response.render('dashboard', viewData);
   },

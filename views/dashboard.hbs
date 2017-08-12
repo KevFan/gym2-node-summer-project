@@ -56,9 +56,9 @@
       <i class="red delete icon"></i> Delete Fitness Programme
     </a>
   {{/if}}
-  {{#if program}}
+  {{#if user.program}}
     <div class="ui relaxed divided list">
-      {{#each program}}
+      {{#each user.program}}
         <div class="item">
           <img class="ui avatar image" {{#if image}} src="{{image}}" {{else}} src="http://s3.amazonaws.com/wpd-assets/ymcanewyork/uploads/sub-class-thumbs/family-yoga-pilates-icon.png" {{/if}}>
           <div class="content">
