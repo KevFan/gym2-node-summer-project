@@ -5,6 +5,7 @@ const uuid = require('uuid');
 const accounts = require('./accounts');
 const fitnessStore = require('../models/fitness-store');
 const membersStore = require('../models/member-store');
+const _ = require('lodash');
 
 const fitness = {
   index(request, response) {
@@ -85,12 +86,14 @@ const fitness = {
     logger.debug('New exercise', newExercise);
     if (membersStore.getMemberById(userId)) {
       let user = membersStore.getMemberById(userId);
-      let routine = null;
-      user.program.forEach(function (program) {
-        if (program.id === routineId) {
-          routine = program;
-        }
-      });
+      let routine = _.find(user.program, { id: routineId });
+
+      // let routine = null;
+      // user.program.forEach(function (program) {
+      //   if (program.id === routineId) {
+      //     routine = program;
+      //   }
+      // });
 
       routine.exercises.push(newExercise);
       membersStore.store.save();
@@ -105,9 +108,18 @@ const fitness = {
   deleteExerecise(request, response) {
     const routineId = request.params.id;
     const exerciseId = request.params.exerciseid;
+    const userId = request.params.userid;
+    if (membersStore.getMemberById(userId)) {
+      let user = membersStore.getMemberById(userId);
+      let routine = _.find(user.program, { id: routineId });
+      _.remove(routine.exercises, { id: exerciseId });
+      membersStore.store.save();
+    } else {
+      fitnessStore.removeExercise(routineId, exerciseId);
+    }
+
     logger.debug(`Deleting Excercise ${exerciseId} from Routine ${routineId}`);
-    fitnessStore.removeExercise(routineId, exerciseId);
-    response.redirect('/fitness/' + routineId);
+    response.redirect('back');
   },
 
   updateExercise(request, response) {
