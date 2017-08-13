@@ -15,11 +15,22 @@
 
 {{> analytics}}
 
-{{#if assessmentlist.assessments}}
-  {{> assessment-table}}
-{{else}}
-  <section class="ui center aligned segment">You have no assessment. Book an assessment with a trainer to get started !!</section>
-{{/if}}
+<section class="ui segment">
+  <div class="ui red ribbon label">Assessments</div>
+  {{#if isTrainer}}
+    <a class="ui label item" data-modal="updateAssessments">
+      <i class="right floated blue edit icon"></i> Edit Assessments
+    </a>
+    <a class="ui label item" data-modal="addAssessment">
+      <i class="blue plus icon"></i> Add Assessment
+    </a>
+  {{/if}}
+  {{#if assessmentlist.assessments}}
+    {{> assessment-table}}
+  {{else}}
+    <section class="ui center aligned segment">You have no assessment. Book an assessment with a trainer to get started !!</section>
+  {{/if}}
+</section>
 
 <div class="ui segment container">
   <div class="ui green ribbon label">Bookings</div>

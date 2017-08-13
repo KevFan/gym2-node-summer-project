@@ -19,20 +19,7 @@
     },
     {
       "userid": "2b6f0989-7b7f-4a38-ad26-aa06b922d751",
-      "assessments": [
-        {
-          "id": "306840f1-0697-42ca-a2fc-f0e66dc4525f",
-          "date": "Tue, 11 Jul 2017 10:55:23 GMT",
-          "weight": 0,
-          "chest": 0,
-          "thigh": 0,
-          "upperArm": 0,
-          "waist": 0,
-          "hips": 0,
-          "trend": true,
-          "comment": ""
-        }
-      ]
+      "assessments": []
     }
   ]
 }

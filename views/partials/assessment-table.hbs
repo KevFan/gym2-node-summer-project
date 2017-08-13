@@ -1,21 +1,11 @@
-<section class="ui segment">
-  <div class="ui red ribbon label">Assessments</div>
-  {{#if isTrainer}}
-    <a class="ui label item" data-modal="updateAssessments">
-      <i class="right floated blue edit icon"></i> Edit Assessments
-    </a>
-    <a class="ui label item" data-modal="addAssessment">
-      <i class="blue plus icon"></i> Add Assessment
-    </a>
-  {{/if}}
-  <table class="ui celled table">
-    <thead>
+<table class="ui celled table">
+  <thead>
     {{> assessment-header}}
-    </thead>
-    <tbody>
+  </thead>
+  <tbody>
     {{#each assessmentlist.assessments}}
       {{> assessment-row-with-delete userid=../user.id}}
     {{/each}}
-    </tbody>
-  </table>
-</section>
+  </tbody>
+</table>
+

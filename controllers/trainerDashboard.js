@@ -67,7 +67,7 @@ const dashboard = {
   listAllMembers(request, response) {
     logger.info('trainer member view rendering');
     const viewData = {
-      title: 'Trainer memberStore',
+      title: 'Trainer Members',
       isTrainer: accounts.userIsTrainer(request),
       allTrainers: trainerStore.getAllTrainers(),
       allMembers: memberStore.getAllMembers(),
