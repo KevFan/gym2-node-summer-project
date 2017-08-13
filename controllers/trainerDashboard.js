@@ -16,120 +16,135 @@ const goalHelpers = require('../utils/goalHelpers');
 const _ = require('lodash');
 
 const dashboard = {
-  index(request, response) {
-    logger.info('trainer dashboard rendering');
-    const loggedInUser = accounts.getCurrentUser(request);
-    const viewData = {
-      title: 'Trainer Assessments',
-      user: loggedInUser,
-      bookings: sort.sortDateTimeOldToNew(bookingStore.getAllTrainerBookings(loggedInUser.id)),
-      isTrainer: accounts.userIsTrainer(request),
-      allTrainers: trainerStore.getAllTrainers(),
-      allMembers: memberStore.getAllMembers(),
-    };
-    response.render('trainerDashboard', viewData);
-  },
+    index(request, response) {
+      logger.info('trainer dashboard rendering');
+      const loggedInUser = accounts.getCurrentUser(request);
+      const viewData = {
+        title: 'Trainer Assessments',
+        user: loggedInUser,
+        bookings: sort.sortDateTimeOldToNew(bookingStore.getAllTrainerBookings(loggedInUser.id)),
+        isTrainer: accounts.userIsTrainer(request),
+        allTrainers: trainerStore.getAllTrainers(),
+        allMembers: memberStore.getAllMembers(),
+      };
+      response.render('trainerDashboard', viewData);
+    },
 
-  addClass(request, response) {
-    const loggedInUser = accounts.getCurrentUser(request);
-    const newClass = {
-      id: uuid(),
-      userid: loggedInUser.id,
-      name: request.body.name,
-      description: request.body.description,
-      duration: Number(request.body.duration),
-      difficulty: request.body.difficulty,
-      hidden: true,
-      numSessions: 0,
-      sessions: [],
-      image: request.body.image,
-    };
-    logger.debug('Creating a new Class', newClass);
-    classStore.addClass(newClass);
-    response.redirect('/classes');
-  },
+    addClass(request, response) {
+      const loggedInUser = accounts.getCurrentUser(request);
+      const newClass = {
+        id: uuid(),
+        userid: loggedInUser.id,
+        name: request.body.name,
+        description: request.body.description,
+        duration: Number(request.body.duration),
+        difficulty: request.body.difficulty,
+        hidden: true,
+        numSessions: 0,
+        sessions: [],
+        image: request.body.image,
+      };
+      logger.debug('Creating a new Class', newClass);
+      classStore.addClass(newClass);
+      response.redirect('/classes');
+    },
 
-  deleteClass(request, response) {
-    logger.debug(`Deleting Class ${request.params.id}`);
-    classStore.removeClass(request.params.id);
-    response.redirect('/classes');
-  },
+    deleteClass(request, response) {
+      logger.debug(`Deleting Class ${request.params.id}`);
+      classStore.removeClass(request.params.id);
+      response.redirect('/classes');
+    },
 
-  hideOrUnhideClass(request, response) {
-    const classId = request.params.id;
-    let classes = classStore.getClassById(classId);
-    classes.hidden = !classes.hidden;
-    classStore.store.save();
-    logger.info('Setting class: ' + classId + ' Hidden:' + classes.hidden);
-    response.redirect('/classes');
-  },
+    hideOrUnhideClass(request, response) {
+      const classId = request.params.id;
+      let classes = classStore.getClassById(classId);
+      classes.hidden = !classes.hidden;
+      classStore.store.save();
+      logger.info('Setting class: ' + classId + ' Hidden:' + classes.hidden);
+      response.redirect('/classes');
+    },
 
-  listAllMembers(request, response) {
-    logger.info('trainer member view rendering');
-    const viewData = {
-      title: 'Trainer Members',
-      isTrainer: accounts.userIsTrainer(request),
-      allTrainers: trainerStore.getAllTrainers(),
-      allMembers: memberStore.getAllMembers(),
-    };
-    response.render('trainerMembers', viewData);
-  },
+    listAllMembers(request, response) {
+      logger.info('trainer member view rendering');
+      const viewData = {
+        title: 'Trainer Members',
+        isTrainer: accounts.userIsTrainer(request),
+        allTrainers: trainerStore.getAllTrainers(),
+        allMembers: memberStore.getAllMembers(),
+      };
+      response.render('trainerMembers', viewData);
+    },
 
-  viewSpecificMember(request, response) {
-    const userId = request.params.id;
-    logger.info('id is ' + userId);
-    if (goalStore.getGoalList(userId)) {
-      sort.sortDateTimeNewToOld(goalStore.getGoalList(userId).goals);
-      goalHelpers.setGoalStatusChecks(userId);
-    }
+    viewSpecificMember(request, response) {
+      const userId = request.params.id;
+      logger.info('id is ' + userId);
+      if (goalStore.getGoalList(userId)) {
+        sort.sortDateTimeNewToOld(goalStore.getGoalList(userId).goals);
+        goalHelpers.setGoalStatusChecks(userId);
+      }
 
-    const viewData = {
-      title: 'Trainer Dashboard',
-      user: memberStore.getMemberById(userId),
-      isTrainer: accounts.userIsTrainer(request),
-      allTrainers: trainerStore.getAllTrainers(),
-      assessmentlist: assessmentStore.getAssessmentList(userId),
-      stats: analytics.generateMemberStats(memberStore.getMemberById(userId)),
-      goals: goalStore.getGoalList(userId),
-      bookings: sort.sortDateTimeOldToNew(bookingStore.getAllUserBookings(userId)),
-      allClasses: classStore.getAllNonHiddenClasses(),
-      allRoutines: fitnessStore.getAllProgrammes(),
-    };
-    response.render('dashboard', viewData);
-  },
+      const viewData = {
+        title: 'Trainer Dashboard',
+        user: memberStore.getMemberById(userId),
+        isTrainer: accounts.userIsTrainer(request),
+        allTrainers: trainerStore.getAllTrainers(),
+        assessmentlist: assessmentStore.getAssessmentList(userId),
+        stats: analytics.generateMemberStats(memberStore.getMemberById(userId)),
+        goals: goalStore.getGoalList(userId),
+        bookings: sort.sortDateTimeOldToNew(bookingStore.getAllUserBookings(userId)),
+        allClasses: classStore.getAllNonHiddenClasses(),
+        allRoutines: fitnessStore.getAllProgrammes(),
+      };
+      response.render('dashboard', viewData);
+    },
 
-  buildFitnessProgramme(request, response) {
-    const userId = request.params.id;
-    const member = memberStore.getMemberById(userId);
-    logger.info('The member found is ', member);
-    const program = [];
-    program.push(getClassOrRoutine(request.body.first));
-    program.push(getClassOrRoutine(request.body.second));
-    program.push(getClassOrRoutine(request.body.third));
-    program.push(getClassOrRoutine(request.body.fourth));
-    program.push(getClassOrRoutine(request.body.fifth));
-    member.program = program;
-    memberStore.store.save();
-    response.redirect('/trainerDashboard/memberStore/' + userId);
-  },
+    buildFitnessProgramme(request, response) {
+      const userId = request.params.id;
+      const member = memberStore.getMemberById(userId);
+      logger.info('The member found is ', member);
+      const program = [];
+      program.push(getClassOrRoutine(request.body.first));
+      program.push(getClassOrRoutine(request.body.second));
+      program.push(getClassOrRoutine(request.body.third));
+      program.push(getClassOrRoutine(request.body.fourth));
+      program.push(getClassOrRoutine(request.body.fifth));
+      member.program = program;
+      memberStore.store.save();
+      response.redirect('/trainerDashboard/memberStore/' + userId);
+    },
 
-  deleteFitnessProgramme(request, response) {
-    const userId = request.params.id;
-    const member = memberStore.getMemberById(userId);
-    member.program.length = 0;
-    memberStore.store.save();
-    response.redirect('back');
-  },
+    deleteFitnessProgramme(request, response) {
+      const userId = request.params.id;
+      const member = memberStore.getMemberById(userId);
+      member.program.length = 0;
+      memberStore.store.save();
+      response.redirect('back');
+    },
 
-  deleteFitnessRoutine(request, response) {
-    const userId = request.params.userid;
-    const routineId = request.params.id;
-    const member = memberStore.getMemberById(userId);
-    _.remove(member.program, { id: routineId });
-    memberStore.store.save();
-    response.redirect('back');
-  },
-};
+    deleteFitnessRoutine(request, response) {
+      const userId = request.params.userid;
+      const routineId = request.params.id;
+      const member = memberStore.getMemberById(userId);
+      _.remove(member.program, {id: routineId});
+      memberStore.store.save();
+      response.redirect('back');
+    },
+
+    editFitnessRoutine(request, response) {
+      const userId = request.params.userid;
+      const routineId = request.params.id;
+      let routine = _.find(memberStore.getMemberById(userId).program, { id: routineId });
+      routine.name = request.body.name;
+      routine.image = request.body.image;
+      if (routine.description) {
+        routine.description = request.body.description;
+      }
+
+      memberStore.store.save();
+      response.redirect('back');
+    },
+  }
+;
 
 const getClassOrRoutine = function (id) {
   const classFound = classStore.getClassById(id);

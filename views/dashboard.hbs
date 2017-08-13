@@ -76,18 +76,29 @@
             <div class="header">
               {{#if type}}
                 <a href="/{{type}}/{{id}}"> {{name}} </a>
-                <a href="/trainerDashboard/{{../user.id}}/deleteRoutine/{{id}}">
-                  <i class="ui large red icon trash"></i>
-                </a>
+                {{#if ../isTrainer}}
+                  <a href="/trainerDashboard/{{../user.id}}/deleteRoutine/{{id}}">
+                    <i class="ui large red icon trash"></i>
+                  </a>
+                  <a class="ui label item" data-modal="{{id}}">
+                    <i class="right floated blue edit icon"></i> Edit Class
+                  </a>
+                {{/if}}
               {{else}}
                 <a href="/routine/{{../user.id}}/{{id}}">{{name}}</a>
-                <a href="/trainerDashboard/{{../user.id}}/deleteRoutine/{{id}}">
-                  <i class="ui large red icon trash"></i>
-                </a>
+                  {{#if ../isTrainer}}
+                    <a href="/trainerDashboard/{{../user.id}}/deleteRoutine/{{id}}">
+                      <i class="ui large red icon trash"></i>
+                    </a>
+                    <a class="ui label item" data-modal="{{id}}">
+                      <i class="right floated blue edit icon"></i> Edit Routine
+                    </a>
+                  {{/if}}
               {{/if}}
             </div>
           </div>
         </div>
+        {{> updateFitnessProgramme userId=../user.id}}
       {{/each}}
     </div>
   {{else}}

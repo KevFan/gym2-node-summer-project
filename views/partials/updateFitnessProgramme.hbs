@@ -1,0 +1,30 @@
+<section class="ui modal" id="{{id}}"> <i class="close icon"></i>
+  <header class="header">{{name}}</header>
+  <div class="content">
+    <form class="ui segment form" action="/trainerDashboard/{{userId}}/editRoutine/{{id}}" method="POST">
+      <section class="two fields">
+        <section class="field">
+          <label>Name</label>
+          <div class="ui input left icon">
+            <i class="table icon"></i>
+            <input placeholder="Name" type="text" name="name" value="{{name}}">
+          </div>
+        </section>
+        <section class="field">
+          <label>Image</label>
+          <div class="ui input left icon">
+            <i class="table icon"></i>
+            <input placeholder="Image" type="text" name="image" value="{{image}}">
+          </div>
+        </section>
+      </section>
+      {{#if description}}
+        <section class="field">
+          <label>Description</label>
+          <textarea placeholder="Description" name="description" rows="2">{{description}}</textarea>
+        </section>
+      {{/if}}
+      <button class="ui blue submit button"><i class="save icon"></i> Edit Class/Routine </button>
+    </form>
+  </div>
+</section>
