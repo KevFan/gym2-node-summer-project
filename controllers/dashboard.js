@@ -14,6 +14,12 @@ const sort = require('../utils/sort');
 const goalHelpers = require('../utils/goalHelpers');
 
 const dashboard = {
+  /**
+   * Renders the member dashboard view, passing all information needed to correctly render. Goals
+   * are sorted by recent to old and each goal status is set on each request to render the dashboard
+   * @param request to render dashboard view
+   * @param response renders the dashboard view
+   */
   index(request, response) {
     logger.info('dashboard rendering');
     const loggedInUser = accounts.getCurrentUser(request);
@@ -34,6 +40,11 @@ const dashboard = {
     response.render('dashboard', viewData);
   },
 
+  /**
+   * Enrolls the member to all sessions in a class
+   * @param request to enroll the member to all sessions
+   * @param response enrolls the member and displays success/un-success messages
+   */
   enrollAllSessions(request, response) {
     const loggedInUserId = accounts.getCurrentUser(request).id;
     logger.info('User id is' + loggedInUserId);
@@ -51,6 +62,11 @@ const dashboard = {
     logger.info('Message is ' + message);
   },
 
+  /**
+   * Enrolls the member to specific sessions in a class
+   * @param request to enroll the member to a specific session
+   * @param response enrolls the member and displays success/un-success message
+   */
   enrollSpecificSession(request, response) {
     const loggedInUserId = accounts.getCurrentUser(request).id;
     logger.info('User id is' + loggedInUserId);
@@ -65,6 +81,11 @@ const dashboard = {
     saveAndRedirectHelper(classId, response, message, loggedInUserId);
   },
 
+  /**
+   * Un-enrolls the member from all sessions in a class
+   * @param request to un-enroll the member from all sessions
+   * @param response un-enrolls the member and displays success/un-success messages
+   */
   unEnrollAllSession(request, response) {
     const loggedInUserId = accounts.getCurrentUser(request).id;
     let classes = classStore.getClassById(request.params.id);
@@ -76,6 +97,11 @@ const dashboard = {
     saveAndRedirectHelper(classes.id, response, message, loggedInUserId);
   },
 
+  /**
+   * Un-enrolls the member from a specific session in a class
+   * @param request to un-enroll the member from a specific session
+   * @param response un-enrolls the member and displays success/un-success message
+   */
   unEnrollSpecificSession(request, response) {
     const loggedInUserId = accounts.getCurrentUser(request).id;
     logger.info('User id is' + loggedInUserId);
@@ -90,6 +116,11 @@ const dashboard = {
     saveAndRedirectHelper(classId, response, message, loggedInUserId);
   },
 
+  /**
+   * Renders the individual personal routine from the member's fitness programme
+   * @param request
+   * @param response
+   */
   viewPersonalRoutine(request, response) {
     const routineId = request.params.id;
     const userId = request.params.userid;
@@ -115,6 +146,14 @@ const dashboard = {
   },
 };
 
+/**
+ * Helper object that performs the checks for enrolling a member to a session in a class.
+ * Checks are there any available spaces left and is the member already enrolled
+ * @param specificSession the class session
+ * @param loggedInUserId the memberId
+ * @returns {{message: string, positive: boolean}} a string and boolean of whether the enrollment
+ * was successful
+ */
 const enrollChecksHelper = function (specificSession, loggedInUserId) {
   let result = specificSession.enrolled.indexOf(loggedInUserId);
 
@@ -138,6 +177,14 @@ const enrollChecksHelper = function (specificSession, loggedInUserId) {
   }
 };
 
+/**
+ * Helper object that performs the checks for un-enrolling a member from a session in a class.
+ * Checks is the member already un-enrolled
+ * @param specificSession the class session
+ * @param loggedInUserId the memberId
+ * @returns {{message: string, positive: boolean}} a string and boolean of whether the un-enrollment
+ * was successful
+ */
 const unEnrollChecksHelper = function (specificSession, loggedInUserId) {
   let result = specificSession.enrolled.indexOf(loggedInUserId);
   if (result > -1) {
@@ -158,10 +205,16 @@ const unEnrollChecksHelper = function (specificSession, loggedInUserId) {
   }
 };
 
+/**
+ * Helper object to save and re-render the page with the success/un-successful messages in enrolling
+ * or un-enrolling in a class
+ * @param classId Id of the class to get at sessions
+ * @param response to render the memberClassSessions view
+ * @param message array of success/un-successful messages
+ * @param loggedInUserId member Id
+ */
 const saveAndRedirectHelper = function (classId, response, message, loggedInUserId) {
   classStore.store.save();
-
-  // response.redirect('/classes/' + classId);
   logger.info('classes id: ' + classId);
   const viewData = {
     title: 'Classes',

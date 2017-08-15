@@ -7,6 +7,11 @@ const members = require('../models/member-store');
 const uuid = require('uuid');
 
 const bookings = {
+  /**
+   * Adds a booking to the booking list
+   * @param request to add a booking. Contains the memberId, trainerId, and DateTime for booking
+   * @param response adds the booking and redirect's back to the page where the request was from
+   */
   addBooking(request, response) {
     const newBooking = {
       id: uuid(),
@@ -22,11 +27,21 @@ const bookings = {
     response.redirect('back');
   },
 
+  /**
+   * Deletes a booking
+   * @param request to delete a booking, contains the bookingId to delete
+   * @param response redirects back to the page where the request was from
+   */
   deleteBooking(request, response) {
     bookingStore.removeBooking(request.params.id);
     response.redirect('back');
   },
 
+  /**
+   * Updates a booking
+   * @param request to update a booking, contains the booking information to update
+   * @param response redirects back to the page where the request was from
+   */
   updateBooking(request, response) {
     let booking = bookingStore.getBookingById(request.params.id);
     booking.trainerName = request.body.trainer;

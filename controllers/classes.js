@@ -11,6 +11,11 @@ const accounts = require('./accounts');
 const sort = require('../utils/sort');
 
 const classes = {
+  /**
+   * Renders the memberClasses or trainerClasses view depending on which is logged in
+   * @param request to render memberClasses or trainerClasses view
+   * @param response to render memberClasses or trainerClasses view
+   */
   index(request, response) {
     logger.info('user is ' + accounts.userIsTrainer(request));
     if (accounts.userIsTrainer(request)) {
@@ -30,6 +35,11 @@ const classes = {
     }
   },
 
+  /**
+   * Adds a session to an existing class
+   * @param request to add a session to class
+   * @param response adds the session, and redirects back to the classes page
+   */
   addSession(request, response) {
     const classId = request.params.id;
     const newSession = {
@@ -46,6 +56,12 @@ const classes = {
     response.redirect('/classes/' + classId);
   },
 
+  /**
+   * Renders the memberClassSessions or trainerClassSessions view. Lists the sessions in the class,
+   * sorts them by old to recent
+   * @param request
+   * @param response
+   */
   listClassSessions(request, response) {
     const isTrainer = accounts.userIsTrainer(request);
     const classId = request.params.id;
@@ -64,6 +80,12 @@ const classes = {
     }
   },
 
+  /**
+   * Deletes a session from a class
+   * @param request to delete a session from a class, contains the classId and sessionId to get the
+   * session to delete
+   * @param response deletes the session and redirects back to the classes view
+   */
   deleteSession(request, response) {
     const classId = request.params.id;
     const sessionId = request.params.sessionid;
@@ -72,6 +94,11 @@ const classes = {
     response.redirect('/classes/' + classId);
   },
 
+  /**
+   * Updates the class information
+   * @param request to update a class, contains the class information to update
+   * @param response updates the class and redirects back to the classes view
+   */
   updateClass(request, response) {
     let classes = classStore.getClassById(request.params.id);
     classes.name = request.body.name;
@@ -84,6 +111,11 @@ const classes = {
     response.redirect('/classes/');
   },
 
+  /**
+   * Updates a session in a class
+   * @param request to update a session, contains the session information to update
+   * @param response updates the session and redirects to the class sessions view
+   */
   updateClassSession(request, response) {
     const classId = request.params.id;
     const sessionId = request.params.sessionid;

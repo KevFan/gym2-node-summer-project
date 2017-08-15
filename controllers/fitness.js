@@ -87,14 +87,6 @@ const fitness = {
     if (membersStore.getMemberById(userId)) {
       let user = membersStore.getMemberById(userId);
       let routine = _.find(user.program, { id: routineId });
-
-      // let routine = null;
-      // user.program.forEach(function (program) {
-      //   if (program.id === routineId) {
-      //     routine = program;
-      //   }
-      // });
-
       routine.exercises.push(newExercise);
       membersStore.store.save();
       response.redirect('back');
