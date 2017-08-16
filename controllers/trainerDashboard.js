@@ -164,6 +164,11 @@ const getClassOrRoutine = function (id) {
     return routineFound;
   } else {
     logger.info('No class or routine found');
+    return {
+      id: uuid(),
+      name: 'Custom Routine',
+      description: 'A custom routine just for you',
+    };
   }
 };
 

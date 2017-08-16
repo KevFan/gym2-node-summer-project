@@ -1,0 +1,15 @@
+<div class="ui selection dropdown">
+  <i class="table icon"></i>
+  <input type="hidden" name="{{value}}">
+  <i class="dropdown icon"></i>
+  <div class="default text">Class/Routines</div>
+  <div class="menu">
+    <div class="item" data-value="other">New/Custom Routine</div>
+    {{#each allClasses}}
+      <div class="item" data-value="{{id}}">Class - {{name}}</div>
+    {{/each}}
+    {{#each allRoutines}}
+      <div class="item" data-value="{{id}}">Routine - {{name}}</div>
+    {{/each}}
+  </div>
+</div>

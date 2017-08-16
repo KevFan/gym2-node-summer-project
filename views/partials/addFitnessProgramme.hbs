@@ -4,88 +4,23 @@
     <form class="ui segment form" action="/trainerDashboard/buildProgramme/{{#if user.id}}{{user.id}}{{else if userid}}{{userid}}{{else}}{{id}}{{/if}}" method="POST">
       <section class="field">
         <label>1. First Exercise Session</label>
-        <div class="ui selection dropdown">
-          <i class="table icon"></i>
-          <input type="hidden" name="first">
-          <i class="dropdown icon"></i>
-          <div class="default text">Class/Routines</div>
-          <div class="menu">
-            {{#each allClasses}}
-              <div class="item" data-value="{{id}}">Class - {{name}}</div>
-            {{/each}}
-            {{#each allRoutines}}
-              <div class="item" data-value="{{id}}">Routine - {{name}}</div>
-            {{/each}}
-          </div>
-        </div>
+        {{> addIndividualProgramme value='first'}}
       </section>
       <section class="field">
         <label>2. Second Exercise Session</label>
-        <div class="ui selection dropdown">
-          <i class="table icon"></i>
-          <input type="hidden" name="second">
-          <i class="dropdown icon"></i>
-          <div class="default text">Class/Routines</div>
-          <div class="menu">
-            {{#each allClasses}}
-              <div class="item" data-value="{{id}}">Class - {{name}}</div>
-            {{/each}}
-            {{#each allRoutines}}
-              <div class="item" data-value="{{id}}">Routine - {{name}}</div>
-            {{/each}}
-          </div>
-        </div>
+        {{> addIndividualProgramme value='second'}}
       </section>
       <section class="field">
         <label>3. Third Exercise Session</label>
-        <div class="ui selection dropdown">
-          <i class="table icon"></i>
-          <input type="hidden" name="third">
-          <i class="dropdown icon"></i>
-          <div class="default text">Class/Routines</div>
-          <div class="menu">
-            {{#each allClasses}}
-              <div class="item" data-value="{{id}}">Class - {{name}}</div>
-            {{/each}}
-            {{#each allRoutines}}
-              <div class="item" data-value="{{id}}">Routine - {{name}}</div>
-            {{/each}}
-          </div>
-        </div>
+        {{> addIndividualProgramme value='third'}}
       </section>
       <section class="field">
         <label>4. Fourth Exercise Session</label>
-        <div class="ui selection dropdown">
-          <i class="table icon"></i>
-          <input type="hidden" name="fourth">
-          <i class="dropdown icon"></i>
-          <div class="default text">Class/Routines</div>
-          <div class="menu">
-            {{#each allClasses}}
-              <div class="item" data-value="{{id}}">Class - {{name}}</div>
-            {{/each}}
-            {{#each allRoutines}}
-              <div class="item" data-value="{{id}}">Routine - {{name}}</div>
-            {{/each}}
-          </div>
-        </div>
+        {{> addIndividualProgramme value='fourth'}}
       </section>
       <section class="field">
         <label>5. Fifth Exercise Session</label>
-        <div class="ui selection dropdown">
-          <i class="table icon"></i>
-          <input type="hidden" name="fifth">
-          <i class="dropdown icon"></i>
-          <div class="default text">Class/Routines</div>
-          <div class="menu">
-            {{#each allClasses}}
-              <div class="item" data-value="{{id}}">Class - {{name}}</div>
-            {{/each}}
-            {{#each allRoutines}}
-              <div class="item" data-value="{{id}}">Routine - {{name}}</div>
-            {{/each}}
-          </div>
-        </div>
+        {{> addIndividualProgramme value='fifth'}}
       </section>
       <button class="ui blue submit button"><i class="plus icon"></i> Build Fitness Programme </button>
     </form>
