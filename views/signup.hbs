@@ -44,6 +44,13 @@
         </div>
       </div>
       <div class="field">
+        <label>Confirm Password</label>
+        <div class="ui input left icon">
+          <i class="lock icon"></i>
+          <input placeholder="Password" type="password" name="confirmPassword">
+        </div>
+      </div>
+      <div class="field">
         <label>Address</label>
         <div class="ui input left icon">
           <i class="home icon"></i>
@@ -67,7 +74,92 @@
         </div>
       </div>
       <button class="ui blue submit button"><i class="add user icon"></i>Submit</button>
+      <div class="ui error message"></div>
     </form>
   </section>
 </div>
 
+<script>
+$('.ui.form')
+  .form({
+    fields: {
+      name: {
+        identifier: 'name',
+        rules: [
+          {
+            type   : 'empty',
+            prompt : 'Please enter your name'
+          }
+        ]
+      },
+      email: {
+        identifier: 'email',
+        rules: [
+          {
+            type   : 'empty',
+            prompt : 'Please enter your email'
+          }
+        ]
+      },
+      gender: {
+        identifier: 'gender',
+        rules: [
+          {
+            type   : 'empty',
+            prompt : 'Please select a gender'
+          }
+        ]
+      },
+      password: {
+        identifier: 'password',
+        rules: [
+          {
+            type   : 'empty',
+            prompt : 'Please enter a password'
+          }
+        ]
+      },
+      confirmPassword: {
+        identifier: 'confirmPassword',
+        rules: [
+          {
+            type   : 'empty',
+            prompt : 'Please confirm password'
+          },
+          {
+            type   : 'match[password]',
+            prompt : 'Password do not match'
+          }
+        ]
+      },
+      address: {
+        identifier: 'address',
+        rules: [
+          {
+            type   : 'empty',
+            prompt : 'Please enter your address'
+          }
+        ]
+      },
+      height: {
+        identifier: 'height',
+        rules: [
+          {
+            type   : 'empty',
+            prompt : 'Please enter your height in metres'
+          }
+        ]
+      },
+      startingweight: {
+        identifier: 'startingweight',
+        rules: [
+          {
+            type   : 'empty',
+            prompt : 'Please your current weight in Kgs'
+          }
+        ]
+      }
+    }
+  })
+;
+</script>
