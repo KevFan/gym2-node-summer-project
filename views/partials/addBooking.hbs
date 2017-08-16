@@ -26,6 +26,34 @@
         </section>
       </section>
       <button class="ui blue submit button"><i class="plus icon"></i> Book Assessment </button>
+      <div class="ui error message"></div>
     </form>
   </div>
 </section>
+
+<script>
+  $('.ui.form')
+    .form({
+      fields: {
+        dateTime: {
+          identifier: 'dateTime',
+          rules: [
+            {
+              type   : 'empty',
+              prompt : 'Please select date for assessment booking'
+            }
+          ]
+        },
+        trainer: {
+          identifier: 'trainer',
+          rules: [
+            {
+              type   : 'empty',
+              prompt : 'Please select a trainer'
+            }
+          ]
+        }
+      }
+    })
+  ;
+</script>
