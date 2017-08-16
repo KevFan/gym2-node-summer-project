@@ -10,6 +10,15 @@
   <div class="ui centered four doubling stackable cards">
     {{#each classes}}
       <div class="ui link card">
+          {{#if hidden}}
+          <div class="ui right corner red label">
+            <i class="hide icon"></i>
+          </div>
+          {{else}}
+            <div class="ui right corner green label">
+              <i class="unhide icon"></i>
+            </div>
+          {{/if}}
         {{> listClasses}}
         {{> editClassOptions}}
       </div>
