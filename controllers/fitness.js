@@ -8,6 +8,12 @@ const membersStore = require('../models/member-store');
 const _ = require('lodash');
 
 const fitness = {
+  /**
+   * Renders the fitness view with workout routines for trainer or the individual exercise sessions
+   * for a member
+   * @param request to render the fitness view
+   * @param response renders the fitness view
+   */
   index(request, response) {
     const user = accounts.getCurrentUser(request);
     const isTrainer = accounts.userIsTrainer(request);
@@ -31,6 +37,11 @@ const fitness = {
     }
   },
 
+  /**
+   * Adds a workout routine
+   * @param request to add a workout routine, contains the routine info
+   * @param response adds the new routine and redirects the page
+   */
   addRoutine(request, response) {
     const newProgramme = {
       id: uuid(),
@@ -44,12 +55,22 @@ const fitness = {
     response.redirect('back');
   },
 
+  /**
+   * Deletes a workout routine
+   * @param request to delete the workout routing of specific id
+   * @param response deletes the routine and redirects the page
+   */
   deleteRoutine(request, response) {
     logger.debug(`Deleting Class ${request.params.id}`);
     fitnessStore.removeProgramme(request.params.id);
     response.redirect('/fitness');
   },
 
+  /**
+   * Updates a workout routine
+   * @param request to update a routine with new information
+   * @param response updates the routine and redirects the page
+   */
   updateRoutine(request, response) {
     let routine = fitnessStore.getProgrammeById(request.params.id);
     routine.name = request.body.name;
@@ -60,6 +81,11 @@ const fitness = {
     response.redirect('/fitness/');
   },
 
+  /**
+   * Renders the fitnessExercises view with the individual exercises of the routine
+   * @param request to render the exercises of a routine, contains the routine id to get routine
+   * @param response renders the fitnessExercises view to list the individual exercises
+   */
   listRoutineExercises(request, response) {
     const isTrainer = accounts.userIsTrainer(request);
     const routineId = request.params.id;
@@ -73,6 +99,12 @@ const fitness = {
     response.render('fitnessExercises', viewData);
   },
 
+  /**
+   * Adds a new exercise to a workout routine in either the member's personal routine or in a
+   * predetermined routine by a trainer
+   * @param request to add a new exercise, contains the exercise information
+   * @param response adds the new exercise to the appropriate routine and redirects the page
+   */
   addExercise(request, response) {
     const routineId = request.params.id;
     const userId = request.params.userid;
@@ -97,7 +129,13 @@ const fitness = {
 
   },
 
-  deleteExerecise(request, response) {
+  /**
+   * Deletes an exercise from either a member's personal routine or a predetermined routine by
+   * a trainer
+   * @param request to delete an exercise, contains the routine id, user id and exercise id
+   * @param response deletes the exercise from the appropriate routine and redirects the page
+   */
+  deleteExercise(request, response) {
     const routineId = request.params.id;
     const exerciseId = request.params.exerciseid;
     const userId = request.params.userid;
@@ -110,10 +148,16 @@ const fitness = {
       fitnessStore.removeExercise(routineId, exerciseId);
     }
 
-    logger.debug(`Deleting Excercise ${exerciseId} from Routine ${routineId}`);
+    logger.debug(`Deleting Exercise ${exerciseId} from Routine ${routineId}`);
     response.redirect('back');
   },
 
+  /**
+   * Updates an exercise from either a member's personal routine or a predetermined routine by a
+   * trainer
+   * @param request to update an exercise, contains the new information to update
+   * @param response updates the exercise from the appropriate routine and redirects the page
+   */
   updateExercise(request, response) {
     const routineId = request.params.id;
     const exerciseId = request.params.exerciseid;
