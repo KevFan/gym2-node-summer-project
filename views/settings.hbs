@@ -84,6 +84,13 @@
           </div>
         </div>
         <div class="field">
+          <label>Confirm Password</label>
+          <div class="ui input left icon">
+            <i class="lock icon"></i>
+            <input placeholder="Confirm Password" type="password" name="confirmPassword">
+          </div>
+        </div>
+        <div class="field">
           <label>Address</label>
           <div class="ui input left icon">
             <i class="home icon"></i>
@@ -106,8 +113,31 @@
             </div>
           </div>
         </div>
-        <button class="ui middle aligned blue submit button"><i class="white refresh icon"></i> Update</button>
+        <button class="ui middle aligned blue submit button"><i class="save icon"></i> Update</button>
+        <div class="ui error message"></div>
       </form>
     </section>
   </div>
 </div>
+
+<script>
+  $('.ui.form')
+    .form({
+      fields: {
+        confirmPassword: {
+          identifier: 'confirmPassword',
+          rules: [
+            {
+              type   : 'empty',
+              prompt : 'Please confirm current/new password to update settings'
+            },
+            {
+              type   : 'match[password]',
+              prompt : 'Password do not match'
+            }
+          ]
+        }
+      }
+    })
+  ;
+</script>
