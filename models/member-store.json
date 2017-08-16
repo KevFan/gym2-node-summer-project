@@ -12,24 +12,27 @@
       "image": "http://res.cloudinary.com/dv6skh7wa/image/upload/v1502556006/dincisjmrjmohm1uacvi.jpg",
       "program": [
         {
-          "id": "08a8f85c-0160-48d7-afb5-d07b27edeb29",
+          "id": "5f478118-6a99-4650-bab3-b874423d5332",
+          "classId": "08a8f85c-0160-48d7-afb5-d07b27edeb29",
           "image": "https://d30y9cdsu7xlg0.cloudfront.net/png/81538-200.png",
           "name": "Yoga",
           "type": "classes"
         },
         {
-          "id": "dc7d3a16-7ab3-455d-a18f-76eb9f8f1d15",
+          "id": "d1b44921-5301-4dae-9962-00f506536132",
+          "classId": "dc7d3a16-7ab3-455d-a18f-76eb9f8f1d15",
           "image": "http://ynmfitness.com/wp-content/uploads/2015/02/YNM_HIITandRun_Icon_Final.png",
           "name": "H.I.I.T",
           "type": "classes"
         },
         {
-          "id": "7369c947-0b43-4dad-90b4-831803790e5b",
+          "id": "1b96ad37-dbb4-45fb-88c8-7467af5e87ad",
+          "classId": "7369c947-0b43-4dad-90b4-831803790e5b",
           "name": "Boxercise",
           "type": "classes"
         },
         {
-          "id": "8ee31fa6-6cf5-43db-8d89-20512e71f602",
+          "id": "2c565cc9-9a52-4b0c-ad23-85931070c6f2",
           "name": " Body Weight Circuit",
           "image": "http://www.free-icons-download.net/images/human64-80980.png",
           "description": "Bodyweight exercises are strength training exercises that do not require free weights or machines as the individual's own weight provides resistance against gravity. It is recognised that bodyweight exercises can enhance a range of biomotor abilities including strength, power, endurance, speed, flexibility, coordination and balance.",
@@ -42,7 +45,7 @@
               "rest": 30
             },
             {
-              "id": "694d0559-e5f4-4e46-ad80-d8a58c954dd4",
+              "id": "5b85585a-f6ef-4e1d-8ea0-db67064783b4",
               "name": "test",
               "reps": 0,
               "sets": 0,
@@ -51,7 +54,8 @@
           ]
         },
         {
-          "id": "08a8f85c-0160-48d7-afb5-d07b27edeb29",
+          "id": "65c375a8-73b5-4073-9352-59d604ffacbd",
+          "classId": "08a8f85c-0160-48d7-afb5-d07b27edeb29",
           "image": "https://d30y9cdsu7xlg0.cloudfront.net/png/81538-200.png",
           "name": "Yoga",
           "type": "classes"
@@ -66,7 +70,8 @@
       "startingweight": 60,
       "email": "marge@simpson.com",
       "password": "secret",
-      "id": "2b6f0989-7b7f-4a38-ad26-aa06b922d751"
+      "id": "2b6f0989-7b7f-4a38-ad26-aa06b922d751",
+      "program": []
     }
   ]
 }

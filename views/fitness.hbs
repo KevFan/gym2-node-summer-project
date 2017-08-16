@@ -42,7 +42,7 @@
           {{#each user.program}}
             <div class="ui link card">
               {{#if type}}
-                {{> listRoutines href=(constructHref type id) }}
+                {{> listRoutines href=(constructHref type classId) }}
               {{else}}
                 {{> listRoutines href=(constructHref ../user.id id)}}
               {{/if}}

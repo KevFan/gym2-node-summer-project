@@ -110,7 +110,7 @@ const dashboard = {
       program.push(getClassOrRoutine(request.body.fifth));
       member.program = program;
       memberStore.store.save();
-      response.redirect('/trainerDashboard/memberStore/' + userId);
+      response.redirect('back');
     },
 
     deleteFitnessProgramme(request, response) {
@@ -125,7 +125,7 @@ const dashboard = {
       const userId = request.params.userid;
       const routineId = request.params.id;
       const member = memberStore.getMemberById(userId);
-      _.remove(member.program, {id: routineId});
+      _.remove(member.program, { id: routineId });
       memberStore.store.save();
       response.redirect('back');
     },
@@ -152,13 +152,15 @@ const getClassOrRoutine = function (id) {
   if (classFound) {
     logger.info('The class found is ', classFound);
     return {
-      id: classFound.id,
+      id: uuid(),
+      classId: classFound.id,
       image: classFound.image,
       name: classFound.name,
       type: 'classes',
     };
   } else if (routineFound) {
     logger.info('The routine found is ', routineFound);
+    routineFound.id = uuid();
     return routineFound;
   } else {
     logger.info('No class or routine found');
