@@ -59,63 +59,58 @@
   {{/if}}
 </div>
 
-<div class="ui segment container">
-  <div class="ui grey ribbon label">Fitness Programme</div>
-  {{#if isTrainer}}
-    <a class="ui label item" data-modal="addFitnessProgramme">
-      <i class="blue plus icon"></i> Add Fitness Programme
-      {{> addFitnessProgramme}}
-    </a>
-    <a class="ui label item" href="/trainerDashboard/deleteProgramme/{{user.id}}">
-      <i class="red delete icon"></i> Delete Fitness Programme
-    </a>
-  {{/if}}
-  <div class="ui divider"></div>
-  {{#if user.program}}
-    <div class="ui relaxed divided list">
-      {{#each user.program}}
-        <div class="item">
-          <img class="ui avatar image" {{#if image}} src="{{image}}" {{else}} src="http://s3.amazonaws.com/wpd-assets/ymcanewyork/uploads/sub-class-thumbs/family-yoga-pilates-icon.png" {{/if}}>
-          <div class="content">
-            <div class="header">
-              {{#if type}}
-                <a href="/{{type}}/{{id}}"> {{name}} </a>
-                {{#if ../isTrainer}}
-                  <a href="/trainerDashboard/{{../user.id}}/deleteRoutine/{{id}}">
-                    <i class="ui large red icon trash"></i>
-                  </a>
-                  <a class="ui label item" data-modal="{{id}}">
-                    <i class="right floated blue edit icon"></i> Edit Class
-                  </a>
-                {{/if}}
-              {{else}}
-                <a href="/routine/{{../user.id}}/{{id}}">{{name}}</a>
-                  {{#if ../isTrainer}}
+{{#if isTrainer}}
+  <div class="ui segment container">
+    <div class="ui grey ribbon label">Fitness Programme</div>
+      <a class="ui label item" data-modal="addFitnessProgramme">
+        <i class="blue plus icon"></i> Add Fitness Programme
+        {{> addFitnessProgramme}}
+      </a>
+      <a class="ui label item" href="/trainerDashboard/deleteProgramme/{{user.id}}">
+        <i class="red delete icon"></i> Delete Fitness Programme
+      </a>
+    <div class="ui divider"></div>
+    {{#if user.program}}
+      <div class="ui relaxed divided list">
+        {{#each user.program}}
+          <div class="item">
+            <img class="ui avatar image" {{#if image}} src="{{image}}" {{else}} src="http://s3.amazonaws.com/wpd-assets/ymcanewyork/uploads/sub-class-thumbs/family-yoga-pilates-icon.png" {{/if}}>
+            <div class="content">
+              <div class="header">
+                {{#if type}}
+                  <a href="/{{type}}/{{id}}"> {{name}} </a>
+                    <a href="/trainerDashboard/{{../user.id}}/deleteRoutine/{{id}}">
+                      <i class="ui large red icon trash"></i>
+                    </a>
+                    <a class="ui label item" data-modal="{{id}}">
+                      <i class="right floated blue edit icon"></i> Edit Class
+                    </a>
+                {{else}}
+                  <a href="/routine/{{../user.id}}/{{id}}">{{name}}</a>
                     <a href="/trainerDashboard/{{../user.id}}/deleteRoutine/{{id}}">
                       <i class="ui large red icon trash"></i>
                     </a>
                     <a class="ui label item" data-modal="{{id}}">
                       <i class="right floated blue edit icon"></i> Edit Routine
                     </a>
-                  {{/if}}
-              {{/if}}
+                {{/if}}
+              </div>
             </div>
           </div>
-        </div>
-        {{> updateFitnessProgramme userId=../user.id}}
-      {{/each}}
-    </div>
-  {{else}}
-    <section class="ui center aligned segment">
-      You don't have a fitness programme. Book an assessment with a trainer to build a programme geared for you !!
-    </section>
-  {{/if}}
-</div>
-{{> addBooking}}
+          {{> updateFitnessProgramme userId=../user.id}}
+        {{/each}}
+      </div>
+    {{else}}
+      <section class="ui center aligned segment">
+        You don't have a fitness programme. Book an assessment with a trainer to build a programme geared for you !!
+      </section>
+    {{/if}}
+  </div>
 
-{{> addGoal}}
-
-{{#if isTrainer}}
   {{> addAssessment}}
   {{> updateAssessment userid=user.id}}
 {{/if}}
+
+{{> addBooking}}
+
+{{> addGoal}}

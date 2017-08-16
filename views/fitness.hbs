@@ -35,4 +35,28 @@
   {{> addRoutine}}
 {{else}}
   {{> menu id="fitness"}}
+  <div class="ui container">
+    {{#if user.program}}
+      <div class="ui container">
+        <div class="ui centered five doubling stackable cards">
+          {{#each user.program}}
+            <div class="ui link card">
+              {{#if type}}
+                {{> listRoutines href=(constructHref type id) }}
+              {{else}}
+                {{> listRoutines href=(constructHref ../user.id id)}}
+              {{/if}}
+            </div>
+          {{/each}}
+        </div>
+      </div>
+      <section class="ui center aligned segment">
+        Tired of the same routine? Book for a re-assessment with a trainer to build a new programme just for you.
+      </section>
+    {{else}}
+      <section class="ui center aligned segment">
+        You don't have a fitness programme. Book an assessment with a trainer to build a programme geared for you !!
+      </section>
+    {{/if}}
+  </div>
 {{/if}}
