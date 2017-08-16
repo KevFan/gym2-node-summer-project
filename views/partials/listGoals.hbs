@@ -1,38 +1,33 @@
-<div class="ui container">
-  <div class="ui centered three doubling stackable cards">
-    {{#each goals.goals}}
-      <div class="ui link card">
-        <section class="content">
-          <a class="ui red ribbon label">{{status}}</a>
-          <div class="center aligned header">{{date}}</div>
-          <section class="ui two column grid">
-            <section class="column">
-              <div class="row">Weight:</div>
-              <div class="row">Chest:</div>
-              <div class="row">Thigh: </div>
-              <div class="row">Upper Arm:</div>
-              <div class="row">Waist:</div>
-              <div class="row">Hips:</div>
-              <div class="row">Description:</div>
-            </section>
-
-            <section class="column">
-              <div class="row">{{weight}}</div>
-              <div class="row">{{chest}}</div>
-              <div class="row">{{thigh}} </div>
-              <div class="row">{{upperArm}} </div>
-              <div class="row">{{waist}} </div>
-              <div class="row">{{hips}}</div>
-              <div class="row">{{description}}</div>
-            </section>
-          </section>
-        </section>
-        <section class="center aligned content">
-          <a href="/goals/deleteGoal/{{../user.id}}/{{id}}" class="ui icon button">
-            <i class="icon trash"></i>
-          </a>
-        </section>
-      </div>
-    {{/each}}
-  </div>
+<div class="ui styled fluid accordion">
+  {{#each goals.goals}}
+    <div class="active title">
+      <i class="dropdown icon"></i>
+      {{date}}
+      <div class="ui red label">{{status}}</div>
+    </div>
+    <div class="content">
+      <table class="ui celled table">
+        <thead>
+          <tr>
+            <th> Weight </th> <th> Chest </th> <th> Thigh </th>
+            <th> Upper Arm </th> <th> Waist </th> <th> Hips </th>
+            <th> Description </th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td> {{weight}}   </td><td> {{chest}} </td><td> {{thigh}} </td>
+            <td> {{upperArm}} </td><td> {{waist}} </td><td> {{hips}}  </td>
+            <td> {{description}} </td>
+            <td>
+              <a href="/goals/deleteGoal/{{../user.id}}/{{id}}" class="ui icon button">
+              <i class="icon trash"></i>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  {{/each}}
 </div>

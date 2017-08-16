@@ -25,6 +25,7 @@
       <i class="blue plus icon"></i> Add Assessment
     </a>
   {{/if}}
+  <div class="ui divider"></div>
   {{#if assessmentlist.assessments}}
     {{> assessment-table}}
   {{else}}
@@ -37,6 +38,7 @@
   <a class="ui label item" data-modal="addBooking">
     <i class="blue plus icon"></i> Book Assessment
   </a>
+  <div class="ui divider"></div>
   {{#if bookings}}
     {{> listBooking}}
   {{else}}
@@ -49,6 +51,7 @@
   <a class="ui label item" data-modal="addGoal">
     <i class="blue plus icon"></i> Add Goal
   </a>
+  <div class="ui divider"></div>
   {{#if goals.goals}}
     {{> listGoals}}
   {{else}}
@@ -67,6 +70,7 @@
       <i class="red delete icon"></i> Delete Fitness Programme
     </a>
   {{/if}}
+  <div class="ui divider"></div>
   {{#if user.program}}
     <div class="ui relaxed divided list">
       {{#each user.program}}
