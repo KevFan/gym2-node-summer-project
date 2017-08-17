@@ -42,6 +42,11 @@ const trainerStore = {
     return this.store.findOneBy(this.collection, { email: email });
   },
 
+  /**
+   * Returns a trainer by name
+   * @param name Name of the trainer
+   * @returns {*} Trainer with the name
+   */
   getTrainerByName(name) {
     return this.store.findOneBy(this.collection, { name: name });
   },
