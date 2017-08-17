@@ -1,6 +1,5 @@
 'use strict';
 
-const _ = require('lodash');
 const logger = require('../utils/logger');
 const conversion = require('./conversion');
 let memberStats = require('./memberStats');
