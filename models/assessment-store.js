@@ -92,6 +92,12 @@ const assessmentStore = {
     logger.info('assessmentlist to be removed is ', assessmentList);
   },
 
+  /**
+   * Gets the first assessment that is within 3 days of the goalTime passed in
+   * @param userId Id of the user
+   * @param goalTime Goal achieve by dateTime
+   * @returns {Array} An array containing the first assessment within 3 days before the goal date
+   */
   getFirstAssessmentWithinThreeDays(userId, goalTime) {
     let assessmentList = this.getAssessmentList(userId);
     const goalDate = new Date(goalTime);
