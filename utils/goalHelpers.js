@@ -26,19 +26,19 @@ const goalHelpers = {
         if (goalDate > today) {
           goal.status = 'Open';
           logger.info('Still time left till goal date, setting status to open');
-        } else if (!assessment[0] && (goalDate === today)) {
+        } else if (!assessment && (goalDate === today)) {
           goal.status = 'Awaiting Processing';
           logger.info('No assessment found, book assessment to process');
-        } else if (assessment[0]) {
-          if (compareGoalToAssessment(assessment[0], goal)) {
+        } else if (assessment) {
+          if (compareGoalToAssessment(assessment, goal)) {
             goal.status = 'Achieved';
             logger.debug('setting status to achieved');
           } else {
             goal.status = 'Missed';
             logger.debug('setting status to missed');
           }
-        } else if (!assessment[0] && (goalDate < today)) {
-          logger.info('Goal date passed and no assessment found, setting status to missed')
+        } else if (!assessment && (goalDate < today)) {
+          logger.info('Goal date passed and no assessment found, setting status to missed');
           goal.status = 'Missed';
         }
       });
@@ -52,9 +52,10 @@ const goalHelpers = {
  * Helper object to determine if a goal has been achieved in comparison to an assessment result.
  * Returns true if the assessment net measurement is less than or equal to the goal net measurement
  * (Assumes the member is trying to lose weight)
- * @param assessment
- * @param goal
- * @returns {boolean}
+ * @param assessment Assessment to compare
+ * @param goal Goal to compare
+ * @returns {boolean} Boolean of whether the assessment net measurement is less than or equal to
+ * the goal net measurement
  */
 const compareGoalToAssessment = function (assessment, goal) {
   let totalAssessment = assessment.weight + assessment.chest + assessment.thigh + assessment.upperArm +
