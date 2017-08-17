@@ -65,15 +65,7 @@ const classStore = {
    * @returns {Array} all non hidden classes
    */
   getAllNonHiddenClasses() {
-    let allClasses = this.getAllClasses();
-    let allNonHiddenClasses = [];
-    allClasses.forEach(function (specificClass) {
-      if (!specificClass.hidden) {
-        allNonHiddenClasses.push(specificClass);
-      }
-    });
-
-    return allNonHiddenClasses;
+    return this.store.findBy(this.collection, { hidden: false });
   },
 
   /**
@@ -97,14 +89,7 @@ const classStore = {
    */
   getSessionById(classId, sessionId) {
     const classes = this.getClassById(classId);
-    let specificSession = null;
-    classes.sessions.forEach(function (session) {
-      if (session.id === sessionId) {
-        specificSession = session;
-      }
-    });
-
-    return specificSession;
+    return _.find(classes.sessions, { id: sessionId });
   },
 
   /**

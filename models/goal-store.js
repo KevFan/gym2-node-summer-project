@@ -61,15 +61,7 @@ const goalStore = {
   getGoalById(userid, goalid) {
     const goallist = this.getGoalList(userid).goals;
     logger.info('goallist is ', goallist);
-    let goal = null;
-    for (let i = 0; i < goallist.length; i++) {
-      if (goalid === goallist[i].id) {
-        goal = goallist[i];
-      }
-    }
-
-    logger.info('goal is ', goal);
-    return goal;
+    return _.find(goallist, { id: goalid });
   },
 
   /**

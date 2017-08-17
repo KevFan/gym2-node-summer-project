@@ -78,14 +78,7 @@ const fitnessStore = {
    */
   getExerciseFromRoutine(id, exerciseId) {
     const routine = this.getProgrammeById(id);
-    let specificExercise = null;
-    routine.exercises.forEach(function (exercise) {
-      if (exercise.id === exerciseId) {
-        specificExercise = exercise;
-      }
-    });
-
-    return specificExercise;
+    return _.find(routine.exercises, { id: exerciseId });
   },
 };
 

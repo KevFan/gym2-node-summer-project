@@ -2,7 +2,6 @@
 
 const _ = require('lodash');
 const JsonStore = require('./json-store');
-const logger = require('../utils/logger');
 
 /**
  * Stores/controls the list of assessment bookings
@@ -54,14 +53,7 @@ const bookingStore = {
    * @returns {Array} list of bookings made by the user
    */
   getAllUserBookings(userId) {
-    let userBookings = [];
-    this.getAllBookings().forEach(function (booking) {
-      if (booking.userid === userId) {
-        userBookings.push(booking);
-      }
-    });
-
-    return userBookings;
+    return this.store.findBy(this.collection, { userid: userId });
   },
 
   /**
@@ -70,14 +62,7 @@ const bookingStore = {
    * @returns {Array} list of bookings for the trainer
    */
   getAllTrainerBookings(trainerId) {
-    let trainerBookings = [];
-    this.getAllBookings().forEach(function (booking) {
-      if (booking.trainerid === trainerId) {
-        trainerBookings.push(booking);
-      }
-    });
-
-    return trainerBookings;
+    return this.store.findBy(this.collection, { trainerid: trainerId });
   },
 };
 

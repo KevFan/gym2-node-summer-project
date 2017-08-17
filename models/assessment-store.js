@@ -66,15 +66,7 @@ const assessmentStore = {
   getAssessmentById(userid, assessmentid) {
     const assessmentlist = this.getAssessmentList(userid).assessments;
     logger.info('assessmentlist is ', assessmentlist);
-    let assessment = null;
-    for (let i = 0; i < assessmentlist.length; i++) {
-      if (assessmentid === assessmentlist[i].id) {
-        assessment = assessmentlist[i];
-      }
-    }
-
-    logger.info('assessment is ', assessment);
-    return assessment;
+    return _.find(assessmentlist, { id: assessmentid });
   },
 
   /**
