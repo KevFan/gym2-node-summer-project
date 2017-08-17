@@ -17,6 +17,11 @@ catch (e) {
 }
 
 const settings = {
+  /**
+   * Renders the settings view with the user's current details
+   * @param request to render settings view
+   * @param response renders the settings view
+   */
   index(request, response) {
     logger.info('settings rendering');
     const viewData = {
@@ -27,6 +32,11 @@ const settings = {
     response.render('settings', viewData);
   },
 
+  /**
+   * Updates the user's details
+   * @param request to update the user's details, contains the information to update
+   * @param response updates the user details and redirects to the settings page
+   */
   updateSettings(request, response) {
     let loggedInUser = accounts.getCurrentUser(request);
     loggedInUser.name = request.body.name;
@@ -47,6 +57,12 @@ const settings = {
     response.redirect('/settings');
   },
 
+  /**
+   * Updates the user's profile picture and uploads to the supplied cloudinary account through keys
+   * provided
+   * @param request to update and upload new profile photo, contains the image to upload
+   * @param response deletes old photo, uploads new photo and redirects the settings view
+   */
   updateProfilePicture(request, response) {
     let loggedInUser = accounts.getCurrentUser(request);
 

@@ -5,6 +5,11 @@ const uuid = require('uuid');
 const goalStore = require('../models/goal-store');
 
 const goal = {
+  /**
+   * Adds a goal to a member's lists of goals
+   * @param request to add a new goal, contains the userId and goal information
+   * @param response adds the goal and redirects the page
+   */
   addGoal(request, response) {
     const userId = request.params.id;
     const newGoal = {
@@ -25,6 +30,11 @@ const goal = {
     response.redirect('back');
   },
 
+  /**
+   * Deletes a goal from a user's list of goals
+   * @param request to delete a goal, contains the userId and goalId
+   * @param response deletes the goal and redirects the page
+   */
   deleteGoal(request, response) {
     goalStore.removeGoal(request.params.userid, request.params.id);
     response.redirect('back');
