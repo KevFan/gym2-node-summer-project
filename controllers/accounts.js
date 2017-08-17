@@ -73,12 +73,12 @@ const accounts = {
     const member = memberstore.getMemberByEmail(request.body.email);
     const trainer = trainerstore.getTrainerByEmail(request.body.email);
     if (member && member.password === request.body.password) {
-      response.cookie('user', member.email);
-      logger.info(`logging in ${member.email}`);
+      response.cookie('user', member.id);
+      logger.info(`logging in ${member.id}`);
       response.redirect('/dashboard');
     } else if (trainer && trainer.password === request.body.password) {
-      response.cookie('user', trainer.email);
-      logger.info(`logging in trainer ${trainer.email}`);
+      response.cookie('user', trainer.id);
+      logger.info(`logging in trainer ${trainer.id}`);
       response.redirect('/trainerDashboard');
     } else {
       response.redirect('/login');
@@ -91,10 +91,10 @@ const accounts = {
    * @returns {*} current user from session
    */
   getCurrentUser(request) {
-    const userEmail = request.cookies.user;
-    let user = memberstore.getMemberByEmail(userEmail);
+    const userId = request.cookies.user;
+    let user = memberstore.getMemberById(userId);
     if (!user) {
-      user = trainerstore.getTrainerByEmail(userEmail);
+      user = trainerstore.getTrainerById(userId);
     }
 
     return user;
@@ -106,7 +106,7 @@ const accounts = {
    * @returns {*} boolean of whether user in session is a trainer or member
    */
   userIsTrainer(request) {
-    return (this.getCurrentUser(request) === trainerstore.getTrainerByEmail(request.cookies.user));
+    return (this.getCurrentUser(request) === trainerstore.getTrainerById(request.cookies.user));
   },
 };
 

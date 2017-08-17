@@ -4,7 +4,11 @@
       "name": "Trainer Sean",
       "email": "trainer@trainer.com",
       "password": "secret",
-      "id": "01"
+      "id": "01",
+      "gender": "Male",
+      "address": "The Gym",
+      "height": 1.78,
+      "startingweight": 68
     },
     {
       "name": "Trainer Joe",
