@@ -1,7 +1,15 @@
 'use strict';
 const logger = require('../utils/logger');
 
+/**
+ * Object to sort an array by date
+ */
 const sort = {
+  /**
+   * Sorts an array by date from old to most recent
+   * @param theArray The array to sort
+   * @returns {*} The sorted array by date from old to most recent
+   */
   sortDateTimeOldToNew(theArray) {
     let sortedArray = null;
 
@@ -21,6 +29,11 @@ const sort = {
     return sortedArray;
   },
 
+  /**
+   * Sorts an array by date from most recent to old
+   * @param theArray The array to sort
+   * @returns {*} The sorted array by date from most recent to old
+   */
   sortDateTimeNewToOld(theArray) {
     let sortedArray = null;
 

@@ -3,7 +3,16 @@ const logger = require('../utils/logger');
 const goalStore = require('../models/goal-store');
 const assessmentStore = require('../models/assessment-store');
 
+/**
+ * Goal Helper object
+ */
 const goalHelpers = {
+  /**
+   * Sets each goal status to either open, achieved, missed or awaiting processing depending on the
+   * goal achieve by date, today's date and whether an assessment can be found within 3 days of the
+   * goal date
+   * @param userId Id of the member to get the goal list
+   */
   setGoalStatusChecks(userId) {
     let today = new Date().setHours(0, 0, 0, 0);
     logger.info('Todays date: ' + today);
@@ -39,6 +48,14 @@ const goalHelpers = {
   },
 };
 
+/**
+ * Helper object to determine if a goal has been achieved in comparison to an assessment result.
+ * Returns true if the assessment net measurement is less than or equal to the goal net measurement
+ * (Assumes the member is trying to lose weight)
+ * @param assessment
+ * @param goal
+ * @returns {boolean}
+ */
 const compareGoalToAssessment = function (assessment, goal) {
   let totalAssessment = assessment.weight + assessment.chest + assessment.thigh + assessment.upperArm +
     assessment.waist + assessment.hips;
