@@ -21,6 +21,8 @@
                 {{> addBooking allTrainers=../allTrainers}}
                 <div class="item" data-modal="addGoal{{#if id}}{{id}}{{/if}}"><i class="blue plus icon"></i> Add Goal</div>
                 {{> addGoal}}
+                <div class="item" data-modal="addFitnessProgramme{{#if id}}{{id}}{{/if}}"><i class="blue plus icon"></i> Add Programme</div>
+                {{> addFitnessProgramme allClasses=../allClasses allRoutines=../allRoutines}}
               </div>
             </div>
           </div>

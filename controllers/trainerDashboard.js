@@ -96,6 +96,8 @@ const trainerDashboard = {
       isTrainer: accounts.userIsTrainer(request),
       allTrainers: trainerStore.getAllTrainers(),
       allMembers: memberStore.getAllMembers(),
+      allClasses: classStore.getAllNonHiddenClasses(),
+      allRoutines: fitnessStore.getAllProgrammes(),
     };
     response.render('trainerMembers', viewData);
   },

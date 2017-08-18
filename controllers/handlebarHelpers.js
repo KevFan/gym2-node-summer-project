@@ -2,6 +2,7 @@
 
 const goalStore = require('../models/goal-store');
 const classStore = require('../models/class-store');
+const memberStore = require('../models/member-store');
 
 const Handlebars = require('handlebars');
 
@@ -45,6 +46,16 @@ Handlebars.registerHelper('constructHref', function (string1, string2) {
   } else {
     return 'routine/' + string1 + '/' + string2;
   }
+});
+
+/**
+ * Handlebars helper function to return a boolean for whether the member has
+ * an existing fitness programme
+ * Used to prompt message that rebuilding a fitness programme will lose all custom changes
+ */
+Handlebars.registerHelper('checkForProgramme', function (userId) {
+  const member = memberStore.getMemberById(userId);
+  return (member.program.length === 0);
 });
 
 module.exports = Handlebars;

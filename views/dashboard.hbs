@@ -62,9 +62,9 @@
 {{#if isTrainer}}
   <div class="ui segment container">
     <div class="ui grey ribbon label">Fitness Programme</div>
-      <a class="ui label item" data-modal="addFitnessProgramme">
+      <a class="ui label item" data-modal="addFitnessProgramme{{user.id}}">
         <i class="blue plus icon"></i> Add Fitness Programme
-        {{> addFitnessProgramme}}
+        {{> addFitnessProgramme id=user.id}}
       </a>
       <a class="ui label item" href="/trainerDashboard/deleteProgramme/{{user.id}}">
         <i class="red delete icon"></i> Delete Fitness Programme

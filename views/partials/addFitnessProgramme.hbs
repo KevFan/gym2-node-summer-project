@@ -1,5 +1,13 @@
-<section class="ui modal" id="addFitnessProgramme"> <i class="close icon"></i>
+<section class="ui modal" id="addFitnessProgramme{{#if id}}{{id}}{{/if}}"> <i class="close icon"></i>
   <header class="header">Build Fitness Programme for {{userName}} {{user.name}} {{name}}</header>
+  {{#unless (checkForProgramme id)}}
+    <div class="ui negative message">
+      <i class="close icon"></i>
+      <div class="header">
+        {{userName}} {{user.name}} {{name}} already has a fitness programme. Building a new programme will lose any custom changes to routines
+      </div>
+    </div>
+  {{/unless}}
   <div class="content">
     <form class="ui segment form" action="/trainerDashboard/buildProgramme/{{#if user.id}}{{user.id}}{{else if userid}}{{userid}}{{else}}{{id}}{{/if}}" method="POST">
       <section class="field">
