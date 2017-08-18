@@ -12,25 +12,23 @@ const analytics = {
    * @param member
    */
   generateMemberStats(member) {
-    if (assessmentStore.getAssessmentList(member.id)) {
-      let weight = member.startingweight;
-      let assessmentlist = assessmentStore.getAssessmentList(member.id);
+    let weight = member.startingweight;
+    let assessmentlist = assessmentStore.getAssessmentList(member.id);
+    if (assessmentlist) {
       if (assessmentlist.assessments.length > 0) {
         weight = assessmentlist.assessments[0].weight;
       }
 
-      memberStats.bmi = this.calculateBMI(member, weight);
-      memberStats.bmiCategory = this.determineBMICategory(member, weight);
-      memberStats.isIdealBodyweight = this.isIdealBodyWeight(member, weight);
-      memberStats.trend = true;
       if (assessmentlist.assessments.length > 1) {
-        if (weight > assessmentlist.assessments[1].weight) {
-          memberStats.trend = false;
+        if (weight < assessmentlist.assessments[1].weight) {
+          memberStats.trend = true;
         }
       }
-
-      return memberStats;
     }
+
+    memberStats.bmi = this.calculateBMI(member, weight);
+    memberStats.bmiCategory = this.determineBMICategory(member, weight);
+    memberStats.isIdealBodyweight = this.isIdealBodyWeight(member, weight);
 
     return memberStats;
   },

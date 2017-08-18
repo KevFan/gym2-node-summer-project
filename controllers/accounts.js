@@ -59,6 +59,9 @@ const accounts = {
   register(request, response) {
     const member = request.body;
     member.id = uuid();
+    member.startingweight = Number(member.startingweight);
+    member.height = Number(member.height);
+    member.program = [];
     memberstore.addMember(member);
     logger.info(`registering ${member.email}`);
     response.redirect('/');
