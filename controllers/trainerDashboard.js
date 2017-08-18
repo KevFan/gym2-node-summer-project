@@ -226,6 +226,7 @@ const getClassOrRoutine = function (id) {
       id: uuid(),
       name: 'Custom Routine',
       description: 'A custom routine just for you',
+      exercises: [],
     };
   }
 };
