@@ -92,17 +92,20 @@ const assessmentStore = {
    */
   getFirstAssessmentWithinThreeDays(userId, goalTime) {
     let assessmentList = this.getAssessmentList(userId);
-    const goalDate = new Date(goalTime);
-    const threeDaysBefore = moment(goalDate).subtract(3, 'days').toDate();
-    logger.info('goalTime:' + goalTime + 'goal Date is:' + goalDate);
-    logger.info('Three days before is:' + threeDaysBefore);
-    let findAssessment = _.find(assessmentList.assessments, function (assessment) {
-      let assessmentDate = new Date(new Date(assessment.date).setHours(0, 0, 0, 0));
-      return (threeDaysBefore <= assessmentDate) && (assessmentDate <= goalDate);
-    });
+    if (assessmentList) {
+      const goalDate = new Date(goalTime);
+      const threeDaysBefore = moment(goalDate).subtract(3, 'days').toDate();
+      logger.info('goalTime:' + goalTime + 'goal Date is:' + goalDate);
+      logger.info('Three days before is:' + threeDaysBefore);
+      let findAssessment = _.find(assessmentList.assessments, function (assessment) {
+        let assessmentDate = new Date(new Date(assessment.date).setHours(0, 0, 0, 0));
+        return (threeDaysBefore <= assessmentDate) && (assessmentDate <= goalDate);
+      });
 
-    logger.info('The assessment within 3 days is: ', findAssessment);
-    return findAssessment;
+      logger.info('The assessment within 3 days is: ', findAssessment);
+      return findAssessment;
+    }
+
   },
 };
 
