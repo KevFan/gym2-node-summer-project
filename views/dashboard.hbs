@@ -29,7 +29,9 @@
   {{#if assessmentlist.assessments}}
     {{> assessment-table}}
   {{else}}
-    <section class="ui center aligned segment">You have no assessment. Book an assessment with a trainer to get started !!</section>
+    <section class="ui center aligned segment">You have no assessment. Book an assessment with a trainer to get started
+      !!
+    </section>
   {{/if}}
 </section>
 
@@ -62,42 +64,47 @@
 {{#if isTrainer}}
   <div class="ui segment container">
     <div class="ui grey ribbon label">Fitness Programme</div>
-      <a class="ui label item" data-modal="addFitnessProgramme{{user.id}}">
-        <i class="blue plus icon"></i> Add Fitness Programme
-        {{> addFitnessProgramme id=user.id}}
-      </a>
-      <a class="ui label item" href="/trainerDashboard/deleteProgramme/{{user.id}}">
-        <i class="red delete icon"></i> Delete Fitness Programme
-      </a>
+    <a class="ui label item" data-modal="addFitnessProgramme{{user.id}}">
+      <i class="blue plus icon"></i> Add Fitness Programme
+      {{> addFitnessProgramme id=user.id}}
+    </a>
+    <a class="ui label item" href="/trainerDashboard/deleteProgramme/{{user.id}}">
+      <i class="red delete icon"></i> Delete Fitness Programme
+    </a>
     <div class="ui divider"></div>
     {{#if user.program}}
       <div class="ui relaxed divided list">
         {{#each user.program}}
           <div class="item">
-            <img class="ui avatar image" {{#if image}} src="{{image}}" {{else}} src="http://s3.amazonaws.com/wpd-assets/ymcanewyork/uploads/sub-class-thumbs/family-yoga-pilates-icon.png" {{/if}}>
+            <img class="ui avatar image" {{#if image}}
+                 src="{{image}}" {{else}}
+                 src="http://s3.amazonaws.com/wpd-assets/ymcanewyork/uploads/sub-class-thumbs/family-yoga-pilates-icon.png" {{/if}}>
             <div class="content">
               <div class="header">
                 {{#if type}}
                   <a href="/{{type}}/{{classId}}"> {{name}} </a>
-                    <a href="/trainerDashboard/{{../user.id}}/deleteRoutine/{{id}}">
-                      <i class="ui large red icon trash"></i>
-                    </a>
-                    <a class="ui label item" data-modal="{{id}}">
-                      <i class="right floated blue edit icon"></i> Edit Class
-                    </a>
                 {{else}}
                   <a href="/routine/{{../user.id}}/{{id}}">{{name}}</a>
-                    <a href="/trainerDashboard/{{../user.id}}/deleteRoutine/{{id}}">
-                      <i class="ui large red icon trash"></i>
-                    </a>
-                    <a class="ui label item" data-modal="{{id}}">
-                      <i class="right floated blue edit icon"></i> Edit Routine
-                    </a>
                 {{/if}}
               </div>
             </div>
+            <section class="right aligned content" style="float:right; padding-right:2em">
+              <div class="ui teal buttons">
+                <div class="ui button"><i class="white options icon"></i>Options</div>
+                <div class="ui floating dropdown icon button">
+                  <i class="dropdown icon"></i>
+                  <div class="menu">
+                    <div class="item" data-modal="{{id}}"><i class="blue edit icon"></i> Edit Details</div>
+                    {{> updateFitnessProgramme userId=../user.id}}
+
+                    <a class="item" href="/trainerDashboard/{{../user.id}}/deleteRoutine/{{id}}">
+                      <i class="red delete icon"></i> Delete class/routine
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </section>
           </div>
-          {{> updateFitnessProgramme userId=../user.id}}
         {{/each}}
       </div>
     {{else}}
