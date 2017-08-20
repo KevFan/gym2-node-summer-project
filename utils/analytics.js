@@ -15,11 +15,15 @@ const analytics = {
     let weight = member.startingweight;
     let assessmentlist = assessmentStore.getAssessmentList(member.id);
     if (assessmentlist) {
-      if (assessmentlist.assessments.length > 0) {
+      if (assessmentlist.assessments.length > 1) {
         weight = assessmentlist.assessments[0].weight;
       }
 
-      if (assessmentlist.assessments.length > 1) {
+      if (assessmentlist.assessments.length === 1) {
+        if (weight > assessmentlist.assessments[0].weight) {
+          memberStats.trend = true;
+        }
+      } else if (assessmentlist.assessments.length > 1) {
         if (weight < assessmentlist.assessments[1].weight) {
           memberStats.trend = true;
         }
