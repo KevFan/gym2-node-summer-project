@@ -39,14 +39,14 @@ const settings = {
    */
   updateSettings(request, response) {
     let loggedInUser = accounts.getCurrentUser(request);
+    const newEmail = request.body.email.toLowerCase();
     const newEmailIsUsed = function () {
-      const newEmail = request.body.email;
       return (trainerstore.getTrainerByEmail(newEmail) || memberstore.getMemberByEmail(newEmail));
     };
 
     loggedInUser.name = request.body.name;
     if (!newEmailIsUsed()) {
-      loggedInUser.email = request.body.email;
+      loggedInUser.email = newEmail;
     }
 
     loggedInUser.password = request.body.password;
@@ -62,7 +62,7 @@ const settings = {
       memberstore.store.save();
     }
 
-    if (newEmailIsUsed() && (request.body.email !== loggedInUser.email)) {
+    if (newEmailIsUsed() && (newEmail !== loggedInUser.email)) {
       response.render('settings', {
         messageType: 'negative',
         message: 'Cannot update to new email. New email already used by another member/trainer. Other settings are updated',

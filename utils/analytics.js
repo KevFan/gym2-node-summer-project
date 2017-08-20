@@ -15,12 +15,12 @@ const analytics = {
     let weight = member.startingweight;
     let assessmentlist = assessmentStore.getAssessmentList(member.id);
     if (assessmentlist) {
-      if (assessmentlist.assessments.length > 1) {
+      if (assessmentlist.assessments.length > 0) {
         weight = assessmentlist.assessments[0].weight;
       }
 
       if (assessmentlist.assessments.length === 1) {
-        if (weight > assessmentlist.assessments[0].weight) {
+        if (member.startingweight > assessmentlist.assessments[0].weight) {
           memberStats.trend = true;
         }
       } else if (assessmentlist.assessments.length > 1) {
@@ -29,6 +29,7 @@ const analytics = {
         }
       }
     }
+    logger.info('The weight is ' + weight);
 
     memberStats.bmi = this.calculateBMI(member, weight);
     memberStats.bmiCategory = this.determineBMICategory(member, weight);

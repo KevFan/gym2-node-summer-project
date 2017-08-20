@@ -62,7 +62,7 @@ const accounts = {
     member.startingweight = Number(member.startingweight);
     member.height = Number(member.height);
     member.program = [];
-    if (memberstore.getMemberByEmail(member.email) || trainerstore.getTrainerByEmail(member.email)) {
+    if (memberstore.getMemberByEmail(member.email.toLowerCase()) || trainerstore.getTrainerByEmail(member.email.toLowerCase())) {
       response.render('signup', {
         messageType: 'negative',
         message: 'Email is not unique. Please use another email to sign up',
@@ -84,8 +84,9 @@ const accounts = {
    * @param response redirect to view and begin specific user session
    */
   authenticate(request, response) {
-    const member = memberstore.getMemberByEmail(request.body.email);
-    const trainer = trainerstore.getTrainerByEmail(request.body.email);
+    const theEmailToLowerCase = request.body.email.toLowerCase();
+    const member = memberstore.getMemberByEmail(theEmailToLowerCase);
+    const trainer = trainerstore.getTrainerByEmail(theEmailToLowerCase);
     if (member && member.password === request.body.password) {
       response.cookie('user', member.id);
       logger.info(`logging in ${member.id}`);
