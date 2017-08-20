@@ -3,6 +3,7 @@
 const goalStore = require('../models/goal-store');
 const classStore = require('../models/class-store');
 const memberStore = require('../models/member-store');
+const _ = require('lodash');
 
 const Handlebars = require('handlebars');
 
@@ -15,13 +16,9 @@ Handlebars.registerHelper('checkForOpenGoals', function (userId) {
   const goalList = goalStore.getGoalList(userId);
   let result = null;
   if (goalList) {
-    goalList.goals.forEach(function (goal) {
-      if (goal.status === 'Open' || goal.status === 'Awaiting Processing') {
-        result = true;
-      }
+    result = _.find(goalList.goals, function (goal) {
+      return (goal.status === 'Open' || goal.status === 'Awaiting Processing');
     });
-  } else {
-    result = false;
   }
 
   return result;

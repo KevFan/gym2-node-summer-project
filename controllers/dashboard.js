@@ -126,15 +126,10 @@ const dashboard = {
     const userId = request.params.userid;
     const isTrainer = accounts.userIsTrainer(request);
     let user = members.getMemberById(userId);
-    let routine = null;
-    user.program.forEach(function (program) {
-      if (program.id === routineId) {
-        routine = program;
-      }
-    });
+    let routine = _.find(user.program, { id: routineId });
 
     logger.info('The routine is ', routine);
-    logger.info('trainer? ' + isTrainer);
+    logger.info('User is trainer? ' + isTrainer);
     const viewData = {
       title: 'Fitness Routine',
       routine: routine,
