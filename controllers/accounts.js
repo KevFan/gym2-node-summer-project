@@ -62,9 +62,20 @@ const accounts = {
     member.startingweight = Number(member.startingweight);
     member.height = Number(member.height);
     member.program = [];
-    memberstore.addMember(member);
-    logger.info(`registering ${member.email}`);
-    response.redirect('/');
+    if (memberstore.getMemberByEmail(member.email) || trainerstore.getTrainerByEmail(member.email)) {
+      response.render('signup', {
+        messageType: 'negative',
+        message: 'Email is not unique. Please use another email to sign up',
+      });
+    } else {
+      memberstore.addMember(member);
+      logger.info(`registering ${member.email}`);
+      response.render('login', {
+        messageType: 'positive',
+        message: 'Successfully signed up. Login to begin !',
+      });
+    }
+
   },
 
   /**
@@ -84,7 +95,10 @@ const accounts = {
       logger.info(`logging in trainer ${trainer.id}`);
       response.redirect('/trainerDashboard');
     } else {
-      response.redirect('/login');
+      response.render('login', {
+        messageType: 'negative',
+        message: 'Email/Password do not match. Please try again.',
+      });
     }
   },
 
