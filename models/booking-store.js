@@ -1,6 +1,5 @@
 'use strict';
 
-const _ = require('lodash');
 const JsonStore = require('./json-store');
 
 /**
@@ -63,6 +62,17 @@ const bookingStore = {
    */
   getAllTrainerBookings(trainerId) {
     return this.store.findBy(this.collection, { trainerid: trainerId });
+  },
+
+  /**
+   * Removes all bookings associated with memberId
+   * @param memberId to remove all bookings associated
+   */
+  removeAllMemberBookings(memberId) {
+    while (this.store.findOneBy(this.collection, { userid: memberId })) {
+      this.store.remove(this.collection, this.store.findOneBy(this.collection, { userid: memberId }));
+      this.store.save();
+    }
   },
 };
 

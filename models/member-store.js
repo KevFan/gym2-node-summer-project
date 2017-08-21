@@ -44,6 +44,15 @@ const memberStore = {
   getMemberByEmail(email) {
     return this.store.findOneBy(this.collection, { email: email });
   },
+
+  /**
+   * Removes a member from the json
+   * @param member Member to be removed
+   */
+  removeMember(member) {
+    this.store.remove(this.collection, member);
+    this.store.save();
+  },
 };
 
 module.exports = memberStore;

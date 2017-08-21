@@ -14,6 +14,7 @@ const fitnessStore = require('../models/fitness-store');
 const sort = require('../utils/sort');
 const goalHelpers = require('../utils/goalHelpers');
 const _ = require('lodash');
+const settings = require('./settings');
 
 const trainerDashboard = {
   /**
@@ -194,6 +195,22 @@ const trainerDashboard = {
     }
 
     memberStore.store.save();
+    response.redirect('back');
+  },
+
+  /**
+   * Deletes all member associated information from the local json stores
+   * @param request to delete a specific member
+   * @param response deletes the member and associated information from local json stores
+   */
+  deleteMember(request, response) {
+    const userId = request.params.id;
+    const member = memberStore.getMemberById(userId);
+    memberStore.removeMember(member);
+    assessmentStore.removeAssessmentList(userId);
+    bookingStore.removeAllMemberBookings(userId);
+    goalStore.removeGoalList(userId);
+    settings.deleteFromCloud(member);
     response.redirect('back');
   },
 };

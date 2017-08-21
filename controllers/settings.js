@@ -91,7 +91,7 @@ const settings = {
     const uploadedPicture = request.files.image;
     if (uploadedPicture) {
       // Delete profile from cloudinary if user has chosen a new profile picture to upload
-      deleteFromCloud(loggedInUser);
+      settings.deleteFromCloud(loggedInUser);
       uploadedPicture.mv('tempimage', err => {
         if (!err) {
           cloudinary.uploader.upload('tempimage', result => {
@@ -121,7 +121,7 @@ const settings = {
   deleteProfilePicture(request, response) {
     let loggedInUser = accounts.getCurrentUser(request);
 
-    deleteFromCloud(loggedInUser);
+    settings.deleteFromCloud(loggedInUser);
     loggedInUser.image = '';
     if (accounts.userIsTrainer(request)) {
       trainerstore.store.save();
@@ -131,19 +131,19 @@ const settings = {
 
     response.redirect('/settings');
   },
-};
 
-/**
- * Helper to delete the user profile picture from the cloudinary store
- * @param loggedInUser User with the profile image to delete
- */
-const deleteFromCloud = function (loggedInUser) {
-  if (loggedInUser.image) {
-    const id = path.parse(loggedInUser.image);
-    cloudinary.api.delete_resources([id.name], function (result) {
-      console.log(result);
-    });
-  }
+  /**
+   * Helper to delete the user profile picture from the cloudinary store
+   * @param loggedInUser User with the profile image to delete
+   */
+  deleteFromCloud(loggedInUser) {
+    if (loggedInUser.image) {
+      const id = path.parse(loggedInUser.image);
+      cloudinary.api.delete_resources([id.name], function (result) {
+        console.log(result);
+      });
+    }
+  },
 };
 
 module.exports = settings;
