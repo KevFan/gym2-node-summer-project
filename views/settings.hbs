@@ -8,43 +8,49 @@
 
 <div class="ui container">
   <div class="ui centered two doubling stackable cards">
-      <section class="ui link card">
-        <section class="center aligned content">
-          <img class="ui middle aligned circular medium image" {{#if user.image}} src="{{user.image}}" {{else}} src="http://res.cloudinary.com/dv6skh7wa/image/upload/v1500152762/Node%20Gym/login.png" {{/if}}>
-          <form action="/updateProfilePicture" method="post" enctype="multipart/form-data">
-            <label for="file" class="ui icon button">
-              <i class="file image outline icon"></i>
-              Update Profile Photo</label>
-            <input type="file" id="file" name="image" style="display:none">
-            <button class="ui icon button">
-              <i class="cloud upload icon"></i>
-            </button>
-          </form>
-        </section>
+    <section class="ui link card">
+      <section class="center aligned content">
+        <img class="ui middle aligned circular medium image" {{#if user.image}}
+             src="{{user.image}}" {{else}}
+             src="http://res.cloudinary.com/dv6skh7wa/image/upload/v1500152762/Node%20Gym/login.png" {{/if}}>
+      </section>
 
-        <section class="content">
-          <section class="ui two column grid">
-            <div class="column">
-              <div class="row"><i class="user icon"></i>Name:</div>
-              <div class="row"><i class="mail icon"></i>Email: </div>
-              <div class="row"><i class="lock icon"></i>Password: </div>
-              <div class="row"><i class="home icon"></i>Address: </div>
-              <div class="row"><i class="genderless icon"></i>Gender: </div>
-              <div class="row"><i class="resize vertical icon"></i>Height: </div>
-              <div class="row"><i class="law icon"></i>Starting Weight: </div>
-            </div>
-            <div class="column">
-              <div class="row">{{user.name}}</div>
-              <div class="row">{{user.email}}</div>
-              <div class="row">{{user.password}}</div>
-              <div class="row">{{user.address}}</div>
-              <div class="row">{{user.gender}}</div>
-              <div class="row">{{user.height}}</div>
-              <div class="row">{{user.startingweight}}</div>
-            </div>
-          </section>
+      <div class="center aligned content">
+        <form action="/updateProfilePicture" method="post" enctype="multipart/form-data">
+          <label for="file" class="ui basic blue button">
+            <i class="file image outline icon"></i>Select</label>
+          <input type="file" id="file" name="image" style="display:none">
+          <button class="ui basic green button">
+            <i class="cloud upload icon"></i>Upload
+          </button>
+          <a class="ui basic red button" href="/deleteProfilePicture">
+            <i class="delete icon"></i>Delete</a>
+        </form>
+      </div>
+
+      <section class="content">
+        <section class="ui two column grid">
+          <div class="column">
+            <div class="row"><i class="user icon"></i>Name:</div>
+            <div class="row"><i class="mail icon"></i>Email:</div>
+            <div class="row"><i class="lock icon"></i>Password:</div>
+            <div class="row"><i class="home icon"></i>Address:</div>
+            <div class="row"><i class="genderless icon"></i>Gender:</div>
+            <div class="row"><i class="resize vertical icon"></i>Height:</div>
+            <div class="row"><i class="law icon"></i>Starting Weight:</div>
+          </div>
+          <div class="column">
+            <div class="row">{{user.name}}</div>
+            <div class="row">{{user.email}}</div>
+            <div class="row">{{user.password}}</div>
+            <div class="row">{{user.address}}</div>
+            <div class="row">{{user.gender}}</div>
+            <div class="row">{{user.height}}</div>
+            <div class="row">{{user.startingweight}}</div>
+          </div>
         </section>
       </section>
+    </section>
 
     <section class="ui link card">
       <form class="ui content form" action="/updateSettings" method="POST">
@@ -130,8 +136,8 @@
           identifier: 'name',
           rules: [
             {
-              type   : 'empty',
-              prompt : 'Please enter your name'
+              type: 'empty',
+              prompt: 'Please enter your name'
             }
           ]
         },
@@ -139,12 +145,12 @@
           identifier: 'email',
           rules: [
             {
-              type   : 'empty',
-              prompt : 'Please enter your email'
+              type: 'empty',
+              prompt: 'Please enter your email'
             },
             {
-              type   : 'email',
-              prompt : 'Please enter a valid e-mail'
+              type: 'email',
+              prompt: 'Please enter a valid e-mail'
             }
           ]
         },
@@ -152,12 +158,12 @@
           identifier: 'confirmPassword',
           rules: [
             {
-              type   : 'empty',
-              prompt : 'Please confirm current/new password to update settings'
+              type: 'empty',
+              prompt: 'Please confirm current/new password to update settings'
             },
             {
-              type   : 'match[password]',
-              prompt : 'Password do not match'
+              type: 'match[password]',
+              prompt: 'Password do not match'
             }
           ]
         }

@@ -67,6 +67,7 @@ router.post('/bookings/update/:id', bookings.updateBooking);
 router.get('/settings/', settings.index);
 router.post('/updateSettings', settings.updateSettings);
 router.post('/updateProfilePicture', settings.updateProfilePicture);
+router.get('/deleteProfilePicture', settings.deleteProfilePicture);
 
 // Search
 router.post('/search/class', search.searchClassByName);
