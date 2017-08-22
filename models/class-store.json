@@ -5,7 +5,7 @@
       "userid": "01",
       "name": "Yoga",
       "difficulty": "Beginner",
-      "numSessions": 2,
+      "numSessions": 3,
       "hidden": false,
       "sessions": [
         {
@@ -27,6 +27,14 @@
             "2b6f0989-7b7f-4a38-ad26-aa06b922d751"
           ],
           "availability": 14
+        },
+        {
+          "id": "3319e384-5318-4cce-a5b6-2a80052aaaa8",
+          "location": "Test Feature",
+          "dateTime": "September 14, 2017 1:35 PM",
+          "capacity": 15,
+          "enrolled": [],
+          "availability": 15
         }
       ],
       "duration": 45,

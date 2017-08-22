@@ -153,21 +153,14 @@ const enrollChecksHelper = function (specificSession, loggedInUserId) {
   let result = specificSession.enrolled.indexOf(loggedInUserId);
 
   // if user id is not found (result is -1)
-  if (result === -1 && specificSession.availability > 0) {
+  if (result === -1 && specificSession.availability > 0 && new Date() < new Date(specificSession.dateTime)) {
     specificSession.enrolled.push(loggedInUserId);
     specificSession.availability--;
     logger.info('Enrolling member: ' + loggedInUserId + ' to session: ' + specificSession.id);
     logger.info('Availability left ' + specificSession.availability);
     return {
-      message: '\nYou have just enrolled to class session on ' + specificSession.dateTime,
-      positive: true,
-    };
-  } else {
-    logger.info('member: ' + loggedInUserId + ' already enrolled to session: ' + specificSession.id);
-    logger.info('Or availability ' + specificSession.availability);
-    return {
-      message: '\nYou are already enrolled in the class session ' + specificSession.dateTime,
-      positive: false,
+      messageType: 'positive',
+      message: 'You have just enrolled to class session on ' + specificSession.dateTime,
     };
   }
 };
@@ -182,20 +175,14 @@ const enrollChecksHelper = function (specificSession, loggedInUserId) {
  */
 const unEnrollChecksHelper = function (specificSession, loggedInUserId) {
   let result = specificSession.enrolled.indexOf(loggedInUserId);
-  if (result > -1) {
+  if (result > -1 && new Date() < new Date(specificSession.dateTime)) {
     specificSession.enrolled.splice(result, 1);
     specificSession.availability++;
     logger.info('Unenrolling user ' + loggedInUserId + ' from ' + specificSession.id);
     logger.info('Availability left ' + specificSession.availability);
     return {
       message: '\nYou have unenrolled from the class session on ' + specificSession.dateTime,
-      positive: true,
-    };
-  } else {
-    logger.info('user ' + loggedInUserId + ' is not enrolled in ' + specificSession.id);
-    return {
-      message: '\nYou are not enrolled in ' + specificSession.dateTime,
-      positive: false,
+      messageType: 'positive',
     };
   }
 };

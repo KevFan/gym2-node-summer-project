@@ -1,12 +1,7 @@
 {{> menu id="classes"}}
 
 {{#each message}}
-  <div {{#if positive}} class="ui positive message" {{else}} class="ui negative message" {{/if}}>
-    <i class="close icon"></i>
-    <div class="header">
-      {{message}}
-    </div>
-  </div>
+  {{> message}}
 {{/each}}
 
 {{> listSessions}}
