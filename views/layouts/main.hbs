@@ -20,6 +20,9 @@
   <script>
     $('.ui.dropdown').dropdown();
     let today = new Date();
+    // To bring up unique modal for when a page has multiple modals
+    // https://gist.github.com/marcosfreitas/53a6c6a891aa5441d938
+    // http://jsfiddle.net/efp8z6Ln/158/
     $('.item').on('click', function(){
       // using the attribute data-modal to identify for what modal the button references
       modal = $(this).attr('data-modal');
@@ -27,20 +30,27 @@
       $('#'+modal+'.modal').modal(
         'show'
       );
+      // Bring up a calender for only time selection
       $('#dateOnly').calendar({
         type: 'date',
         minDate: new Date(),
       });
+      // Bring up calender for date and time selection
       $('#dateTime').calendar({
         minDate: new Date(today.getFullYear(), today.getMonth(), today.getDate(), today.getHours(), today.getMinutes()),
         maxDate: new Date(today.getFullYear() + 1 , today.getMonth(), today.getDate(), 22)
       });
+      // Brings up a different calender for the update modal with date and time
+      $('#cal'+modal).calendar({
+        minDate: new Date(today.getFullYear(), today.getMonth(), today.getDate(), today.getHours(), today.getMinutes()),
+        maxDate: new Date(today.getFullYear() + 1 , today.getMonth(), today.getDate(), 22)
+      });
     });
+    // To close success/error messages
     // REFERENCE: https://github.com/Semantic-Org/Semantic-UI/issues/190
     $(".close.icon").click(function(){
       $(this).parent().hide();
     });
-
     $('.ui.accordion').accordion();
   </script>
 </html>
