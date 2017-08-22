@@ -55,4 +55,15 @@ Handlebars.registerHelper('checkForProgramme', function (userId) {
   return (member.program.length === 0);
 });
 
+/**
+ * Handlebars helper function to check whether a class session dateTime is in the past
+ * Used to tell user that the session is no longer available
+ */
+Handlebars.registerHelper('checkIsInPast', function (classId, sessionId) {
+  const specificSession = classStore.getSessionById(classId, sessionId);
+  let today = new Date();
+  let sessionDate = new Date(specificSession.dateTime);
+  return (sessionDate < today);
+});
+
 module.exports = Handlebars;

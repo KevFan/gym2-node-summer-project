@@ -16,7 +16,11 @@
     </div>
   {{else}}
     <section class="ui one column basic grid container">
-      {{#if (checkEnrolled classes.id id userId) }}
+      {{#if (checkIsInPast classes.id id)}}
+        <div class="column">
+          <button class="ui grey button"><i class="minus square icon"></i> Unavailable </button>
+        </div>
+      {{else if (checkEnrolled classes.id id userId) }}
         <a class="column" href="/classes/{{classes.id}}/unEnroll/{{id}}">
           <button class="ui red submit button"><i class="square outline icon"></i>  Un-enroll </button>
         </a>
