@@ -35,7 +35,7 @@
   {{/if}}
 </section>
 
-<div class="ui segment container">
+<section class="ui segment container">
   <div class="ui green ribbon label">Bookings</div>
   <a class="ui label item" data-modal="addBooking">
     <i class="blue plus icon"></i> Book Assessment
@@ -46,9 +46,9 @@
   {{else}}
     <section class="ui center aligned segment">You have no assessment bookings</section>
   {{/if}}
-</div>
+</section>
 
-<div class="ui segment container">
+<section class="ui segment container">
   <div class="ui purple ribbon label">Goals</div>
   <a class="ui label item" data-modal="addGoal">
     <i class="blue plus icon"></i> Add Goal
@@ -59,10 +59,10 @@
   {{else}}
     <section class="ui center aligned segment">You have no goals</section>
   {{/if}}
-</div>
+</section>
 
 {{#if isTrainer}}
-  <div class="ui segment container">
+  <section class="ui segment container">
     <div class="ui grey ribbon label">Fitness Programme</div>
     <a class="ui label item" data-modal="addFitnessProgramme{{user.id}}">
       <i class="blue plus icon"></i> Add Fitness Programme
@@ -76,8 +76,7 @@
       <div class="ui relaxed divided list">
         {{#each user.program}}
           <div class="item">
-            <img class="ui avatar image" {{#if image}}
-                 src="{{image}}" {{else}}
+            <img class="ui avatar image" {{#if image}} src="{{image}}" {{else}}
                  src="http://s3.amazonaws.com/wpd-assets/ymcanewyork/uploads/sub-class-thumbs/family-yoga-pilates-icon.png" {{/if}}>
             <div class="content">
               <div class="header">
@@ -88,20 +87,17 @@
                 {{/if}}
               </div>
             </div>
-            <section class="right aligned content" style="float:right; padding-right:2em">
-              <div class="ui teal buttons">
-                <div class="ui button"><i class="white options icon"></i>Options</div>
-                <div class="ui floating dropdown icon button">
-                  <i class="dropdown icon"></i>
-                  <div class="menu">
-                    <div class="item" data-modal="{{id}}"><i class="blue edit icon"></i> Edit Details</div>
-                    {{> updateFitnessProgramme userId=../user.id}}
+            <section class="center aligned content" style="float:right; padding-right:2em">
+              <div class="ui dropdown teal button"><i class="options icon"></i>Options
+                <i class="dropdown icon"></i>
+                <section class="menu">
+                  <div class="item" data-modal="{{id}}"><i class="blue edit icon"></i> Edit Details</div>
+                  {{> updateFitnessProgramme userId=../user.id}}
 
-                    <a class="item" href="/trainerDashboard/{{../user.id}}/deleteRoutine/{{id}}">
-                      <i class="red delete icon"></i> Delete class/routine
-                    </a>
-                  </div>
-                </div>
+                  <a class="item" href="/trainerDashboard/{{../user.id}}/deleteRoutine/{{id}}">
+                    <i class="red delete icon"></i> Delete {{#if type}} Class {{else}} Routine{{/if}}
+                  </a>
+                </section>
               </div>
             </section>
           </div>
@@ -112,12 +108,11 @@
         You don't have a fitness programme. Book an assessment with a trainer to build a programme geared for you !!
       </section>
     {{/if}}
-  </div>
+  </section>
 
   {{> addAssessment}}
   {{> updateAssessment userid=user.id}}
 {{/if}}
 
 {{> addBooking}}
-
 {{> addGoal}}

@@ -1,32 +1,31 @@
 <section class="center aligned content">
   {{#if isTrainer}}
-    <div class="ui teal buttons">
-      <div class="ui button"><i class="options icon"></i>Options</div>
-      <div class="ui floating dropdown icon button">
+    <section class="center aligned content">
+      <div class="ui dropdown teal button"><i class="options icon"></i>Options
         <i class="dropdown icon"></i>
-        <div class="menu">
+        <section class="menu">
           <div class="item" data-modal="{{id}}"><i class=" blue edit icon"></i> Edit Details</div>
           {{> updateSessions}}
 
-          <a class="item" href="/classes/{{classes.id}}/deletesession/{{id}}" >
+          <a class="item" href="/classes/{{classes.id}}/deletesession/{{id}}">
             <i class="red delete icon"></i> Delete Session
           </a>
-        </div>
+        </section>
       </div>
-    </div>
+    </section>
   {{else}}
     <section class="ui one column basic grid container">
       {{#if (checkIsInPast classes.id id)}}
         <div class="column">
-          <button class="ui grey button"><i class="minus square icon"></i> Unavailable </button>
+          <button class="ui grey button"><i class="minus square icon"></i> Unavailable</button>
         </div>
       {{else if (checkEnrolled classes.id id userId) }}
         <a class="column" href="/classes/{{classes.id}}/unEnroll/{{id}}">
-          <button class="ui red submit button"><i class="square outline icon"></i>  Un-enroll </button>
+          <button class="ui red submit button"><i class="square outline icon"></i> Un-enroll</button>
         </a>
       {{else}}
         <form class="column" action="/classes/{{classes.id}}/enroll/{{id}}" method="POST">
-          <button class="ui blue submit button"><i class="checkmark box icon"></i> Enroll </button>
+          <button class="ui blue submit button"><i class="checkmark box icon"></i> Enroll</button>
         </form>
       {{/if}}
     </section>

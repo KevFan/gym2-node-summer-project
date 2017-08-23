@@ -13,18 +13,15 @@
         <div class="ui link card">
           {{> listRoutines}}
           <section class="center aligned content">
-            <div class="ui teal buttons">
-              <div class="ui button"><i class="options icon"></i>Options</div>
-              <div class="ui floating dropdown icon button">
-                <i class="dropdown icon"></i>
-                <div class="menu">
-                  <div class="item" data-modal="{{id}}"><i class="blue edit icon"></i> Edit Details</div>
-                  {{> updateRoutine}}
-                  <a class="item" href="/fitness/delete/{{id}}" >
-                    <i class="red delete icon"></i> Delete Routine
-                  </a>
-                </div>
-              </div>
+            <div class="ui dropdown teal button"><i class="options icon"></i>Options
+              <i class="dropdown icon"></i>
+              <section class="menu">
+                <div class="item" data-modal="{{id}}"><i class="blue edit icon"></i> Edit Details</div>
+                {{> updateRoutine}}
+                <a class="item" href="/fitness/delete/{{id}}">
+                  <i class="red delete icon"></i> Delete Routine
+                </a>
+              </section>
             </div>
           </section>
         </div>
@@ -37,7 +34,7 @@
   {{> menu id="fitness"}}
   <div class="ui container">
     {{#if user.program}}
-      <div class="ui container">
+      <section class="ui container">
         <div class="ui centered five doubling stackable cards">
           {{#each user.program}}
             <div class="ui link card">
@@ -49,7 +46,7 @@
             </div>
           {{/each}}
         </div>
-      </div>
+      </section>
       <section class="ui center aligned segment">
         Tired of the same routine? Book for a re-assessment with a trainer to build a new programme just for you.
       </section>

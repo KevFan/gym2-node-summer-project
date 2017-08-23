@@ -23,26 +23,23 @@
       <td> {{comment}} </td>
       <td>
         <section class="center aligned content">
-          <div class="ui teal buttons">
-            <div class="ui button"><i class="white options icon"></i>Options</div>
-            <div class="ui floating dropdown icon button">
-              <i class="dropdown icon"></i>
-              <div class="menu">
-                <div class="item" data-modal="{{id}}"><i class=" blue edit icon"></i> Edit Details</div>
-                {{> updateBooking allTrainers=../allTrainers isTrainer=../isTrainer}}
+          <div class="ui dropdown teal button"><i class="options icon"></i>Options
+            <i class="dropdown icon"></i>
+            <section class="menu">
+              <div class="item" data-modal="{{id}}"><i class=" blue edit icon"></i> Edit Details</div>
+              {{> updateBooking allTrainers=../allTrainers isTrainer=../isTrainer}}
 
-                {{#if ../isTrainer}}
-                  <section class="item" data-modal="addAssessment{{id}}">
-                    <i class="blue plus icon"></i> Add Assessment
-                  </section>
-                  {{> addAssessment}}
-                {{/if}}
+              {{#if ../isTrainer}}
+                <section class="item" data-modal="addAssessment{{id}}">
+                  <i class="blue plus icon"></i> Add Assessment
+                </section>
+                {{> addAssessment}}
+              {{/if}}
 
-                <a class="item" href="/bookings/delete/{{id}}" >
-                  <i class="red delete icon"></i> Delete Booking
-                </a>
-              </div>
-            </div>
+              <a class="item" href="/bookings/delete/{{id}}" >
+                <i class="red delete icon"></i> Delete Booking
+              </a>
+            </section>
           </div>
         </section>
       </td>
