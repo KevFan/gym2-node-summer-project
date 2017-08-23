@@ -92,7 +92,7 @@
                 <i class="dropdown icon"></i>
                 <section class="menu">
                   <div class="item" data-modal="{{id}}"><i class="blue edit icon"></i> Edit Details</div>
-                  {{> updateFitnessProgramme userId=../user.id}}
+                  {{> updateFitnessProgramme userId=../user.id type=type}}
 
                   <a class="item" href="/trainerDashboard/{{../user.id}}/deleteRoutine/{{id}}">
                     <i class="red delete icon"></i> Delete {{#if type}} Class {{else}} Routine{{/if}}
