@@ -22,7 +22,7 @@ The project also requires the [Cloudinary](http://cloudinary.com/) services in o
 }
 ~~~
 
-Following the dependency installation, enter the `npm start` which would host the project on <http://localhost:4000/>
+Following the dependency installation, enter the `npm start` command which would host the project on <http://localhost:4000/>
 
 
 ### User Instructions:
@@ -36,7 +36,7 @@ password: secret
 email: marge@simpson.com
 password: secret
 ```
-There is also a preloaded trainer account, which serves as an admin that can delete users and add comments to user assessments: 
+Trainer accounts are also preloaded, which serves as an admins that can perform most member CRUD actions and also additaional seperate CRUD actions such as class creation etc.  
 ```
 Trainer Account:
 
@@ -49,7 +49,7 @@ password: secret
 ```
 Alternative for the deployed version, you can visit <https://node-gym-summer.glitch.me/>
 
-The above user and trainer accounts should also work for the deployed version, assuming none of the preloaded user accounts has been deleted.
+The above user and trainer accounts should also work for the deployed version, assuming none of the preloaded user/trainer accounts has been deleted.
 
 ### Feature List:
 * Class Scheduling
@@ -61,6 +61,8 @@ The above user and trainer accounts should also work for the deployed version, a
     * View classes
     * Search for a class
     * Enroll/Un-enroll to specific class session or enroll to all sessions in a class
+      * Enroll/Un-enroll is only from class sessions that are in the future
+      * Past class sessions are shown as unavailble 
 * Assessment Booking
   * Trainer & Member
     * CRUD on assessment bookings
@@ -83,6 +85,18 @@ The above user and trainer accounts should also work for the deployed version, a
     * CRUD on individual exercise sessions 
   * Member
     * View Fitness Progamme and individual exercise sessions
+* Miscellaneous
+  * Form validation - Member's can't signup/book assessment without filling all information required
+  * Email validation for signup/update email 
+    * Checks whether the email (toLowerCase) is already used by another member/trainer
+    * Shows success/unsuccessful messages in login, signup and update settings
+  * Profile picture uploading
+    * Allows member/trainer to upload, delete, update profile picture from a cloudinary account
+  * Trainer
+    * Delete member - deletes all member related information from json databases and cloudinary store
+    * Search member to view member dashboard
+  * Assessment bookings and goals are sorted by date (most recent to oldest or vice versa)
+  * Date/time selection is limited to only in the future from today 
 
 ### Notes: 
 * There is no sign up available for a Trainer. Trainers must be preloaded from the trainer-store.json 
@@ -91,14 +105,16 @@ The above user and trainer accounts should also work for the deployed version, a
 * Unit testing - no unit testing was done. Functionality was only tested manually
 * Secure routes/url - trainer/member access can be allowed just from knowing the routes/paths
 * List enrolled class sessions for members 
-* Class sessions should auto hide/make past session unavailble
-* Enroll should only enroll by dates from today
 * Unset values - have default value
 * Allow batch set weekly sessions
 * Link trainer to classes their teaching and show on dashboard
 * Set upload profile button to unavailable if cloudinary keys are not found
-* Nav bar does not stack correctly
-
+* Assessment Booking should only list time available for trainer or checks whether the trainer is free at the time selected and display time available message
+* Enroll/Un-enroll all sessions should only be displayed if there's available class sessions
+* Class sessions should list enrolled members for trainers
+* Workout Routine Exercises should include more fields such as duration, type for cardio exercises
+* Link each booking to an assessment and set status to completed after making an assessment
+* Allow member/trainer to have option to list goals etc by date most recent or oldest
 
 ### List of Software + Technologies Used
 + [Node.js](https://nodejs.org/en/)
