@@ -22,6 +22,7 @@ const classes = {
       const viewData = {
         title: 'Trainer Classes',
         classes: classStore.getAllClasses(),
+        user: accounts.getCurrentUser(request),
       };
       response.render('trainerClasses', viewData);
       logger.info('trainer classes rendering', viewData.classes);
@@ -29,6 +30,7 @@ const classes = {
       const viewData = {
         title: 'Member Classes',
         classes: classStore.getAllNonHiddenClasses(),
+        user: accounts.getCurrentUser(request),
       };
       response.render('memberClasses', viewData);
       logger.info('member classes rendering', viewData.classes);
@@ -71,7 +73,7 @@ const classes = {
       title: 'Classes',
       classes: classStore.getClassById(classId),
       isTrainer: isTrainer,
-      userId: accounts.getCurrentUser(request).id,
+      user: accounts.getCurrentUser(request),
     };
     if (isTrainer) {
       response.render('trainerClassSessions', viewData);

@@ -94,6 +94,7 @@ const trainerDashboard = {
     logger.info('trainer member view rendering');
     const viewData = {
       title: 'Trainer Members',
+      user: accounts.getCurrentUser(request),
       isTrainer: accounts.userIsTrainer(request),
       allTrainers: trainerStore.getAllTrainers(),
       allMembers: memberStore.getAllMembers(),

@@ -58,7 +58,7 @@ const dashboard = {
       message.push(enrollChecksHelper(session, loggedInUserId));
     });
 
-    saveAndRedirectHelper(classes.id, response, message, loggedInUserId);
+    saveAndRedirectHelper(classes.id, response, message, request);
     logger.info('Message is ' + message);
   },
 
@@ -78,7 +78,7 @@ const dashboard = {
     // Call function that checks whether member should be enrolled or not
     let message = [];
     message.push(enrollChecksHelper(specificSession, loggedInUserId));
-    saveAndRedirectHelper(classId, response, message, loggedInUserId);
+    saveAndRedirectHelper(classId, response, message, request);
   },
 
   /**
@@ -94,7 +94,7 @@ const dashboard = {
       message.push(unEnrollChecksHelper(session, loggedInUserId));
     });
 
-    saveAndRedirectHelper(classes.id, response, message, loggedInUserId);
+    saveAndRedirectHelper(classes.id, response, message, request);
   },
 
   /**
@@ -113,7 +113,7 @@ const dashboard = {
     let message = [];
     message.push(unEnrollChecksHelper(specificSession, loggedInUserId));
 
-    saveAndRedirectHelper(classId, response, message, loggedInUserId);
+    saveAndRedirectHelper(classId, response, message, request);
   },
 
   /**
@@ -135,6 +135,7 @@ const dashboard = {
       routine: routine,
       isTrainer: isTrainer,
       userId: userId,
+      user: user,
     };
 
     response.render('fitnessExercises', viewData);
@@ -195,14 +196,14 @@ const unEnrollChecksHelper = function (specificSession, loggedInUserId) {
  * @param message array of success/un-successful messages
  * @param loggedInUserId member Id
  */
-const saveAndRedirectHelper = function (classId, response, message, loggedInUserId) {
+const saveAndRedirectHelper = function (classId, response, message, request) {
   classStore.store.save();
   logger.info('classes id: ' + classId);
   const viewData = {
     title: 'Classes',
     classes: classStore.getClassById(classId),
     message: message,
-    userId: loggedInUserId,
+    user: accounts.getCurrentUser(request),
   };
   response.render('memberClassSessions', viewData);
 };

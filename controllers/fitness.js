@@ -95,6 +95,7 @@ const fitness = {
       routine: fitnessStore.getProgrammeById(routineId),
       isTrainer: isTrainer,
       userId: accounts.getCurrentUser(request).id,
+      user: accounts.getCurrentUser(request),
     };
     response.render('fitnessExercises', viewData);
   },
