@@ -5,6 +5,7 @@ const uuid = require('uuid');
 const members = require('../models/member-store');
 const analytics = require('../utils/analytics');
 const assessmentStore = require('../models/assessment-store');
+const moment = require('moment');
 
 const assessments = {
   /**
@@ -16,7 +17,7 @@ const assessments = {
     const userId = request.params.id;
     const newAssessment = {
       id: uuid(),
-      date: new Date().toUTCString(),
+      date: moment().format('LLL'),
       weight: Number(request.body.weight),
       chest: Number(request.body.chest),
       thigh: Number(request.body.thigh),
