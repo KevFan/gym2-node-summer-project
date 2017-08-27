@@ -46,7 +46,7 @@
       "userid": "01",
       "name": "H.I.I.T",
       "difficulty": "Intermediate",
-      "numSessions": 5,
+      "numSessions": 0,
       "hidden": false,
       "sessions": [],
       "image": "http://ynmfitness.com/wp-content/uploads/2015/02/YNM_HIITandRun_Icon_Final.png",
@@ -58,7 +58,7 @@
       "userid": "01",
       "name": "Boxercise",
       "difficulty": "Advanced",
-      "numSessions": 3,
+      "numSessions": 0,
       "hidden": false,
       "sessions": []
     },

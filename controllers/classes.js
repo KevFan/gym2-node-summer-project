@@ -9,6 +9,7 @@ const classStore = require('../models/class-store');
 const uuid = require('uuid');
 const accounts = require('./accounts');
 const sort = require('../utils/sort');
+const moment = require('moment');
 
 const classes = {
   /**
@@ -44,17 +45,34 @@ const classes = {
    */
   addSession(request, response) {
     const classId = request.params.id;
-    const newSession = {
-      id: uuid(),
-      location: request.body.location,
-      dateTime: request.body.dateTime,
-      capacity: Number(request.body.capacity),
-      enrolled: [],
-      availability: 0,
-    };
-    newSession.availability = (newSession.capacity - newSession.enrolled.length);
-    logger.debug('New session', newSession);
-    classStore.addSession(classId, newSession);
+    let weeksRun = Number(request.body.weeks);
+    if (weeksRun) {
+      for (let i = 0; i < weeksRun; i++) {
+        let weeklyDate = moment(request.body.dateTime).add(7 * i, 'days').format('LLL');
+        const newSession = {
+          id: uuid(),
+          location: request.body.location,
+          dateTime: weeklyDate,
+          capacity: Number(request.body.capacity),
+          enrolled: [],
+          availability: Number(request.body.capacity),
+        };
+        logger.debug('New session', newSession);
+        classStore.addSession(classId, newSession);
+      }
+    } else {
+      const newSession = {
+        id: uuid(),
+        location: request.body.location,
+        dateTime: request.body.dateTime,
+        capacity: Number(request.body.capacity),
+        enrolled: [],
+        availability: Number(request.body.capacity),
+      };
+      logger.debug('New session', newSession);
+      classStore.addSession(classId, newSession);
+    }
+
     response.redirect('/classes/' + classId);
   },
 
