@@ -9,7 +9,7 @@ const analytics = {
 
   /**
    * Generates the member stats - BMI, isIdealWeight, Assessment Trend & BMI Category
-   * @param member
+   * @param member Member to generate stats for
    */
   generateMemberStats(member) {
     let weight = member.startingweight;
@@ -29,8 +29,8 @@ const analytics = {
         }
       }
     }
-    logger.info('The weight is ' + weight);
 
+    logger.info('The weight is ' + weight);
     memberStats.bmi = this.calculateBMI(member, weight);
     memberStats.bmiCategory = this.determineBMICategory(member, weight);
     memberStats.isIdealBodyweight = this.isIdealBodyWeight(member, weight);

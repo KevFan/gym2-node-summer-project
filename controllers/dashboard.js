@@ -118,8 +118,8 @@ const dashboard = {
 
   /**
    * Renders the individual personal routine from the member's fitness programme
-   * @param request
-   * @param response
+   * @param request to render a member's personal routine
+   * @param response renders the selected members's personal routine from their fitness programme
    */
   viewPersonalRoutine(request, response) {
     const routineId = request.params.id;
@@ -147,13 +147,14 @@ const dashboard = {
  * Checks are there any available spaces left and is the member already enrolled
  * @param specificSession the class session
  * @param loggedInUserId the memberId
- * @returns {{message: string, positive: boolean}} a string and boolean of whether the enrollment
+ * @returns {{messageType: string, message: string}} a string determining whether the message is
+ * positive or negative and string containing the message
  * was successful
  */
 const enrollChecksHelper = function (specificSession, loggedInUserId) {
   let result = specificSession.enrolled.indexOf(loggedInUserId);
 
-  // if user id is not found (result is -1)
+  // if user id is not found (result is -1) and session date is in the future
   if (result === -1 && specificSession.availability > 0 && new Date() < new Date(specificSession.dateTime)) {
     specificSession.enrolled.push(loggedInUserId);
     specificSession.availability--;
@@ -171,8 +172,8 @@ const enrollChecksHelper = function (specificSession, loggedInUserId) {
  * Checks is the member already un-enrolled
  * @param specificSession the class session
  * @param loggedInUserId the memberId
- * @returns {{message: string, positive: boolean}} a string and boolean of whether the un-enrollment
- * was successful
+ * @returns {{messageType: string, message: string}} a string determining whether the message is
+ * positive or negative and string containing the message
  */
 const unEnrollChecksHelper = function (specificSession, loggedInUserId) {
   let result = specificSession.enrolled.indexOf(loggedInUserId);
@@ -194,7 +195,7 @@ const unEnrollChecksHelper = function (specificSession, loggedInUserId) {
  * @param classId Id of the class to get at sessions
  * @param response to render the memberClassSessions view
  * @param message array of success/un-successful messages
- * @param loggedInUserId member Id
+ * @param request request made by user, used to get current user
  */
 const saveAndRedirectHelper = function (classId, response, message, request) {
   classStore.store.save();

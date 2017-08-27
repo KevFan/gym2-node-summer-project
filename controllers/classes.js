@@ -79,8 +79,8 @@ const classes = {
   /**
    * Renders the memberClassSessions or trainerClassSessions view. Lists the sessions in the class,
    * sorts them by old to recent
-   * @param request
-   * @param response
+   * @param request to list the class sessions in a class
+   * @param response renders the memberClassSessions or trainerClassSessions view
    */
   listClassSessions(request, response) {
     const isTrainer = accounts.userIsTrainer(request);
