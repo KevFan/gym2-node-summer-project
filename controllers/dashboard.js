@@ -29,7 +29,7 @@ const dashboard = {
     }
 
     const viewData = {
-      title: 'Member Assessments',
+      title: 'Member Dashboard',
       bookings: sort.sortDateTimeNewToOld(bookingStore.getAllUserBookings(loggedInUser.id)),
       allTrainers: trainers.getAllTrainers(),
       assessmentlist: assessmentStore.getAssessmentList(loggedInUser.id),

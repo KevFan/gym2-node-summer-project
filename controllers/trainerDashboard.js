@@ -26,7 +26,7 @@ const trainerDashboard = {
     logger.info('trainer dashboard rendering');
     const loggedInUser = accounts.getCurrentUser(request);
     const viewData = {
-      title: 'Trainer Assessments',
+      title: 'Trainer Dashboard',
       user: loggedInUser,
       bookings: sort.sortDateTimeOldToNew(bookingStore.getAllTrainerBookings(loggedInUser.id)),
       isTrainer: accounts.userIsTrainer(request),
@@ -101,7 +101,11 @@ const trainerDashboard = {
       allClasses: classStore.getAllNonHiddenClasses(),
       allRoutines: fitnessStore.getAllProgrammes(),
     };
-    response.render('trainerMembers', viewData);
+    if (accounts.userIsTrainer(request)) {
+      response.render('trainerMembers', viewData);
+    } else {
+      response.redirect('back');
+    }
   },
 
   /**
@@ -118,7 +122,7 @@ const trainerDashboard = {
     }
 
     const viewData = {
-      title: 'Trainer Dashboard',
+      title: 'Trainer Members',
       user: memberStore.getMemberById(userId),
       isTrainer: accounts.userIsTrainer(request),
       allTrainers: trainerStore.getAllTrainers(),
@@ -129,7 +133,11 @@ const trainerDashboard = {
       allClasses: classStore.getAllNonHiddenClasses(),
       allRoutines: fitnessStore.getAllProgrammes(),
     };
-    response.render('dashboard', viewData);
+    if (accounts.userIsTrainer(request)) {
+      response.render('dashboard', viewData);
+    } else {
+      response.redirect('back');
+    }
   },
 
   /**

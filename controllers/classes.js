@@ -94,8 +94,10 @@ const classes = {
       user: accounts.getCurrentUser(request),
     };
     if (isTrainer) {
+      viewData.title = 'Trainer Class Sessions';
       response.render('trainerClassSessions', viewData);
     } else {
+      viewData.title = 'Member Class Sessions';
       response.render('memberClassSessions', viewData);
     }
   },

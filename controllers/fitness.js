@@ -20,13 +20,13 @@ const fitness = {
     logger.info('user is trainer? ' + isTrainer);
     if (isTrainer) {
       const viewData = {
-        title: 'Trainer Fitness Programmes',
+        title: 'Trainer Workout Routines',
         user: user,
         isTrainer: isTrainer,
         routines: fitnessStore.getAllProgrammes(),
       };
       response.render('fitness', viewData);
-      logger.info('trainer fitness programmes rendering');
+      logger.info('trainer workout routines rendering');
     } else {
       const viewData = {
         title: 'Member Fitness Programme',
@@ -91,7 +91,7 @@ const fitness = {
     const routineId = request.params.id;
     logger.info('Routine id: ' + routineId);
     const viewData = {
-      title: 'Fitness Routine',
+      title: 'Trainer Routine Exercises',
       routine: fitnessStore.getProgrammeById(routineId),
       isTrainer: isTrainer,
       userId: accounts.getCurrentUser(request).id,
@@ -140,9 +140,9 @@ const fitness = {
     const routineId = request.params.id;
     const exerciseId = request.params.exerciseid;
     const userId = request.params.userid;
-    if (membersStore.getMemberById(userId)) {
-      let user = membersStore.getMemberById(userId);
-      let routine = _.find(user.program, { id: routineId });
+    let isMember = membersStore.getMemberById(userId);
+    if (isMember) {
+      let routine = _.find(isMember.program, { id: routineId });
       _.remove(routine.exercises, { id: exerciseId });
       membersStore.store.save();
     } else {
@@ -164,9 +164,9 @@ const fitness = {
     const exerciseId = request.params.exerciseid;
     const userId = request.params.userid;
     let exercise = null;
-    if (membersStore.getMemberById(userId)) {
-      let user = membersStore.getMemberById(userId);
-      let routine = _.find(user.program, { id: routineId });
+    let isMember = membersStore.getMemberById(userId);
+    if (isMember) {
+      let routine = _.find(isMember.program, { id: routineId });
       exercise = _.find(routine.exercises, { id: exerciseId });
     } else {
       exercise = fitnessStore.getExerciseFromRoutine(routineId, exerciseId);
@@ -176,7 +176,7 @@ const fitness = {
     exercise.sets = Number(request.body.sets);
     exercise.reps = Number(request.body.reps);
     exercise.rest = Number(request.body.rest);
-    (membersStore.getMemberById(userId)) ? membersStore.store.save() : fitnessStore.store.save();
+    isMember ? membersStore.store.save() : fitnessStore.store.save();
     response.redirect('back');
   },
 };
