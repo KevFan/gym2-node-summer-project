@@ -66,4 +66,12 @@ Handlebars.registerHelper('checkIsInPast', function (classId, sessionId) {
   return (sessionDate < today);
 });
 
+/**
+ * Handlebar Helper function to return a member's name only by their id
+ * Used to list enrolled members for a sessions which only contain their ids
+ */
+Handlebars.registerHelper('getMemberName', function (id) {
+  return memberStore.getMemberById(id).name;
+});
+
 module.exports = Handlebars;

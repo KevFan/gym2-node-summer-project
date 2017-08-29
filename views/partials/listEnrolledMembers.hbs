@@ -1,0 +1,14 @@
+<section class="ui modal" id="view{{id}}"><i class="close icon"></i>
+  <header class="header">Enrolled Members for {{dateTime}}</header>
+  <div class="content">
+    {{#if enrolled}}
+    <ol>
+      {{#each enrolled}}
+        <li>{{getMemberName this}}</li>
+      {{/each}}
+    </ol>
+    {{else}}
+      There are no member's currently enrolled to this class session
+    {{/if}}
+  </div>
+</section>

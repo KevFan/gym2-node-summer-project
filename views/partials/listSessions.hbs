@@ -27,7 +27,7 @@
   <div class="ui centered three doubling stackable cards">
   {{#each classes.sessions}}
     <div class="ui link card">
-      <section class="content">
+      <section class="content item" data-modal="view{{id}}">
         <div class="center aligned header">{{dateTime}}</div>
         <section class="ui two column grid">
           <section class="column">
@@ -43,7 +43,7 @@
         </section>
       </section>
 
-      {{> editSessionsOptions isTrainer=../isTrainer classes=../classes userId=../user.id}}
+      {{> editSessionsOptions isTrainer=../isTrainer classes=../classes userId=../user.id enrolled=enrolled}}
     </div>
   {{/each}}
   </div>

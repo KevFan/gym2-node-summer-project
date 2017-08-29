@@ -33,8 +33,11 @@
           "location": "Test Feature",
           "dateTime": "September 14, 2017 1:35 PM",
           "capacity": 15,
-          "enrolled": [],
-          "availability": 15
+          "enrolled": [
+            "3ad52697-6d98-4d80-8273-084de55a86c0",
+            "2b6f0989-7b7f-4a38-ad26-aa06b922d751"
+          ],
+          "availability": 13
         }
       ],
       "duration": 45,
