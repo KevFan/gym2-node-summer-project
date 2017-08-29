@@ -18,7 +18,7 @@
     </section>
   {{else}}
     <section class="ui one column basic grid container">
-      {{#if (checkIsInPast classes.id id)}}
+      {{#if (checkIsInPast dateTime)}}
         <div class="column">
           <button class="ui grey button"><i class="minus square icon"></i> Unavailable</button>
         </div>

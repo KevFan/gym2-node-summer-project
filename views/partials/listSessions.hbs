@@ -27,6 +27,12 @@
   <div class="ui centered three doubling stackable cards">
   {{#each classes.sessions}}
     <div class="ui link card">
+      {{#if (checkIsInPast dateTime)}}
+        <div class="ui right corner grey label">
+          <i class="history icon"></i>
+        </div>
+      {{/if}}
+
       <section class="content item" data-modal="view{{id}}">
         <div class="center aligned header">{{dateTime}}</div>
         <section class="ui two column grid">
