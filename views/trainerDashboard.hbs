@@ -1,13 +1,36 @@
 {{> trainermenu id="dashboard"}}
 
-<section class="ui segment">
-  <h1 class="ui heaader">
-    Welcome {{user.name}}
-  </h1>
-  <p>
-    Trainer Logged in Successfully!
-  </p>
-</section>
+<div class="ui segment container">
+  <div class="ui blue ribbon label">Your Next Class Session</div>
+  {{#if nextClassList}}
+    <table class="ui celled table">
+      <thead>
+      <tr>
+        <th> Class </th>
+        <th> Next Session </th>
+        <th> Capacity </th>
+        <th> Availability </th>
+        <th> </th>
+      </tr>
+      </thead>
+      <tbody>
+      {{#each nextClassList}}
+        <tr>
+          <td> {{name}} </td>
+          <td> {{dateTime}} </td>
+          <td> {{capacity}} </td>
+          <td> {{availability}} </td>
+          <td class="center aligned">
+            <a href="/classes/{{classId}}"><i class="mail forward icon"></i></a>
+          </td>
+        </tr>
+      {{/each}}
+      </tbody>
+    </table>
+  {{else}}
+    <section class="ui center aligned segment">You have no classes. Create a new class to view your next class session</section>
+  {{/if}}
+</div>
 
 <div class="ui segment container">
   <div class="ui green ribbon label">Bookings</div>

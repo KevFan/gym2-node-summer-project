@@ -100,6 +100,15 @@ const classStore = {
   getClassByName(name) {
     return this.store.findOneBy(this.collection, { name: name });
   },
+
+  /**
+   * Get all classes assoicated to a trainer id
+   * @param id of the trainer
+   * @returns {*} an array of classes associated with the trainer id
+   */
+  getAllTrainerClasses(id) {
+    return this.store.findBy(this.collection, { userid: id });
+  },
 };
 
 module.exports = classStore;

@@ -124,7 +124,7 @@ const accounts = {
    * @returns {*} boolean of whether user in session is a trainer or member
    */
   userIsTrainer(request) {
-    return trainerstore.getTrainerById(request.cookies.user);
+    return !!trainerstore.getTrainerById(request.cookies.user);
   },
 };
 

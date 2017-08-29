@@ -32,7 +32,9 @@ const trainerDashboard = {
       isTrainer: accounts.userIsTrainer(request),
       allTrainers: trainerStore.getAllTrainers(),
       allMembers: memberStore.getAllMembers(),
+      nextClassList: sort.sortDateTimeOldToNew(getNextSessionClass(loggedInUser.id)),
     };
+    logger.debug('Hopefully List of first sessions,', viewData.nextClassList);
     response.render('trainerDashboard', viewData);
   },
 
@@ -255,6 +257,40 @@ const getClassOrRoutine = function (id) {
       exercises: [],
     };
   }
+};
+
+/**
+ * Helper object to create an array containing the next session of each class a trainer made
+ * @param trainerId Id of the trainer to get all the classes the trainer manages
+ * @returns {Array} array containing the next session of each class a trainer made
+ */
+const getNextSessionClass = function (trainerId) {
+  let trainerClasses = classStore.getAllTrainerClasses(trainerId);
+  let nextClassList = [];
+  trainerClasses.forEach(function (specificClass) {
+    let firstSessionInFuture = _.find(specificClass.sessions, function (specificSession) {
+      return (new Date() < new Date(specificSession.dateTime));
+    });
+
+    if (firstSessionInFuture) {
+      // push new object instead of the session found to avoid adding new properties to the session found
+      nextClassList.push({
+        name: specificClass.name,
+        classId: specificClass.id,
+        dateTime: firstSessionInFuture.dateTime,
+        capacity: firstSessionInFuture.capacity,
+        availability: firstSessionInFuture.availability,
+      });
+    } else {
+      nextClassList.push({
+        name: specificClass.name,
+        classId: specificClass.id,
+        dateTime: 'No future session scheduled',
+      });
+    }
+  });
+
+  return nextClassList;
 };
 
 module.exports = trainerDashboard;
