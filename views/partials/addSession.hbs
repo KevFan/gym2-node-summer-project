@@ -39,6 +39,43 @@
         </div>
       </section>
       <button class="ui blue submit button"><i class="plus icon"></i> Add Session </button>
+      <div class="ui error message"></div>
     </form>
   </div>
 </section>
+
+<script>
+  $('.ui.form')
+    .form({
+      fields: {
+        location: {
+          identifier: 'location',
+          rules: [
+            {
+              type   : 'empty',
+              prompt : 'Please enter a class session location'
+            }
+          ]
+        },
+        dateTime: {
+          identifier: 'dateTime',
+          rules: [
+            {
+              type   : 'empty',
+              prompt : 'Please select a date and time'
+            }
+          ]
+        },
+        capacity: {
+          identifier: 'capacity',
+          rules: [
+            {
+              type   : 'empty',
+              prompt : 'Please class session capacity'
+            }
+          ]
+        }
+      }
+    })
+  ;
+</script>

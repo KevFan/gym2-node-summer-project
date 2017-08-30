@@ -44,6 +44,52 @@
         </div>
       </div>
       <button class="ui blue submit button"><i class="plus icon"></i> Add Class </button>
+      <div class="ui error message"></div>
     </form>
   </div>
 </section>
+
+<script>
+  $('.ui.form')
+    .form({
+      fields: {
+        name: {
+          identifier: 'name',
+          rules: [
+            {
+              type   : 'empty',
+              prompt : 'Please enter a class name'
+            }
+          ]
+        },
+        difficulty: {
+          identifier: 'difficulty',
+          rules: [
+            {
+              type   : 'empty',
+              prompt : 'Please select a difficulty level'
+            }
+          ]
+        },
+        duration: {
+          identifier: 'duration',
+          rules: [
+            {
+              type   : 'empty',
+              prompt : 'Please class duration'
+            }
+          ]
+        },
+        description: {
+          identifier: 'description',
+          rules: [
+            {
+              type   : 'empty',
+              prompt : 'Please select a class description'
+            }
+          ]
+        }
+      }
+    })
+  ;
+</script>

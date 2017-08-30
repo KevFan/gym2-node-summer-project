@@ -1,0 +1,53 @@
+<script>
+  $('.ui.form')
+    .form({
+      fields: {
+        dateOnly: {
+          identifier: 'dateOnly',
+          rules: [
+            {
+              type: 'empty',
+              prompt: 'Please enter a date to achieve goal by'
+            }
+          ]
+        },
+        dateTime: {
+          identifier: 'dateTime',
+          rules: [
+            {
+              type: 'empty',
+              prompt: 'Please select date for assessment booking'
+            }
+          ]
+        },
+        trainer: {
+          identifier: 'trainer',
+          rules: [
+            {
+              type: 'empty',
+              prompt: 'Please select a trainer'
+            }
+          ]
+        },
+        name: {
+          identifier: 'name',
+          rules: [
+            {
+              type: 'empty',
+              prompt: 'Please enter a name'
+            }
+          ]
+        },
+        fitnessProgramme: {
+          identifier: 'first',
+          rules: [
+            {
+              type: 'empty',
+              prompt: 'Please select at least one exercise session to build programme'
+            }
+          ]
+        }
+      }
+    })
+  ;
+</script>
