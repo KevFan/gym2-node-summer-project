@@ -16,6 +16,9 @@ const goals = require('./controllers/goals.js');
 const handleBarHelpers = require('./controllers/handlebarHelpers.js');
 const fitness = require('./controllers/fitness.js');
 
+// About
+router.get('/about', about.index);
+
 // Accounts
 router.get('/', accounts.index);
 router.get('/login', accounts.login);
@@ -26,14 +29,14 @@ router.post('/authenticate', accounts.authenticate);
 
 // Member
 router.get('/dashboard', dashboard.index);
-router.get('/about', about.index);
 router.get('/routine/:userid/:id', dashboard.viewPersonalRoutine);
+router.post('/classes/:id/enrolAll', dashboard.enrollAllSessions);
+router.post('/classes/:id/enroll/:sessionid', dashboard.enrollSpecificSession);
+router.get('/classes/:id/unEnrolAll', dashboard.unEnrollAllSession);
+router.get('/classes/:id/unEnroll/:sessionid', dashboard.unEnrollSpecificSession);
 
 // Trainer
 router.get('/trainerDashboard', trainerDashboard.index);
-router.post('/trainerDashboard/addclass', trainerDashboard.addClass);
-router.get('/trainerDashboard/classes/delete/:id', trainerDashboard.deleteClass);
-router.get('/trainerDashboard/classes/hideOrUnhide/:id', trainerDashboard.hideOrUnhideClass);
 router.get('/trainerDashboard/members', trainerDashboard.listAllMembers);
 router.get('/trainerDashboard/members/:id', trainerDashboard.viewSpecificMember);
 router.get('/trainerDashboard/delete/:id', trainerDashboard.deleteMember);
@@ -44,14 +47,13 @@ router.post('/trainerDashboard/:userid/editRoutine/:id', trainerDashboard.editFi
 
 // Classes
 router.get('/classes/', classes.index);
+router.post('/classes/addclass', classes.addClass);
+router.get('/classes/delete/:id', classes.deleteClass);
+router.get('/classes/hideOrUnhide/:id', classes.hideOrUnhideClass);
 router.get('/classes/:id', classes.listClassSessions);
 router.post('/classes/:id/addsession', classes.addSession);
 router.get('/classes/:id/deletesession/:sessionid', classes.deleteSession);
 router.post('/classes/:id/', classes.updateClass);
-router.post('/classes/:id/enrolAll', dashboard.enrollAllSessions);
-router.post('/classes/:id/enroll/:sessionid', dashboard.enrollSpecificSession);
-router.get('/classes/:id/unEnrolAll', dashboard.unEnrollAllSession);
-router.get('/classes/:id/unEnroll/:sessionid', dashboard.unEnrollSpecificSession);
 router.post('/classes/:id/updateSession/:sessionid', classes.updateClassSession);
 
 // Assessments

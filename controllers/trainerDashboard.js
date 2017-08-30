@@ -39,55 +39,6 @@ const trainerDashboard = {
   },
 
   /**
-   * Adds a class
-   * @param request to add a class, contains the class information
-   * @param response adds the class, and redirects to the classes view
-   */
-  addClass(request, response) {
-    const loggedInUser = accounts.getCurrentUser(request);
-    const newClass = {
-      id: uuid(),
-      userid: loggedInUser.id,
-      name: request.body.name,
-      description: request.body.description,
-      duration: Number(request.body.duration),
-      difficulty: request.body.difficulty,
-      hidden: true,
-      numSessions: 0,
-      sessions: [],
-      image: request.body.image,
-    };
-    logger.debug('Creating a new Class', newClass);
-    classStore.addClass(newClass);
-    response.redirect('/classes');
-  },
-
-  /**
-   * Deletes a class
-   * @param request to delete a class, contains the classId
-   * @param response deletes the class and redirects to the classes view
-   */
-  deleteClass(request, response) {
-    logger.debug(`Deleting Class ${request.params.id}`);
-    classStore.removeClass(request.params.id);
-    response.redirect('/classes');
-  },
-
-  /**
-   * Hides or unhides a class
-   * @param request to hide or unhide a class, contains the classId to determine class
-   * @param response Hides/Unhides the class and redirects to the classes view
-   */
-  hideOrUnhideClass(request, response) {
-    const classId = request.params.id;
-    let classes = classStore.getClassById(classId);
-    classes.hidden = !classes.hidden;
-    classStore.store.save();
-    logger.info('Setting class: ' + classId + ' Hidden:' + classes.hidden);
-    response.redirect('/classes');
-  },
-
-  /**
    * Renders the trainerMembers view and lists all members in the gym
    * @param request to render trainerMembers view
    * @param response renders the trainerMembers view to list all members in the gym
