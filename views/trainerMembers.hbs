@@ -31,6 +31,26 @@
             </section>
           </div>
         </section>
+        <script>
+          $('.item').on('click', function(){
+            // using the attribute data-modal to identify for what modal the button references
+            modal = $(this).attr('data-modal');
+            // creating the individual event attached to click over button
+            $('#'+modal+'.modal').modal(
+              'show'
+            );
+            // Bring up a calender for only time selection
+            $('#dateOnly{{id}}').calendar({
+              type: 'date',
+              minDate: new Date(),
+            });
+            // Bring up calender for date and time selection
+            $('#dateTime{{id}}').calendar({
+              minDate: new Date(today.getFullYear(), today.getMonth(), today.getDate(), today.getHours(), today.getMinutes()),
+              maxDate: new Date(today.getFullYear() + 1 , today.getMonth(), today.getDate(), 22)
+            });
+          });
+        </script>
       </div>
     {{/each}}
   </div>
