@@ -109,7 +109,9 @@ const trainerDashboard = {
     program.push(getClassOrRoutine(request.body.third));
     program.push(getClassOrRoutine(request.body.fourth));
     program.push(getClassOrRoutine(request.body.fifth));
-    member.program = program;
+
+    // compact - to remove null objects if less than 5 exercise sessions were selected
+    member.program = _.compact(program);
     memberStore.store.save();
     response.redirect('back');
   },
@@ -199,7 +201,7 @@ const getClassOrRoutine = function (id) {
     logger.info('The routine found is ', routineFound);
     routineFound.id = uuid();
     return routineFound;
-  } else {
+  } else if (id === 'other') {
     logger.info('No class or routine found');
     return {
       id: uuid(),
