@@ -5,6 +5,7 @@ const bookingStore = require('../models/booking-store');
 const trainers = require('../models/trainer-store');
 const members = require('../models/member-store');
 const uuid = require('uuid');
+const _ = require('lodash');
 
 const bookings = {
   /**
@@ -22,9 +23,14 @@ const bookings = {
       dateTime: request.body.dateTime,
       status: 'Pending',
     };
-    bookingStore.addBooking(newBooking);
-    bookingStore.store.save();
-    response.redirect('back');
+    if (bookingStore.getBookingByDate(newBooking.dateTime)) {
+      logger.info('Trainer is not free at this time');
+      response.redirect('back');
+    } else {
+      bookingStore.addBooking(newBooking);
+      bookingStore.store.save();
+      response.redirect('back');
+    }
   },
 
   /**

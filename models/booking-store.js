@@ -74,6 +74,15 @@ const bookingStore = {
       this.store.save();
     }
   },
+
+  /**
+   * Returns a booking by date - used to check if trainer is already booking at the date
+   * @param date Date to search booking for
+   * @returns {*} booking that matches the date time
+   */
+  getBookingByDate(date) {
+    return this.store.findOneBy(this.collection, { dateTime: date });
+  },
 };
 
 module.exports = bookingStore;

@@ -37,13 +37,15 @@
       });
       // Bring up calender for date and time selection
       $('#dateTime').calendar({
-        minDate: new Date(today.getFullYear(), today.getMonth(), today.getDate(), today.getHours(), today.getMinutes()),
-        maxDate: new Date(today.getFullYear() + 1 , today.getMonth(), today.getDate(), 22)
+        minDate: new Date(today.getFullYear(), today.getMonth(), today.getDate(), today.getHours() + 2),
+        maxDate: new Date(today.getFullYear() + 1 , today.getMonth(), today.getDate(), 22),
+        disableMinute: true,
       });
       // Brings up a different calender for the update modal with date and time
       $('#cal'+modal).calendar({
-        minDate: new Date(today.getFullYear(), today.getMonth(), today.getDate(), today.getHours(), today.getMinutes()),
-        maxDate: new Date(today.getFullYear() + 1 , today.getMonth(), today.getDate(), 22)
+        minDate: new Date(today.getFullYear(), today.getMonth(), today.getDate(), today.getHours() + 2),
+        maxDate: new Date(today.getFullYear() + 1 , today.getMonth(), today.getDate(), 22),
+        disableMinute: true,
       });
     });
     // To close success/error messages
