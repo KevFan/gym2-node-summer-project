@@ -10,6 +10,7 @@ const uuid = require('uuid');
 const accounts = require('./accounts');
 const sort = require('../utils/sort');
 const moment = require('moment');
+const trainerStore = require('../models/trainer-store');
 
 const classes = {
   /**
@@ -24,6 +25,7 @@ const classes = {
         title: 'Trainer Classes',
         classes: classStore.getAllClasses(),
         user: accounts.getCurrentUser(request),
+        allTrainers: trainerStore.getAllTrainers(),
       };
       response.render('trainerClasses', viewData);
       logger.info('trainer classes rendering', viewData.classes);
@@ -177,6 +179,7 @@ const classes = {
     classes.duration = Number(request.body.duration);
     classes.description = request.body.description;
     classes.image = request.body.image;
+    classes.userid = request.body.trainer;
     logger.info('Class id to be edited is ' + request.params.id);
     classStore.store.save();
     response.redirect('/classes/');

@@ -3,6 +3,7 @@
 const goalStore = require('../models/goal-store');
 const classStore = require('../models/class-store');
 const memberStore = require('../models/member-store');
+const trainerStore = require('../models/trainer-store');
 const _ = require('lodash');
 
 const Handlebars = require('handlebars');
@@ -82,6 +83,14 @@ Handlebars.registerHelper('checkForCloudinaryFile', function () {
   } catch (e) {
     return false;
   }
+});
+
+/**
+ * Handlebar Helper function to return a trainer's name only by their id
+ * Used to get current trainer name by id in when updating class
+ */
+Handlebars.registerHelper('getTrainerName', function (id) {
+  return trainerStore.getTrainerById(id).name;
 });
 
 module.exports = Handlebars;

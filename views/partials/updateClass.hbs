@@ -43,6 +43,20 @@
           <input placeholder="Image Url" type="text" name="image" value="{{image}}">
         </div>
       </section>
+      <section class="field">
+        <label>Trainer Name</label>
+        <div class="ui selection dropdown">
+          <i class="user icon"></i>
+          <input type="hidden" name="trainer" value="{{getTrainerName userid}}">
+          <i class="dropdown icon"></i>
+          <div class="default text">Trainer</div>
+          <div class="menu">
+            {{#each allTrainers}}
+              <div class="item" data-value="{{id}}">{{name}}</div>
+            {{/each}}
+          </div>
+        </div>
+      </section>
       <button class="ui blue submit button"><i class="save icon"></i> Update Class</button>
       <div class="ui error message"></div>
     </form>
