@@ -5,7 +5,7 @@ const bookingStore = require('../models/booking-store');
 const trainers = require('../models/trainer-store');
 const members = require('../models/member-store');
 const uuid = require('uuid');
-const _ = require('lodash');
+const trainerHelper = require('../utils/trainerHelpers');
 
 const bookings = {
   /**
@@ -23,14 +23,14 @@ const bookings = {
       dateTime: request.body.dateTime,
       status: 'Pending',
     };
-    if (bookingStore.getBookingByDate(newBooking.dateTime)) {
-      logger.info('Trainer is not free at this time');
-      response.redirect('back');
-    } else {
+    if (trainerHelper.isTrainerFree(newBooking.trainerid, newBooking.dateTime)) {
       bookingStore.addBooking(newBooking);
       bookingStore.store.save();
-      response.redirect('back');
+    } else {
+      logger.info('Trainer is not free at ' + newBooking.dateTime);
     }
+
+    response.redirect('back');
   },
 
   /**
@@ -50,8 +50,13 @@ const bookings = {
    */
   updateBooking(request, response) {
     let booking = bookingStore.getBookingById(request.params.id);
+    if (trainerHelper.isTrainerFree(trainers.getTrainerByName(request.body.trainer).id, request.body.dateTime)) {
+      booking.dateTime = request.body.dateTime;
+    } else {
+      logger.info('Trainer is not free at ' + request.body.dateTime + '. Other changes updated');
+    }
+
     booking.trainerName = request.body.trainer;
-    booking.dateTime = request.body.dateTime;
     booking.trainerid = trainers.getTrainerByName(request.body.trainer).id;
     booking.comment = request.body.comment;
     booking.status = request.body.status;

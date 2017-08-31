@@ -11,6 +11,7 @@ const accounts = require('./accounts');
 const sort = require('../utils/sort');
 const moment = require('moment');
 const trainerStore = require('../models/trainer-store');
+const trainerHelper = require('../utils/trainerHelpers');
 
 const classes = {
   /**
@@ -97,9 +98,9 @@ const classes = {
   addSession(request, response) {
     const classId = request.params.id;
     let weeksRun = Number(request.body.weeks);
-    if (weeksRun) {
-      for (let i = 0; i < weeksRun; i++) {
-        let weeklyDate = moment(request.body.dateTime).add(7 * i, 'days').format('LLL');
+    for (let i = 0; i < weeksRun; i++) {
+      let weeklyDate = moment(request.body.dateTime).add(7 * i, 'days').format('LLL');
+      if (trainerHelper.isTrainerFree(accounts.getCurrentUser(request).id, weeklyDate)) {
         const newSession = {
           id: uuid(),
           location: request.body.location,
@@ -110,18 +111,9 @@ const classes = {
         };
         logger.debug('New session', newSession);
         classStore.addSession(classId, newSession);
+      } else {
+        logger.info('Trainer is not free at ' + weeklyDate);
       }
-    } else {
-      const newSession = {
-        id: uuid(),
-        location: request.body.location,
-        dateTime: request.body.dateTime,
-        capacity: Number(request.body.capacity),
-        enrolled: [],
-        availability: Number(request.body.capacity),
-      };
-      logger.debug('New session', newSession);
-      classStore.addSession(classId, newSession);
     }
 
     response.redirect('/classes/' + classId);
@@ -194,9 +186,14 @@ const classes = {
     const classId = request.params.id;
     const sessionId = request.params.sessionid;
     let specificSession = classStore.getSessionById(classId, sessionId);
+    if (trainerHelper.isTrainerFree(accounts.getCurrentUser(request).id, request.body.dateTime)) {
+      specificSession.dateTime = request.body.dateTime;
+    } else {
+      logger.info('Trainer is not free ' + request.body.dateTime + '.Other changes are updated');
+    }
+
     specificSession.location = request.body.location;
     specificSession.capacity = Number(request.body.capacity);
-    specificSession.dateTime = request.body.dateTime;
     specificSession.availability = (specificSession.capacity - specificSession.enrolled.length);
     classStore.store.save();
     response.redirect('/classes/' + classId);

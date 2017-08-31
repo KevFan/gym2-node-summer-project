@@ -1,6 +1,7 @@
 'use strict';
 
 const JsonStore = require('./json-store');
+const _ = require('lodash');
 
 /**
  * Stores/controls the list of assessment bookings
@@ -78,10 +79,12 @@ const bookingStore = {
   /**
    * Returns a booking by date - used to check if trainer is already booking at the date
    * @param date Date to search booking for
+   * @param trainerId Id of trainer to search booking for
    * @returns {*} booking that matches the date time
    */
-  getBookingByDate(date) {
-    return this.store.findOneBy(this.collection, { dateTime: date });
+  getBookingByDate(trainerId, date) {
+    const trainerBookings = this.getAllTrainerBookings(trainerId);
+    return _.find(trainerBookings, { dateTime: date });
   },
 };
 

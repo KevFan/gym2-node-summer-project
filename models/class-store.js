@@ -109,6 +109,25 @@ const classStore = {
   getAllTrainerClasses(id) {
     return this.store.findBy(this.collection, { userid: id });
   },
+
+  /**
+   * Returns a matching class session from a trainer's list of classes if any
+   * Used to check if trainer is already booked for a dateTime
+   * @param id Id of the trainer to get the list of classes the trainer manages
+   * @param date DateTime to session is there a matching session
+   * @returns {*} A session matching the date passed in
+   */
+  getClassSessionByDate(id, date) {
+    const trainerClasses = this.getAllTrainerClasses(id);
+    let sessionMatch = null;
+    trainerClasses.forEach(function (classes) {
+      if (!sessionMatch) {
+        sessionMatch = _.find(classes.sessions, { dateTime: date });
+      }
+    });
+
+    return sessionMatch;
+  },
 };
 
 module.exports = classStore;

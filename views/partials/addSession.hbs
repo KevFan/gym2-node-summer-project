@@ -34,7 +34,7 @@
           <label class="transition hidden">Weeks Run</label>
           <div class="ui transition hidden input left icon" >
             <i class="hashtag icon"></i>
-            <input placeholder="Weeks Run" type="text" name="weeks">
+            <input placeholder="Weeks Run" type="text" name="weeks" value="1">
           </div>
         </div>
       </section>
@@ -72,6 +72,15 @@
             {
               type   : 'empty',
               prompt : 'Please class session capacity'
+            }
+          ]
+        },
+        weeks: {
+          identifier: 'weeks',
+          rules: [
+            {
+              type   : 'integer[1..100]',
+              prompt : 'Session must run for at least 1 week'
             }
           ]
         }

@@ -3,7 +3,6 @@
 const logger = require('../utils/logger');
 const accounts = require('./accounts.js');
 const classStore = require('../models/class-store.js');
-const uuid = require('uuid');
 const trainerStore = require('../models/trainer-store');
 const memberStore = require('../models/member-store');
 const analytics = require('../utils/analytics');
@@ -15,6 +14,7 @@ const sort = require('../utils/sort');
 const goalHelpers = require('../utils/goalHelpers');
 const _ = require('lodash');
 const settings = require('./settings');
+const trainerHelper = require('../utils/trainerHelpers');
 
 const trainerDashboard = {
   /**
@@ -32,7 +32,7 @@ const trainerDashboard = {
       isTrainer: accounts.userIsTrainer(request),
       allTrainers: trainerStore.getAllTrainers(),
       allMembers: memberStore.getAllMembers(),
-      nextClassList: sort.sortDateTimeOldToNew(getNextSessionClass(loggedInUser.id)),
+      nextClassList: sort.sortDateTimeOldToNew(trainerHelper.getNextSessionClass(loggedInUser.id)),
     };
     logger.debug('Hopefully List of first sessions,', viewData.nextClassList);
     response.render('trainerDashboard', viewData);
@@ -104,11 +104,11 @@ const trainerDashboard = {
     const member = memberStore.getMemberById(userId);
     logger.info('The member found is ', member);
     const program = [];
-    program.push(getClassOrRoutine(request.body.first));
-    program.push(getClassOrRoutine(request.body.second));
-    program.push(getClassOrRoutine(request.body.third));
-    program.push(getClassOrRoutine(request.body.fourth));
-    program.push(getClassOrRoutine(request.body.fifth));
+    program.push(trainerHelper.getClassOrRoutine(request.body.first));
+    program.push(trainerHelper.getClassOrRoutine(request.body.second));
+    program.push(trainerHelper.getClassOrRoutine(request.body.third));
+    program.push(trainerHelper.getClassOrRoutine(request.body.fourth));
+    program.push(trainerHelper.getClassOrRoutine(request.body.fifth));
 
     // compact - to remove null objects if less than 5 exercise sessions were selected
     member.program = _.compact(program);
@@ -177,73 +177,6 @@ const trainerDashboard = {
     settings.deleteFromCloud(member);
     response.redirect('back');
   },
-};
-
-/**
- * Helper object to get return the class, routine or new custom routine when building a members fitness
- * programme
- * @param id the classId or workout routineId to find either the class/routine
- * @returns {*} the class, routine or new custom routine
- */
-const getClassOrRoutine = function (id) {
-  const classFound = classStore.getClassById(id);
-  const routineFound = fitnessStore.getProgrammeById(id);
-  if (classFound) {
-    logger.info('The class found is ', classFound);
-    return {
-      id: uuid(),
-      classId: classFound.id,
-      image: classFound.image,
-      name: classFound.name,
-      type: 'classes',
-    };
-  } else if (routineFound) {
-    logger.info('The routine found is ', routineFound);
-    routineFound.id = uuid();
-    return routineFound;
-  } else if (id === 'other') {
-    logger.info('No class or routine found');
-    return {
-      id: uuid(),
-      name: 'Custom Routine',
-      description: 'A custom routine just for you',
-      exercises: [],
-    };
-  }
-};
-
-/**
- * Helper object to create an array containing the next session of each class a trainer made
- * @param trainerId Id of the trainer to get all the classes the trainer manages
- * @returns {Array} array containing the next session of each class a trainer made
- */
-const getNextSessionClass = function (trainerId) {
-  let trainerClasses = classStore.getAllTrainerClasses(trainerId);
-  let nextClassList = [];
-  trainerClasses.forEach(function (specificClass) {
-    let firstSessionInFuture = _.find(specificClass.sessions, function (specificSession) {
-      return (new Date() < new Date(specificSession.dateTime));
-    });
-
-    if (firstSessionInFuture) {
-      // push new object instead of the session found to avoid adding new properties to the session found
-      nextClassList.push({
-        name: specificClass.name,
-        classId: specificClass.id,
-        dateTime: firstSessionInFuture.dateTime,
-        capacity: firstSessionInFuture.capacity,
-        availability: firstSessionInFuture.availability,
-      });
-    } else {
-      nextClassList.push({
-        name: specificClass.name,
-        classId: specificClass.id,
-        dateTime: 'No future session scheduled',
-      });
-    }
-  });
-
-  return nextClassList;
 };
 
 module.exports = trainerDashboard;
