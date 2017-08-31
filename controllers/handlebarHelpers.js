@@ -72,4 +72,16 @@ Handlebars.registerHelper('getMemberName', function (id) {
   return memberStore.getMemberById(id).name;
 });
 
+/**
+ * Handlebar Helper function to check if cloudinary file is present
+ * Used to disable profile picture options if not found
+ */
+Handlebars.registerHelper('checkForCloudinaryFile', function () {
+  try {
+    return require('../.data/.env.json');
+  } catch (e) {
+    return false;
+  }
+});
+
 module.exports = Handlebars;

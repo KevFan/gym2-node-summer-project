@@ -12,8 +12,7 @@ try {
   cloudinary.config(env.cloudinary);
 }
 catch (e) {
-  logger.info('You must provide a Cloudinary credentials file - see README.md');
-  process.exit(1);
+  logger.info('Cloudinary credentials file not found, profile picture options disabled - see README.md');
 }
 
 const settings = {

@@ -16,16 +16,22 @@
       </section>
 
       <div class="center aligned content">
-        <form action="/updateProfilePicture" method="post" enctype="multipart/form-data">
-          <label for="file" class="ui basic blue button">
-            <i class="file image outline icon"></i>Select</label>
-          <input type="file" id="file" name="image" style="display:none">
-          <button class="ui basic green button">
-            <i class="cloud upload icon"></i>Upload
+        {{#if (checkForCloudinaryFile)}}
+          <form action="/updateProfilePicture" method="post" enctype="multipart/form-data">
+            <label for="file" class="ui basic blue button">
+              <i class="file image outline icon"></i>Select</label>
+            <input type="file" id="file" name="image" style="display:none">
+            <button class="ui basic green button">
+              <i class="cloud upload icon"></i>Upload
+            </button>
+            <a class="ui basic red button" href="/deleteProfilePicture">
+              <i class="delete icon"></i>Delete</a>
+          </form>
+        {{else}}
+          <button class="ui basic grey button">
+            <i class="cloud upload icon"></i>Cloudinary file not found. Options disabled. See Readme.
           </button>
-          <a class="ui basic red button" href="/deleteProfilePicture">
-            <i class="delete icon"></i>Delete</a>
-        </form>
+        {{/if}}
       </div>
 
       <section class="content">
