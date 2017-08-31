@@ -46,10 +46,12 @@
             },
             {
               "id": "5b85585a-f6ef-4e1d-8ea0-db67064783b4",
-              "name": "test",
-              "reps": 0,
+              "name": "Treadmill",
+              "reps": 1,
               "sets": 0,
-              "rest": 0
+              "rest": 0,
+              "type": "Cardio",
+              "duration": 30
             }
           ]
         },

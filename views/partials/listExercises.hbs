@@ -2,9 +2,11 @@
   <thead>
   <tr>
     <th> Name</th>
+    <th> Type</th>
     <th> Reps</th>
     <th> Sets</th>
-    <th> Rest</th>
+    <th> Duration (mins)</th>
+    <th> Rest (sec)</th>
     {{#if isTrainer}}
       <th></th>
     {{/if}}
@@ -14,9 +16,11 @@
   {{#each routine.exercises}}
     <tr>
       <td> {{name}} </td>
+      <td> {{type}} </td>
       <td> {{reps}} </td>
       <td> {{sets}} </td>
-      <td> {{rest}} sec</td>
+      <td> {{duration}} </td>
+      <td> {{rest}} </td>
       {{#if ../isTrainer}}
         <td>
           <section class="center aligned content">

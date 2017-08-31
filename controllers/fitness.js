@@ -112,8 +112,10 @@ const fitness = {
     const newExercise = {
       id: uuid(),
       name: request.body.name,
+      type: request.body.type,
       reps: Number(request.body.reps),
       sets: Number(request.body.sets),
+      duration: Number(request.body.duration),
       rest: Number(request.body.rest),
     };
     logger.debug('New exercise', newExercise);
@@ -173,8 +175,10 @@ const fitness = {
     }
 
     exercise.name = request.body.name;
+    exercise.type = request.body.type;
     exercise.sets = Number(request.body.sets);
     exercise.reps = Number(request.body.reps);
+    exercise.duration = Number(request.body.duration);
     exercise.rest = Number(request.body.rest);
     isMember ? membersStore.store.save() : fitnessStore.store.save();
     response.redirect('back');
