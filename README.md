@@ -2,6 +2,9 @@
 Gym Node Summer Project - <https://github.com/KevFan/gym2-node-summer-project>
 
 ### Project Description:
+![Image of TrainerDashboard](http://res.cloudinary.com/dv6skh7wa/image/upload/v1504085120/Node%20Gym/screenshots/trainerDashboard.png
+)
+
 The project uses the [glitch template 2](https://github.com/wit-ict-summer-school-2017/glitch-template-2) as a base, and also part of [the node conversion of the play gym assignment](https://github.com/KevFan/gymPlaySolution_Node) to evolve and realise additional features.
 
 The major additional features include class scheduling, assessment booking, target/goals and fitness programmes, with the inclusion of profile picture uploading.
@@ -57,6 +60,7 @@ The above user and trainer accounts should also work for the deployed version, a
     * CRUD on scheduled classes
     * CRUD on each class session
     * Classes can be hidden from members
+    * Class is added/updated only if the trainer adding the class is free at the dateTime
   * Member
     * View classes
     * Search for a class
@@ -66,6 +70,7 @@ The above user and trainer accounts should also work for the deployed version, a
 * Assessment Booking
   * Trainer & Member
     * CRUD on assessment bookings
+    * Booking is only added/updated if trainer is free at the dateTime selected
 * Goals
   * Trainer
     * Set/Delete goals for members
@@ -86,7 +91,7 @@ The above user and trainer accounts should also work for the deployed version, a
   * Member
     * View Fitness Progamme and individual exercise sessions
 * Miscellaneous
-  * Form validation - Member's can't signup/book assessment without filling all information required
+  * Form validation - Member's can't signup/book assessment etc without filling all information required 
   * Email validation for signup/update email 
     * Checks whether the email (toLowerCase) is already used by another member/trainer
     * Shows success/unsuccessful messages in login, signup and update settings
@@ -103,24 +108,18 @@ The above user and trainer accounts should also work for the deployed version, a
 
 ### Further Improvements:
 * Unit testing - no unit testing was done. Functionality was only tested manually
-* Secure routes/url - trainer/member access can be allowed just from knowing the routes/paths
+* Secure routes/url - Trainer views are not allowed unless it's a trainer account, but member access such as to view classes are allowed from just knowing the paths/routes
 * List enrolled class sessions for members 
-* Unset values - have default value
-* Allow batch set weekly sessions
-* Link trainer to classes their teaching and show on dashboard
-* Set upload profile button to unavailable if cloudinary keys are not found
-* Assessment Booking should only list time available for trainer or checks whether the trainer is free at the time selected and display time available message
-* Enroll/Un-enroll all sessions should only be displayed if there's available class sessions
-* Class sessions should list enrolled members for trainers
-* Workout Routine Exercises should include more fields such as duration, type for cardio exercises
-* Link each booking to an assessment and set status to completed after making an assessment
+* Display message for if trainer is unavailable at time selected in bookings/classes
+* Enroll/Un-enroll all sessions should only be displayed if there's available class sessions or only display future sessions for members
+* Link each booking to an assessment and set status to automatically completed after making an assessment
 * Allow member/trainer to have option to list goals etc by date most recent or oldest
 
 ### List of Software + Technologies Used
 + [Node.js](https://nodejs.org/en/)
 + [Express](https://expressjs.com/) - Node.js Web Framework
 + [Glitch](https://glitch.com/) - Deployment platform
-+ [Lowdb](https://github.com/typicode/lowdb) - JSon database for persistence
++ [Lowdb](https://github.com/typicode/lowdb) - small local JSON database powered by lodash
 + [WebStorm](https://www.jetbrains.com/webstorm/) - JavaScript IDE
 + [Semantic-UI-Calendar](https://github.com/mdehoog/Semantic-UI-Calendar) - Calendar module for Semantic UI
 + [Moment.js](https://momentjs.com/) - Date/Time manipulation 
