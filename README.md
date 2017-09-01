@@ -12,7 +12,7 @@ The major additional features include class scheduling, assessment booking, targ
 ### How to start project:
 To run the project locally, clone or download the project. Unzip the project, and browse to project root directory using a terminal. Enter the `npm install` command to install the project dependencies.
 
-The project also requires the [Cloudinary](http://cloudinary.com/) services in order to upload. In order to run, you will need to place a Cloudinary credentials file in the .data folder called .env.json:
+The project also requires the [Cloudinary](http://cloudinary.com/) services in order to upload and delete profile picture. In order to run, you will need to place a Cloudinary credentials file in the .data folder called .env.json:
 
 .data/.env.json
 ~~~
@@ -39,7 +39,7 @@ password: secret
 email: marge@simpson.com
 password: secret
 ```
-Trainer accounts are also preloaded, which serves as an admins that can perform most member CRUD actions and also additaional seperate CRUD actions such as class creation etc.  
+Trainer accounts are also preloaded, which serves as admins that can perform most member CRUD actions and also additional separate CRUD actions such as class creation etc.  
 ```
 Trainer Account:
 
@@ -66,7 +66,7 @@ The above user and trainer accounts should also work for the deployed version, a
     * Search for a class
     * Enroll/Un-enroll to specific class session or enroll to all sessions in a class
       * Enroll/Un-enroll is only from class sessions that are in the future
-      * Past class sessions are shown as unavailble 
+      * Past class sessions are shown as unavailable 
 * Assessment Booking
   * Trainer & Member
     * CRUD on assessment bookings
@@ -89,14 +89,15 @@ The above user and trainer accounts should also work for the deployed version, a
     * CRUD on predefined workout routines
     * CRUD on individual exercise sessions 
   * Member
-    * View Fitness Progamme and individual exercise sessions
+    * View Fitness Programme and individual exercise sessions
 * Miscellaneous
-  * Form validation - Member's can't signup/book assessment etc without filling all information required 
+  * Form validation - Members can't signup/book assessment etc. without filling all information required 
   * Email validation for signup/update email 
     * Checks whether the email (toLowerCase) is already used by another member/trainer
     * Shows success/unsuccessful messages in login, signup and update settings
   * Profile picture uploading
     * Allows member/trainer to upload, delete, update profile picture from a cloudinary account
+    * Options are disabled if cloudinary file if not found
   * Trainer
     * Delete member - deletes all member related information from json databases and cloudinary store
     * Search member to view member dashboard
@@ -108,15 +109,16 @@ The above user and trainer accounts should also work for the deployed version, a
 
 ### Further Improvements:
 * Unit testing - no unit testing was done. Functionality was only tested manually
+* Should look into REST architecture
 * Secure routes/url - Trainer views are not allowed unless it's a trainer account, but member access such as to view classes are allowed from just knowing the paths/routes
-* List enrolled class sessions for members 
-* Display message for if trainer is unavailable at time selected in bookings/classes
-* Enroll/Un-enroll all sessions should only be displayed if there's available class sessions or only display future sessions for members
+* List enrolled class sessions for members.
+* Error/Success message is currently achieved by rendering a page with additional message data. Adding/updating booking do not display a message as they can be done it multiple views. Should really use a library such as [connect-flash](https://github.com/jaredhanson/connect-flash) to achieve the flash message.
+* Enroll/Un-enroll all sessions buttons should only be displayed if there's available class sessions or only display future sessions for members
 * Link each booking to an assessment and set status to automatically completed after making an assessment
-* Allow member/trainer to have option to list goals etc by date most recent or oldest
+* Allow member/trainer to have option to list goals etc. by date most recent or oldest
 
 ### List of Software + Technologies Used
-+ [Node.js](https://nodejs.org/en/)
++ [Node.js](https://nodejs.org/en/) - JavaScript runtime
 + [Express](https://expressjs.com/) - Node.js Web Framework
 + [Glitch](https://glitch.com/) - Deployment platform
 + [Lowdb](https://github.com/typicode/lowdb) - small local JSON database powered by lodash
@@ -129,4 +131,4 @@ The above user and trainer accounts should also work for the deployed version, a
 Kevin Fan ([KevFan](https://github.com/KevFan))
 
 ### Version/Date:
-18th August 2017
+1st September 2017
