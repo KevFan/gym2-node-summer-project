@@ -1,5 +1,9 @@
 {{> trainermenu id="classes"}}
 
+{{#each message}}
+  {{> message}}
+{{/each}}
+
 <section class="ui center aligned basic segment">
   <a class="ui blue submit button item" data-modal="addSession">
     <i class="white plus icon"></i> New Session

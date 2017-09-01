@@ -97,9 +97,10 @@ const classes = {
    */
   addSession(request, response) {
     const classId = request.params.id;
+    let messages = [];
     let weeksRun = Number(request.body.weeks);
     for (let i = 0; i < weeksRun; i++) {
-      let weeklyDate = moment(request.body.dateTime).add(7 * i, 'days').format('LLL');
+      let weeklyDate = moment(new Date(request.body.dateTime)).add(7 * i, 'days').format('LLL');
       if (trainerHelper.isTrainerFree(accounts.getCurrentUser(request).id, weeklyDate)) {
         const newSession = {
           id: uuid(),
@@ -112,11 +113,15 @@ const classes = {
         logger.debug('New session', newSession);
         classStore.addSession(classId, newSession);
       } else {
+        messages.push({
+          messageType: 'negative',
+          message: 'Class not added. You have a booking/class at: ' + weeklyDate,
+        });
         logger.info('Trainer is not free at ' + weeklyDate);
       }
     }
 
-    response.redirect('/classes/' + classId);
+    response.render('trainerClassSessions', getClassSessionData(request, messages));
   },
 
   /**
@@ -126,17 +131,8 @@ const classes = {
    * @param response renders the memberClassSessions or trainerClassSessions view
    */
   listClassSessions(request, response) {
-    const isTrainer = accounts.userIsTrainer(request);
-    const classId = request.params.id;
-    sort.sortDateTimeOldToNew(classStore.getClassById(classId).sessions);
-    logger.info('classes id: ' + classId);
-    const viewData = {
-      title: 'Classes',
-      classes: classStore.getClassById(classId),
-      isTrainer: isTrainer,
-      user: accounts.getCurrentUser(request),
-    };
-    if (isTrainer) {
+    const viewData = getClassSessionData(request);
+    if (accounts.userIsTrainer(request)) {
       viewData.title = 'Trainer Class Sessions';
       response.render('trainerClassSessions', viewData);
     } else {
@@ -185,19 +181,45 @@ const classes = {
   updateClassSession(request, response) {
     const classId = request.params.id;
     const sessionId = request.params.sessionid;
+    const newDateTime = request.body.dateTime;
+    let messages = [];
     let specificSession = classStore.getSessionById(classId, sessionId);
-    if (trainerHelper.isTrainerFree(accounts.getCurrentUser(request).id, request.body.dateTime)) {
-      specificSession.dateTime = request.body.dateTime;
+    if (trainerHelper.isTrainerFree(accounts.getCurrentUser(request).id, newDateTime)
+    || specificSession.dateTime === newDateTime) {
+      specificSession.dateTime = newDateTime;
     } else {
-      logger.info('Trainer is not free ' + request.body.dateTime + '.Other changes are updated');
+      messages.push({
+        messageType: 'negative',
+        message: 'You have a booking/class at: ' + newDateTime + '. Other changes are updated',
+      });
+      logger.info('Trainer is not free ' + newDateTime + '. Other changes are updated');
     }
 
     specificSession.location = request.body.location;
     specificSession.capacity = Number(request.body.capacity);
     specificSession.availability = (specificSession.capacity - specificSession.enrolled.length);
     classStore.store.save();
-    response.redirect('/classes/' + classId);
+    response.render('trainerClassSessions', getClassSessionData(request, messages));
   },
+};
+
+/**
+ * Helper object to generate class session data and message as it's used in many functions
+ * @param request to generate class session data
+ * @param messageData messages to display if any
+ * @returns {{title: string, classes: *, isTrainer: *, user: *, message: *}} Data to render
+ */
+const getClassSessionData = function (request, messageData) {
+  const classId = request.params.id;
+  logger.info('classes id: ' + classId);
+  sort.sortDateTimeOldToNew(classStore.getClassById(classId).sessions);
+  return {
+    title: 'Classes',
+    classes: classStore.getClassById(classId),
+    isTrainer: accounts.userIsTrainer(request),
+    user: accounts.getCurrentUser(request),
+    message: messageData,
+  };
 };
 
 module.exports = classes;
