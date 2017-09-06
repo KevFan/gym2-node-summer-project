@@ -61,8 +61,9 @@ const accounts = {
     member.id = uuid();
     member.startingweight = Number(member.startingweight);
     member.height = Number(member.height);
+    member.email = member.email.toLowerCase();
     member.program = [];
-    if (memberstore.getMemberByEmail(member.email.toLowerCase()) || trainerstore.getTrainerByEmail(member.email.toLowerCase())) {
+    if (memberstore.getMemberByEmail(member.email) || trainerstore.getTrainerByEmail(member.email)) {
       response.render('signup', {
         messageType: 'negative',
         message: 'Email is not unique. Please use another email to sign up',
