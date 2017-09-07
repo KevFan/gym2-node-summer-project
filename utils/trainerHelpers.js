@@ -39,8 +39,11 @@ const trainerHelper = {
       };
     } else if (routineFound) {
       logger.info('The routine found is ', routineFound);
-      routineFound.id = uuid();
-      return routineFound;
+
+      // Deep clone and stop same object reference - can also use JSON.parse(JSON.stringify(routineFound));
+      let routineToAdd = _.cloneDeep(routineFound);
+      routineToAdd.id = uuid();
+      return routineToAdd;
     } else if (id === 'other') {
       logger.info('No class or routine found');
       return {
