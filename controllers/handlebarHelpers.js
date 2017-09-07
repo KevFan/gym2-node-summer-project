@@ -70,7 +70,11 @@ Handlebars.registerHelper('checkIsInPast', function (dateString) {
  * Used to list enrolled members for a sessions which only contain their ids
  */
 Handlebars.registerHelper('getMemberName', function (id) {
-  return memberStore.getMemberById(id).name;
+  if (memberStore.getMemberById(id)) {
+    return memberStore.getMemberById(id).name;
+  } else {
+    return 'Member id: ' + id + ' deleted';
+  }
 });
 
 /**
